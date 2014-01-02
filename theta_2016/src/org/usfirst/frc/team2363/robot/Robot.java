@@ -131,10 +131,10 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Shooter RPM", shooter.getRPM());
-        SmartDashboard.putNumber("Front Left Drive Motor", pdp.getCurrent(0));
-        SmartDashboard.putNumber("Front Right Drive Motor", pdp.getCurrent(1));
-        SmartDashboard.putNumber("Rear Left Drive Motor", pdp.getCurrent(2));
-        SmartDashboard.putNumber("Rear Right Drive Motor", pdp.getCurrent(3));
+//        SmartDashboard.putNumber("Front Left Drive Motor", pdp.getCurrent(0));
+//        SmartDashboard.putNumber("Front Right Drive Motor", pdp.getCurrent(1));
+//        SmartDashboard.putNumber("Rear Left Drive Motor", pdp.getCurrent(2));
+//        SmartDashboard.putNumber("Rear Right Drive Motor", pdp.getCurrent(3));
         SmartDashboard.putBoolean("Has Ball", intake.hasBall());
         
     }
