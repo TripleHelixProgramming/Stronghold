@@ -1,6 +1,10 @@
 package org.usfirst.frc.team2363.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+
+import static org.usfirst.frc.team2363.robot.RobotMap.*;
+
 import org.usfirst.frc.team2363.robot.commands.ExampleCommand;
 
 /**
@@ -12,7 +16,15 @@ public class OI {
 	private Joystick ps4Controller;
 	
 	public OI() {
-		
+		ps4Controller = new Joystick(PS4_PORT);
+	}
+	
+	public double getThrottle () {
+		return ps4Controller.getRawAxis(LEFT_STICK_Y);
+	}
+	
+	public double getTurn () {
+		return ps4Controller.getRawAxis(RIGHT_STICK_X);
 	}
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
