@@ -4,7 +4,10 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
+
+import org.usfirst.frc.team2363.robot.commands.drivetrain.JoystickDrive;
 
 public class Drivetrain extends Subsystem {
 	
@@ -22,6 +25,7 @@ public class Drivetrain extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
+		setDefaultCommand(new JoystickDrive());
 		
 	}
 	
