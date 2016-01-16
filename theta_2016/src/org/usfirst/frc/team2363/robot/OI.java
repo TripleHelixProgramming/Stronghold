@@ -20,7 +20,7 @@ public class OI {
 	}
 	
 	public double getThrottle () {
-		return ps4Controller.getRawAxis(LEFT_STICK_Y);
+		return -ps4Controller.getRawAxis(LEFT_STICK_Y);
 	}
 	
 	public double getTurn () {
