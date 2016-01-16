@@ -32,4 +32,7 @@ public class RobotMap {
 	public static final int FRONT_RIGHT_TALON_CHANNEL = 2;
 	public static final int REAR_LEFT_TALON_CHANNEL = 1;
 	public static final int REAR_RIGHT_TALON_CHANNEL = 3;
+	
+	//PS4 Buttons
+	public static final int DIRECTION_SHIFT = 4;
 }
