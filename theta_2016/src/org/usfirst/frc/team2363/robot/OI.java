@@ -34,12 +34,16 @@ public class OI {
 	}
 	
 	public double getTurn() {
-		return ps4Controller.getRawAxis(RIGHT_STICK_X) * getTurnScaling(getThrottle());
+		return ps4Controller.getRawAxis(RIGHT_STICK_X);
 	}
+	
+//	public double getTurn() {
+//		return ps4Controller.getRawAxis(RIGHT_STICK_X) * getTurnScaling(getThrottle());		
+//	}
 
-	public static double getTurnScaling(double x) {
-		return -Math.abs(LOW_SPEED_SCALING - HIGH_SPEED_SCALING) * x + LOW_SPEED_SCALING;
-	}
+//	public static double getTurnScaling(double x) {
+//		return -Math.abs(LOW_SPEED_SCALING - HIGH_SPEED_SCALING) * x + LOW_SPEED_SCALING;
+//	}
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
