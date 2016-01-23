@@ -2,10 +2,11 @@ package org.usfirst.frc.team2363.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
 import org.usfirst.frc.team2363.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2363.robot.commands.ShooterCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -17,6 +18,10 @@ public class OI {
 	
 	public OI() {
 		ps4Controller = new Joystick(PS4_PORT);
+		JoystickButton shooterOn = new JoystickButton(ps4Controller, SHOOTER_ON_BUTTON);
+		shooterOn.whenPressed(new ShooterCommand(true));
+		JoystickButton shooterOff = new JoystickButton(ps4Controller, SHOOTER_OFF_BUTTON);
+		shooterOff.whenPressed(new ShooterCommand(false));
 	}
 	
 	public double getThrottle () {
@@ -28,8 +33,12 @@ public class OI {
 		}
 	}
 	
-	public double getTurn () {
-		return ps4Controller.getRawAxis(RIGHT_STICK_X);
+	public double getTurn() {
+		return ps4Controller.getRawAxis(RIGHT_STICK_X) * getTurnScaling(getThrottle());
+	}
+
+	public static double getTurnScaling(double x) {
+		return -Math.abs(LOW_SPEED_SCALING - HIGH_SPEED_SCALING) * x + LOW_SPEED_SCALING;
 	}
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.

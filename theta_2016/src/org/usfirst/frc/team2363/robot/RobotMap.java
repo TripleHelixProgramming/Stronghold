@@ -16,6 +16,10 @@ public class RobotMap {
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
 	
+	//Turn Scaling 
+	public static final double HIGH_SPEED_SCALING = 0.4;
+	public static final double LOW_SPEED_SCALING = 0.9;
+	
 	//PS4 controller
 	public static final int PS4_PORT = 0;
 		
@@ -34,8 +38,10 @@ public class RobotMap {
 	public static final int REAR_RIGHT_TALON_CHANNEL = 3;
 	
 	//Shooter
-	public static final int SHOOTER_TALON = 4;
+	public static final int SHOOTER_TALON = 30;
 	public static final int SHOOTER_ENCODER = 0;
+	public static final int SHOOTER_OFF_BUTTON = 2; //x on ps4
+	public static final int SHOOTER_ON_BUTTON = 4; //triangle on ps4
 	
 	//PS4 Buttons
 	public static final int DIRECTION_SHIFT = 4;

@@ -5,12 +5,13 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
 import static org.usfirst.frc.team2363.robot.Robot.drivetrain;
 
 import org.usfirst.frc.team2363.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2363.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2363.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team2363.robot.subsystems.Shooter;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,12 +27,14 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	public static Drivetrain drivetrain;
+	public static Shooter shooter;
 
     Command autonomousCommand;
     SendableChooser chooser;
     
     public Robot() {
     	drivetrain = new Drivetrain();
+    	shooter = new Shooter();
 	}
 	
     /**
@@ -102,6 +105,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Shooter RPM", shooter.getRPM());
     }
     
     /**
