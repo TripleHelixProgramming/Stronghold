@@ -28,8 +28,7 @@ public class Shooter extends Subsystem {
 		bangBang.start();
 	}
 
-    public void initDefaultCommand() { 
-    	
+    public void initDefaultCommand() {     	
     }
     
     public double getRPM() {
@@ -42,6 +41,14 @@ public class Shooter extends Subsystem {
     
     public void off() {
     	running = false;
+    }
+    
+    public boolean isAtSpeed() {
+    	if (getRPM() > SPEED - 25 && getRPM() < SPEED + 25) {
+    		return false;
+    	} else {
+    		return true;
+    	}
     }
     
     private class BangBang extends Thread {

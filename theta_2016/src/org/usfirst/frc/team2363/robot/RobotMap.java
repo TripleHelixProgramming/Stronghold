@@ -20,8 +20,9 @@ public class RobotMap {
 	public static final double HIGH_SPEED_SCALING = 0.4;
 	public static final double LOW_SPEED_SCALING = 0.9;
 	
-	//PS4 controller
+	//Controllers
 	public static final int PS4_PORT = 0;
+	public static final int OPERATOR_PORT = 1;
 		
 	//PS4 joystick axis
 	public static final int LEFT_STICK_X = 0;
@@ -32,10 +33,10 @@ public class RobotMap {
 	public static final int RIGHT_STICK_Y = 5;
 	
 	//Drive Controllers
-	public static final int FRONT_LEFT_TALON_CHANNEL = 0;
-	public static final int FRONT_RIGHT_TALON_CHANNEL = 2;
-	public static final int REAR_LEFT_TALON_CHANNEL = 1;
-	public static final int REAR_RIGHT_TALON_CHANNEL = 3;
+	public static final int FRONT_LEFT_TALON_CHANNEL = 30;
+	public static final int FRONT_RIGHT_TALON_CHANNEL = 31;
+	public static final int REAR_LEFT_TALON_CHANNEL = 32;
+	public static final int REAR_RIGHT_TALON_CHANNEL = 33;
 	
 	//Shooter
 	public static final int SHOOTER_TALON = 30;
