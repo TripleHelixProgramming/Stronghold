@@ -27,9 +27,9 @@ public class OI {
 	public double getThrottle () {
 //		return -ps4Controller.getRawAxis(LEFT_STICK_Y);
 		if(ps4Controller.getRawAxis(RIGHT_TRIGGER) > 0) {
-			return ps4Controller.getRawAxis(LEFT_STICK_Y);
-		} else {
 			return -ps4Controller.getRawAxis(LEFT_STICK_Y);
+		} else {
+			return ps4Controller.getRawAxis(LEFT_STICK_Y);
 		}
 	}
 	

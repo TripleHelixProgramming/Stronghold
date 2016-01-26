@@ -2,6 +2,7 @@
 package org.usfirst.frc.team2363.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static Drivetrain drivetrain;
 	public static Shooter shooter;
+	public static PowerDistributionPanel pdp;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -35,6 +37,7 @@ public class Robot extends IterativeRobot {
     public Robot() {
     	drivetrain = new Drivetrain();
     	shooter = new Shooter();
+    	pdp = new PowerDistributionPanel();
 	}
 	
     /**
@@ -43,6 +46,8 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		SmartDashboard.putData(Scheduler.getInstance());
+		SmartDashboard.putData(drivetrain);
     }
 	
 	/**
@@ -106,6 +111,10 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         SmartDashboard.putNumber("Shooter RPM", shooter.getRPM());
+        SmartDashboard.putNumber("Front Left Drive Motor", pdp.getCurrent(0));
+        SmartDashboard.putNumber("Front Right Drive Motor", pdp.getCurrent(1));
+        SmartDashboard.putNumber("Rear Left Drive Motor", pdp.getCurrent(2));
+        SmartDashboard.putNumber("Rear Right Drive Motor", pdp.getCurrent(3));
     }
     
     /**

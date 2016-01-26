@@ -15,7 +15,7 @@ public class Drivetrain extends Subsystem {
 	private SpeedController rearLeft = new CANTalon(REAR_LEFT_TALON_CHANNEL);
 	private SpeedController rearRight = new CANTalon(REAR_RIGHT_TALON_CHANNEL);
 	
-	private RobotDrive robotDrive = new RobotDrive(frontLeft, frontRight, rearLeft, rearRight);
+	private RobotDrive robotDrive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
 	
 	public void arcadeDrive(double throttle, double turn) {
 		robotDrive.arcadeDrive(throttle, turn);
