@@ -8,8 +8,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import static org.usfirst.frc.team2363.robot.Robot.drivetrain;
 
 import org.usfirst.frc.team2363.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2363.robot.commands.ShooterCommand;
 import org.usfirst.frc.team2363.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2363.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team2363.robot.subsystems.Intake;
 import org.usfirst.frc.team2363.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -29,6 +31,7 @@ public class Robot extends IterativeRobot {
 	public static Drivetrain drivetrain;
 	public static Shooter shooter;
 	public static PowerDistributionPanel pdp;
+	public static Intake intake;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -36,6 +39,7 @@ public class Robot extends IterativeRobot {
     public Robot() {
     	drivetrain = new Drivetrain();
     	shooter = new Shooter();
+    	intake = new Intake();
     	pdp = new PowerDistributionPanel();
 	}
 	
@@ -47,6 +51,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		SmartDashboard.putData(Scheduler.getInstance());
 		SmartDashboard.putData(drivetrain);
+		SmartDashboard.putData(shooter);
+		SmartDashboard.putData(intake);
     }
 	
 	/**
@@ -114,6 +120,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Front Right Drive Motor", pdp.getCurrent(1));
         SmartDashboard.putNumber("Rear Left Drive Motor", pdp.getCurrent(2));
         SmartDashboard.putNumber("Rear Right Drive Motor", pdp.getCurrent(3));
+        
     }
     
     /**

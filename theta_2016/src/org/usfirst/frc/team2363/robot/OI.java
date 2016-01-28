@@ -3,6 +3,8 @@ package org.usfirst.frc.team2363.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
+
+import org.usfirst.frc.team2363.robot.commands.IntakeCommand;
 import org.usfirst.frc.team2363.robot.commands.ShooterCommand;
 
 /**
@@ -22,6 +24,10 @@ public class OI {
 		shooterOff.whenPressed(new ShooterCommand(false));
 		operatorControl = new Joystick(OPERATOR_PORT);
 		operatorControl.setOutput(5, Robot.shooter.isAtSpeed());
+		JoystickButton intake = new JoystickButton(ps4Controller, INTAKE_BUTTON);
+//		intake.whenPressed(new IntakeCommand(true));
+//		intake.whenReleased(new IntakeCommand(false));
+		intake.whileHeld(new IntakeCommand(true));
 	}
 	
 	public double getThrottle () {
@@ -36,7 +42,7 @@ public class OI {
 	public double getTurn() {
 		return ps4Controller.getRawAxis(RIGHT_STICK_X);
 	}
-	
+
 //	public double getTurn() {
 //		return ps4Controller.getRawAxis(RIGHT_STICK_X) * getTurnScaling(getThrottle());		
 //	}

@@ -24,7 +24,6 @@ public class Shooter extends Subsystem {
 	public Shooter() {
 		encoder.setSamplesToAverage(12);
 		encoder.setDistancePerPulse(1.0/360);
-		
 		bangBang.start();
 	}
 
