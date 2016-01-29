@@ -18,11 +18,12 @@ public class Shooter extends Subsystem {
 	private Encoder encoder = new Encoder(SHOOTER_ENCODER, 1, false, EncodingType.k1X);
 	private BangBang bangBang = new BangBang();
 	private static final int SPEED = 100;
+	private static final int CONVERTED_SPEED = 100;
 	
 	private boolean running;
 	
 	public Shooter() {
-		encoder.setSamplesToAverage(12);
+		encoder.setSamplesToAverage(120);
 		encoder.setDistancePerPulse(1.0/360);
 		bangBang.start();
 	}
@@ -55,13 +56,13 @@ public class Shooter extends Subsystem {
     	@Override
     	public void run() {
     		while (true) {
-    			if (getRPM() < SPEED && running) {
+    			if (encoder.getPeriod() < CONVERTED_SPEED && running) {
     				motor.set(1);
     			} else {
     				motor.set(0);
     			}
     			try {
-    				sleep(1);
+    				sleep(10);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

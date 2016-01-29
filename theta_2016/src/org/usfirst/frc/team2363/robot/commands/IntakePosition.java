@@ -8,14 +8,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeCommand extends Command {
+public class IntakePosition extends Command {
 
-	private IntakeState run;
 	private boolean down;
 	
-    public IntakeCommand(IntakeState run, boolean down) {
-    	requires(Robot.intake);
-    	this.run = run;
+    public IntakePosition(boolean down) {
     	this.down = down;
     }
 
@@ -24,14 +21,7 @@ public class IntakeCommand extends Command {
     
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (run == IntakeState.IN) {
-    		Robot.intake.in();
-    	} else if (run == IntakeState.OUT) {
-    		Robot.intake.out();
-    	} else {
-    		Robot.intake.off();
-    	}
-    	
+
     	if (down) {
     		Robot.intake.down();
     	} else {
@@ -41,7 +31,7 @@ public class IntakeCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

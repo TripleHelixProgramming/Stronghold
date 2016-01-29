@@ -4,8 +4,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
-import org.usfirst.frc.team2363.robot.commands.IntakeCommand;
 import org.usfirst.frc.team2363.robot.commands.ShooterCommand;
+import org.usfirst.frc.team2363.robot.subsystems.Intake.IntakeState;
+import org.usfirst.frc.team2363.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -24,10 +25,17 @@ public class OI {
 		shooterOff.whenPressed(new ShooterCommand(false));
 		operatorControl = new Joystick(OPERATOR_PORT);
 		operatorControl.setOutput(5, Robot.shooter.isAtSpeed());
-		JoystickButton intake = new JoystickButton(ps4Controller, INTAKE_BUTTON);
-//		intake.whenPressed(new IntakeCommand(true));
-//		intake.whenReleased(new IntakeCommand(false));
-		intake.whileHeld(new IntakeCommand(true));
+		JoystickButton intakeIn = new JoystickButton(ps4Controller, INTAKE_IN);
+//		intakeIn.whileHeld(new IntakeCommand(IntakeState.IN, true));
+		intakeIn.whileHeld(new IntakeMovement(IntakeState.IN));
+		JoystickButton intakeDown = new JoystickButton(ps4Controller, INTAKE_DOWN);
+//		intakeDown.whileHeld(new IntakeCommand(IntakeState.OFF, true));
+		intakeDown.whenPressed(new IntakePosition(true));
+		JoystickButton intakeUp = new JoystickButton(ps4Controller, 1);
+		intakeUp.whenPressed(new IntakePosition(false));
+		JoystickButton intakeOut = new JoystickButton(ps4Controller, INTAKE_OUT);
+//		intakeOut.whileHeld(new IntakeCommand(IntakeState.OUT, true));
+		intakeOut.whileHeld(new IntakeMovement(IntakeState.OUT));
 	}
 	
 	public double getThrottle () {
