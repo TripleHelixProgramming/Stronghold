@@ -31,7 +31,7 @@ public class OI {
 		JoystickButton intakeDown = new JoystickButton(ps4Controller, INTAKE_DOWN);
 //		intakeDown.whileHeld(new IntakeCommand(IntakeState.OFF, true));
 		intakeDown.whenPressed(new IntakePosition(true));
-		JoystickButton intakeUp = new JoystickButton(ps4Controller, 1);
+		JoystickButton intakeUp = new JoystickButton(ps4Controller, INTAKE_UP);
 		intakeUp.whenPressed(new IntakePosition(false));
 		JoystickButton intakeOut = new JoystickButton(ps4Controller, INTAKE_OUT);
 //		intakeOut.whileHeld(new IntakeCommand(IntakeState.OUT, true));
@@ -40,11 +40,12 @@ public class OI {
 	
 	public double getThrottle () {
 //		return -ps4Controller.getRawAxis(LEFT_STICK_Y);
-		if(ps4Controller.getRawAxis(RIGHT_TRIGGER) > 0) {
-			return -ps4Controller.getRawAxis(LEFT_STICK_Y);
-		} else {
-			return ps4Controller.getRawAxis(LEFT_STICK_Y);
-		}
+//		if(ps4Controller.getRawAxis(RIGHT_TRIGGER) > 0) {
+//			return -ps4Controller.getRawAxis(LEFT_STICK_Y);
+//		} else {
+//			return ps4Controller.getRawAxis(LEFT_STICK_Y);
+//		}
+		return ps4Controller.getRawAxis(LEFT_STICK_Y);
 	}
 	
 	public double getTurn() {

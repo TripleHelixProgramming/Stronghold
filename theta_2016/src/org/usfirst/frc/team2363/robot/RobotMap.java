@@ -51,7 +51,8 @@ public class RobotMap {
 	public static final int DIRECTION_SHIFT = 3; //L2
 	public static final int SHOOTER_OFF_BUTTON = 2; //x
 	public static final int SHOOTER_ON_BUTTON = 4; //triangle
-	public static final int INTAKE_DOWN = 5; //L1
+	public static final int INTAKE_DOWN = 7; //L2
+	public static final int INTAKE_UP = 5; //L1
 	public static final int INTAKE_IN = 6; //R1
 	public static final int INTAKE_OUT = 8; //R2
 }

@@ -7,6 +7,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import static org.usfirst.frc.team2363.robot.Robot.drivetrain;
 
+import org.usfirst.frc.team2363.robot.commands.AutoLowBarCommand;
+import org.usfirst.frc.team2363.robot.commands.AutoMote;
+import org.usfirst.frc.team2363.robot.commands.AutoRockWall;
+import org.usfirst.frc.team2363.robot.commands.AutoRoughTerrain;
 import org.usfirst.frc.team2363.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2363.robot.commands.ShooterCommand;
 import org.usfirst.frc.team2363.robot.subsystems.Drivetrain;
@@ -41,6 +45,7 @@ public class Robot extends IterativeRobot {
     	shooter = new Shooter();
     	intake = new Intake();
     	pdp = new PowerDistributionPanel();
+    	chooser = new SendableChooser();
 	}
 	
     /**
@@ -53,6 +58,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(drivetrain);
 		SmartDashboard.putData(shooter);
 		SmartDashboard.putData(intake);
+		SmartDashboard.putData("autonomous", chooser);
+		
+		chooser.addObject("rough terrain autonomous", new AutoRoughTerrain());
+		chooser.addObject("low bar autonomous", new AutoLowBarCommand());
+		chooser.addObject("rock wall autonomous", new AutoRockWall());
+		chooser.addObject("mote autonomous", new AutoMote());
     }
 	
 	/**
