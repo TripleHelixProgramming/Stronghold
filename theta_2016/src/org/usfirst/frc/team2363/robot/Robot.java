@@ -7,8 +7,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import static org.usfirst.frc.team2363.robot.Robot.drivetrain;
 
+import org.usfirst.frc.team2363.robot.commands.AutoFlipflop;
 import org.usfirst.frc.team2363.robot.commands.AutoLowBarCommand;
 import org.usfirst.frc.team2363.robot.commands.AutoMote;
+import org.usfirst.frc.team2363.robot.commands.AutoRampart;
 import org.usfirst.frc.team2363.robot.commands.AutoRockWall;
 import org.usfirst.frc.team2363.robot.commands.AutoRoughTerrain;
 import org.usfirst.frc.team2363.robot.commands.ExampleCommand;
@@ -64,6 +66,8 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("low bar autonomous", new AutoLowBarCommand());
 		chooser.addObject("rock wall autonomous", new AutoRockWall());
 		chooser.addObject("mote autonomous", new AutoMote());
+		chooser.addObject("flipflop autonomous", new AutoFlipflop());
+		chooser.addObject("rampart autonomous", new AutoRampart());
     }
 	
 	/**

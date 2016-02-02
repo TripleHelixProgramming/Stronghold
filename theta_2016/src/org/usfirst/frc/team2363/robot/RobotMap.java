@@ -46,6 +46,7 @@ public class RobotMap {
 	public static final int INTAKE_TALON = 50;
 	public static final int INTAKE_SOLENOID_A = 0;
 	public static final int INTAKE_SOLENOID_B = 1;
+//	public static final int BALL_LIMIT_CHANNEL = 0;
 	
 	//PS4 Buttons
 	public static final int DIRECTION_SHIFT = 3; //L2
