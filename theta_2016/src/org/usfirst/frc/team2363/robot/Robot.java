@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import static org.usfirst.frc.team2363.robot.Robot.drivetrain;
 
-import org.usfirst.frc.team2363.robot.commands.AutoFlipflop;
-import org.usfirst.frc.team2363.robot.commands.AutoLowBarCommand;
-import org.usfirst.frc.team2363.robot.commands.AutoMote;
-import org.usfirst.frc.team2363.robot.commands.AutoRampart;
-import org.usfirst.frc.team2363.robot.commands.AutoRockWall;
-import org.usfirst.frc.team2363.robot.commands.AutoRoughTerrain;
 import org.usfirst.frc.team2363.robot.commands.ExampleCommand;
-import org.usfirst.frc.team2363.robot.commands.ShooterCommand;
+import org.usfirst.frc.team2363.robot.commands.autonomous.AutoFlipflop;
+import org.usfirst.frc.team2363.robot.commands.autonomous.AutoLowBarCommand;
+import org.usfirst.frc.team2363.robot.commands.autonomous.AutoMote;
+import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRampart;
+import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRockWall;
+import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRoughTerrain;
+import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
 import org.usfirst.frc.team2363.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2363.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2363.robot.subsystems.Intake;
@@ -135,6 +135,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Front Right Drive Motor", pdp.getCurrent(1));
         SmartDashboard.putNumber("Rear Left Drive Motor", pdp.getCurrent(2));
         SmartDashboard.putNumber("Rear Right Drive Motor", pdp.getCurrent(3));
+        SmartDashboard.putBoolean("Has Ball", intake.hasBall());
         
     }
     

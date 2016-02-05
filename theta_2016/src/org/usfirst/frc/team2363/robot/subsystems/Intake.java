@@ -2,8 +2,9 @@ package org.usfirst.frc.team2363.robot.subsystems;
 
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
-import org.usfirst.frc.team2363.robot.commands.IntakeCommand;
-import org.usfirst.frc.team2363.robot.commands.IntakeMovement;
+import org.usfirst.frc.team2363.robot.Robot;
+import org.usfirst.frc.team2363.robot.commands.intake.IntakeCommand;
+import org.usfirst.frc.team2363.robot.commands.intake.IntakeMovement;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -26,7 +27,8 @@ public class Intake extends Subsystem {
     // here. Call these from Commands.
 	private CANTalon motor = new CANTalon(INTAKE_TALON);
 	private DoubleSolenoid solenoid = new DoubleSolenoid(INTAKE_SOLENOID_A, INTAKE_SOLENOID_B);
-//	private DigitalInput ballLimit = new DigitalInput(BALL_LIMIT_CHANNEL);
+	private DigitalInput ballLimit = new DigitalInput(BALL_LIMIT_CHANNEL);
+	private boolean IS_UP = true;
 	
 	public void in() {
 		motor.set(-1);
@@ -42,15 +44,21 @@ public class Intake extends Subsystem {
     
     public void up() {
     	solenoid.set(Value.kForward);
+    	IS_UP = true;
     }
    
     public void down() {
     	solenoid.set(Value.kReverse);
+    	IS_UP = false;
     }
     
- //   public boolean hasBall() {
- //   	return ballLimit.get();
- //   }
+    public boolean isUp() {
+    	return IS_UP;
+    }
+    
+    public boolean hasBall() {
+    	return !ballLimit.get();
+    }
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

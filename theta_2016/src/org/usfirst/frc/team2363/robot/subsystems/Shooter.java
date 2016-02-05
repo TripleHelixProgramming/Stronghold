@@ -17,8 +17,8 @@ public class Shooter extends Subsystem {
 	private CANTalon motor = new CANTalon(SHOOTER_TALON);
 	private Encoder encoder = new Encoder(SHOOTER_ENCODER, 1, false, EncodingType.k1X);
 	private BangBang bangBang = new BangBang();
-	private static final int SPEED = 100;
-	private static final int CONVERTED_SPEED = 100;
+	private static final int SPEED = 5000;
+	private static final int CONVERTED_SPEED = SPEED / 60 / 1000 / 360;
 	
 	private boolean running;
 	

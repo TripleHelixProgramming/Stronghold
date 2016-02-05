@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2363.robot.commands;
+package org.usfirst.frc.team2363.robot.commands.shooter;
 
 import org.usfirst.frc.team2363.robot.Robot;
 
@@ -7,27 +7,32 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutoRampart extends Command {
+public class ShooterCommand extends Command {
 
-    public AutoRampart() {
-        requires(Robot.drivetrain);
-    	setTimeout(5);
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+	private boolean run;
+	
+    public ShooterCommand(boolean run) {
+    	requires(Robot.shooter);
+    	this.run = run;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if (run) {
+    		Robot.shooter.on();
+    	} else {
+    		Robot.shooter.off();
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-       	Robot.drivetrain.arcadeDrive(.9, 0);
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return true;
     }
 
     // Called once after isFinished returns true

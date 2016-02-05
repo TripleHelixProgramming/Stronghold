@@ -1,12 +1,15 @@
 package org.usfirst.frc.team2363.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
-import org.usfirst.frc.team2363.robot.commands.ShooterCommand;
 import org.usfirst.frc.team2363.robot.subsystems.Intake.IntakeState;
 import org.usfirst.frc.team2363.robot.commands.*;
+import org.usfirst.frc.team2363.robot.commands.intake.IntakeMovement;
+import org.usfirst.frc.team2363.robot.commands.intake.IntakePosition;
+import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -50,6 +53,11 @@ public class OI {
 	
 	public double getTurn() {
 		return ps4Controller.getRawAxis(RIGHT_STICK_X);
+	}
+	
+	public void turnOnRumble() {
+		ps4Controller.setRumble(RumbleType.kLeftRumble, 100);
+		ps4Controller.setRumble(RumbleType.kRightRumble, 100);
 	}
 
 //	public double getTurn() {

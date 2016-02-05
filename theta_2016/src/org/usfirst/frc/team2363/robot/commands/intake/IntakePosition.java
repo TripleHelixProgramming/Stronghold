@@ -1,42 +1,43 @@
-package org.usfirst.frc.team2363.robot.commands;
+package org.usfirst.frc.team2363.robot.commands.intake;
 
 import org.usfirst.frc.team2363.robot.Robot;
+import org.usfirst.frc.team2363.robot.subsystems.Intake.IntakeState;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class AutoMote extends Command {
+public class IntakePosition extends Command {
 
-    public AutoMote() {
-        requires(Robot.drivetrain);
-    	setTimeout(5);
-    	// Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	
+	private boolean down;
+	
+    public IntakePosition(boolean down) {
+    	this.down = down;
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
-    }
-
+    protected void initialize() { }
+    
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.arcadeDrive(-.65, 0);
+
+    	if (down) {
+    		Robot.intake.down();
+    	} else {
+    		Robot.intake.up();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return true;
     }
 
     // Called once after isFinished returns true
-    protected void end() {
-    }
+    protected void end() { }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+    protected void interrupted() { }
 }

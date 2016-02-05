@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2363.robot.commands;
+package org.usfirst.frc.team2363.robot.commands.intake;
 
 import org.usfirst.frc.team2363.robot.Robot;
 import org.usfirst.frc.team2363.robot.subsystems.Intake.IntakeState;
@@ -8,15 +8,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeCommand extends Command {
+public class IntakeMovement extends Command {
 
 	private IntakeState run;
-	private boolean down;
 	
-    public IntakeCommand(IntakeState run, boolean down) {
+    public IntakeMovement(IntakeState run) {
     	requires(Robot.intake);
     	this.run = run;
-    	this.down = down;
     }
 
     // Called just before this Command runs the first time
@@ -25,17 +23,15 @@ public class IntakeCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (run == IntakeState.IN) {
-    		Robot.intake.in();
-    	} else if (run == IntakeState.OUT) {
+    		if (!Robot.intake.isUp() && !Robot.intake.hasBall() || Robot.intake.isUp()) {
+    			Robot.intake.in();
+    		} else {
+    			Robot.intake.off();
+    		}
+    	} else if (run == IntakeState.OUT && !Robot.intake.isUp()) {
     		Robot.intake.out();
     	} else {
     		Robot.intake.off();
-    	}
-    	
-    	if (down) {
-    		Robot.intake.down();
-    	} else {
-    		Robot.intake.up();
     	}
     }
 
