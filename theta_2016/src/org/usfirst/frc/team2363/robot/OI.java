@@ -19,6 +19,7 @@ public class OI {
 	
 	private Joystick ps4Controller;
 	private Joystick operatorControl;
+	private static final double DRIVE_AT_SHOOT_POSITION_SPEED = -0.10;
 	
 	public OI() {
 		ps4Controller = new Joystick(PS4_PORT);
@@ -48,7 +49,20 @@ public class OI {
 //		} else {
 //			return ps4Controller.getRawAxis(LEFT_STICK_Y);
 //		}
-		return ps4Controller.getRawAxis(LEFT_STICK_Y);
+		if (isXbox()) {
+			if (ps4Controller.getRawButton(DRIVE_AT_SHOOT_POSITION_XBOX)) {
+				return -0.10;
+			} else {
+				return ps4Controller.getRawAxis(LEFT_STICK_Y);
+			} 
+		} else {
+			if (ps4Controller.getRawButton(DRIVE_AT_SHOOT_POSITION)) {
+				return -0.10;
+			} else {
+				return ps4Controller.getRawAxis(LEFT_STICK_Y);
+			}
+		}
+		
 	}
 	
 	public double getTurn() {
@@ -61,7 +75,11 @@ public class OI {
 	}
 	
 	public boolean getIntakeOverride() {
-		return ps4Controller.getRawButton(INTAKE_OVERRIDE);
+		if (isXbox()) {
+			return ps4Controller.getRawButton(INTAKE_OVERRIDE_XBOX);
+		} else {
+			return ps4Controller.getRawButton(INTAKE_OVERRIDE);
+		}
 	}
 	
 	public boolean isXbox() {
