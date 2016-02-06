@@ -31,6 +31,7 @@ public class RobotMap {
 	public static final int LEFT_TRIGGER = 3;
 	public static final int RIGHT_TRIGGER = 4;
 	public static final int RIGHT_STICK_Y = 5;
+	public static final int RIGHT_STICK_X_XBOX = 4;
 	
 	//Drive Controllers
 	public static final int FRONT_LEFT_TALON_CHANNEL = 30;
@@ -39,8 +40,8 @@ public class RobotMap {
 	public static final int REAR_RIGHT_TALON_CHANNEL = 33;
 	
 	//Shooter
-	public static final int SHOOTER_TALON = 42;
-	public static final int SHOOTER_ENCODER = 9;
+	public static final int SHOOTER_TALON = 20;
+	public static final int SHOOTER_ENCODER = 1;
 	
 	//Intake
 	public static final int INTAKE_TALON = 50;
@@ -56,4 +57,5 @@ public class RobotMap {
 	public static final int INTAKE_UP = 5; //L1
 	public static final int INTAKE_IN = 6; //R1
 	public static final int INTAKE_OUT = 8; //R2
+	public static final int INTAKE_OVERRIDE = 12; //RS Button
 }

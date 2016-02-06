@@ -52,46 +52,58 @@ public class OI {
 	}
 	
 	public double getTurn() {
-		return ps4Controller.getRawAxis(RIGHT_STICK_X);
+		if (isXbox()){
+			return ps4Controller.getRawAxis(RIGHT_STICK_X_XBOX);
+		} else {
+			return ps4Controller.getRawAxis(RIGHT_STICK_X);
+		}
+			
+	}
+	
+	public boolean getIntakeOverride() {
+		return ps4Controller.getRawButton(INTAKE_OVERRIDE);
+	}
+	
+	public boolean isXbox() {
+		return ps4Controller.getIsXbox();
 	}
 	
 	public void turnOnRumble() {
-		ps4Controller.setRumble(RumbleType.kLeftRumble, 100);
-		ps4Controller.setRumble(RumbleType.kRightRumble, 100);
+		ps4Controller.setRumble(RumbleType.kLeftRumble, 1);
+		ps4Controller.setRumble(RumbleType.kRightRumble, 1);
+//		ps4Controller.setOutput(1, true);
+//		ps4Controller.setOutput(2, true);
+//		ps4Controller.setOutput(3, true);
+//		ps4Controller.setOutput(4, true);
+//		ps4Controller.setOutput(5, true);
+//		ps4Controller.setOutput(6, true);
+//		ps4Controller.setOutput(7, true);
+//		ps4Controller.setOutput(8, true);
+//		ps4Controller.setOutput(9, true);
+//		ps4Controller.setOutput(10, true);
+//		ps4Controller.setOutput(11, true);
+//		ps4Controller.setOutput(12, true);
+//		ps4Controller.setOutput(13, true);
+//		ps4Controller.setOutput(14, true);
+//		ps4Controller.setOutput(15, true);
+//		ps4Controller.setOutput(16, true);
+//		ps4Controller.setOutput(17, true);
+//		ps4Controller.setOutput(18, true);
+//		ps4Controller.setOutput(19, true);
+//		ps4Controller.setOutput(20, true);
+//		ps4Controller.setOutput(21, true);
+//		ps4Controller.setOutput(22, true);
+//		ps4Controller.setOutput(23, true);
+//		ps4Controller.setOutput(24, true);
+//		ps4Controller.setOutput(25, true);
+//		ps4Controller.setOutput(26, true);
+//		ps4Controller.setOutput(27, true);
+//		ps4Controller.setOutput(28, true);
+//		ps4Controller.setOutput(29, true);
+//		ps4Controller.setOutput(30, true);
+//		ps4Controller.setOutput(31, true);
+//		ps4Controller.setOutput(32, true);
 	}
 
-//	public double getTurn() {
-//		return ps4Controller.getRawAxis(RIGHT_STICK_X) * getTurnScaling(getThrottle());		
-//	}
-
-//	public static double getTurnScaling(double x) {
-//		return -Math.abs(LOW_SPEED_SCALING - HIGH_SPEED_SCALING) * x + LOW_SPEED_SCALING;
-//	}
-    //// CREATING BUTTONS
-    // One type of button is a joystick button which is any button on a joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
-    // Joystick stick = new Joystick(port);
-    // Button button = new JoystickButton(stick, buttonNumber);
-    
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
-    
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-    
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-    
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-    
-    // Start the command when the button is released  and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
 }
 

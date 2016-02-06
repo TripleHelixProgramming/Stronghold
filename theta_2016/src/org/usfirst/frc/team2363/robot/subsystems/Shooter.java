@@ -15,7 +15,7 @@ public class Shooter extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	private CANTalon motor = new CANTalon(SHOOTER_TALON);
-	private Encoder encoder = new Encoder(SHOOTER_ENCODER, 1, false, EncodingType.k1X);
+	private Encoder encoder = new Encoder(SHOOTER_ENCODER, 9, false, EncodingType.k1X);
 	private BangBang bangBang = new BangBang();
 	private static final int SPEED = 5000;
 	private static final int CONVERTED_SPEED = SPEED / 60 / 1000 / 360;
@@ -32,15 +32,17 @@ public class Shooter extends Subsystem {
     }
     
     public double getRPM() {
-    	return encoder.getRate() * 60; 	
+    	return encoder.getRate() * 60;
     }
     
     public void on() {
     	running = true;
+    	motor.set(-1);
     }
     
     public void off() {
     	running = false;
+    	motor.set(0);
     }
     
     public boolean isAtSpeed() {
@@ -53,21 +55,23 @@ public class Shooter extends Subsystem {
     
     private class BangBang extends Thread {
 
-    	@Override
+/*/    	@Override
     	public void run() {
     		while (true) {
     			if (encoder.getPeriod() < CONVERTED_SPEED && running) {
-    				motor.set(1);
-    			} else {
-    				motor.set(0);
-    			}
+    				if (running) {
+    					motor.set(-0.5);
+    				} else {
+    					motor.set(0);
+    				}
     			try {
     				sleep(10);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+   			}
     		}
     	}
-    }
+*/    }
 }
 
