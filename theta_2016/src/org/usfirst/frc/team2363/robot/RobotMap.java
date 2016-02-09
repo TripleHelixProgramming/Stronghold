@@ -43,7 +43,8 @@ public class RobotMap {
 	
 	//Shooter
 	public static final int SHOOTER_TALON = 20;
-	public static final int SHOOTER_ENCODER = 1;
+	public static final int SHOOTER_ENCODER_A = 1;
+	public static final int SHOOTER_ENCODER_B = 2;
 	
 	//Intake
 	public static final int INTAKE_TALON = 50;

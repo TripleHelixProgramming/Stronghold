@@ -15,7 +15,7 @@ public class Shooter extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	private CANTalon motor = new CANTalon(SHOOTER_TALON);
-	private Encoder encoder = new Encoder(SHOOTER_ENCODER, 9, false, EncodingType.k4X);
+	private Encoder encoder = new Encoder(SHOOTER_ENCODER_A, SHOOTER_ENCODER_B, false, EncodingType.k1X);
 	private BangBang bangBang = new BangBang();
 	private static final int SPEED = 5000;
 	private static final double CONVERTED_SPEED = SPEED / 60 / 1000 / 360.0;
@@ -24,8 +24,8 @@ public class Shooter extends Subsystem {
 	
 	public Shooter() {
 //		encoder.setSamplesToAverage(120);
-		encoder.setSamplesToAverage(6);
-		encoder.setDistancePerPulse(1.0/360);
+		encoder.setSamplesToAverage(12);
+		encoder.setDistancePerPulse(1.0/144);
 		bangBang.start();
 	}
 
