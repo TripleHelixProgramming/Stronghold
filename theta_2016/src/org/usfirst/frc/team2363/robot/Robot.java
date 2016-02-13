@@ -76,10 +76,11 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
      */
     public void disabledInit(){
-
+    	shooter.off();
     }
 	
 	public void disabledPeriodic() {
+		Robot.oi.turnOffRumble();
 		Scheduler.getInstance().run();
 	}
 
@@ -130,7 +131,14 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
+        if (shooter.isAtSpeed()) {
+        	Robot.oi.turnOnRumble();
+        } else {
+        	Robot.oi.turnOffRumble();
+        }
         SmartDashboard.putNumber("Shooter RPM", shooter.getRPM());
+        SmartDashboard.putNumber("Shooter Current", pdp.getCurrent(3));
 //        SmartDashboard.putNumber("Front Left Drive Motor", pdp.getCurrent(0));
 //        SmartDashboard.putNumber("Front Right Drive Motor", pdp.getCurrent(1));
 //        SmartDashboard.putNumber("Rear Left Drive Motor", pdp.getCurrent(2));

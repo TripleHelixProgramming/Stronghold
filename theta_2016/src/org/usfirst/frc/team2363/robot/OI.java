@@ -3,6 +3,7 @@ package org.usfirst.frc.team2363.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
 import org.usfirst.frc.team2363.robot.subsystems.Intake.IntakeState;
@@ -89,12 +90,13 @@ public class OI {
 	public void turnOnRumble() {
 		ps4Controller.setRumble(RumbleType.kLeftRumble, 1);
 		ps4Controller.setRumble(RumbleType.kRightRumble, 1);
+		SmartDashboard.putBoolean("At Speed", true);
 	}
 	
 	public void turnOffRumble() {
 		ps4Controller.setRumble(RumbleType.kLeftRumble, 0);
 		ps4Controller.setRumble(RumbleType.kRightRumble, 0);
+		SmartDashboard.putBoolean("At Speed", false);
 	}
-
 }
 

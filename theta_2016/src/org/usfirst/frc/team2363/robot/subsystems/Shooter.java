@@ -16,72 +16,67 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Shooter extends Subsystem {
-    
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+
+	// Put methods for controlling this subsystem
+	// here. Call these from Commands.
 	private CANTalon motor = new CANTalon(SHOOTER_TALON);
-	private Encoder encoder = new Encoder(SHOOTER_ENCODER_A, SHOOTER_ENCODER_B, false, EncodingType.k1X);
+	private Encoder encoder = new Encoder(SHOOTER_ENCODER_A, SHOOTER_ENCODER_B, true, EncodingType.k1X);
 	private BangBang bangBang = new BangBang();
-	private static final double SPEED = 5000;
-	private static final double CONVERTED_SPEED = SPEED / 60.0 / 100.0 / 360.0;
-	
+	private static final double SPEED = 5500;
+	private static final double CONVERTED_SPEED = 60 / (SPEED * 120.0);
+
 	private boolean running;
-	
+
 	public Shooter() {
 		encoder.setSamplesToAverage(120);
 		encoder.setDistancePerPulse(1.0/120);
 		bangBang.start();
 	}
 
-    public void initDefaultCommand() {     	
-    }
-    
-    public double getRPM() {
-    	return encoder.getRate() * 60.0;
-    }
-    
-    public void on() {
-    	running = true;
-    	DriverStation.reportError("ON", false);
-//    	motor.set(-1);
-    }
-    
-    public void off() {
-    	running = false;
-    	DriverStation.reportError("OFF", false);
-//    	motor.set(0);
-    }
-    
-    public boolean isAtSpeed() {
-    	if (getRPM() > SPEED - 25 && getRPM() < SPEED + 25) {
-    		Robot.oi.turnOnRumble();
-    		return false;    		
-    	} else {
-    		Robot.oi.turnOffRumble();
-    		return true;
-    		
-    	}
-    }
+	public void initDefaultCommand() {     	
+	}
 
-    private class BangBang extends Thread {
+	public double getRPM() {
+		if (encoder.getStopped()) {
+			return 0;
+		}
+		return Math.abs(encoder.getRate() * 60.0);
+	}
 
-    	@Override
-    	public void run() {
-    		while (true) {
-    			SmartDashboard.putNumber("Period", encoder.getPeriod());
-//    			if (encoder.getPeriod() < CONVERTED_SPEED && running) {
-    				if (running) {
-    					motor.set(-1);
-    				} else {
-    					motor.set(0);
-    				}
-    				try {
-    					sleep(10);
-    				} catch (InterruptedException e) {
-    					e.printStackTrace();
-    				}
-//    			}
-    		}
-    	}
-    }
+	public void on() {
+		running = true;
+//		DriverStation.reportError("ON", false);
+		//    	motor.set(-1);
+	}
+
+	public void off() {
+		running = false;
+//		DriverStation.reportError("OFF", false);
+		//    	motor.set(0);
+	}
+
+	public boolean isAtSpeed() {
+		return getRPM() > SPEED - 25 && getRPM() < SPEED + 25;
+	}
+
+	private class BangBang extends Thread {
+
+		@Override
+		public void run() {
+			while (true) {
+//				DriverStation.reportError("" + encoder.getPeriod(), false);
+    			if ((encoder.getPeriod() < -CONVERTED_SPEED || encoder.getStopped()) && running) {
+//				if (running) {
+					motor.set(-1);
+				} else {
+					motor.set(0);
+				}
+				try {
+					sleep(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

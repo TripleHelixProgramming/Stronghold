@@ -53,7 +53,8 @@ public class Intake extends Subsystem {
     }
     
     public boolean isUp() {
-    	return IS_UP;
+    	return solenoid.get() == Value.kForward;
+//    	return IS_UP;
     }
     
     public boolean hasBall() {

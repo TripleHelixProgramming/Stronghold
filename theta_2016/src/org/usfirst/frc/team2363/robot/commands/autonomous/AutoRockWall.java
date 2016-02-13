@@ -9,12 +9,12 @@ public class AutoRockWall extends DriveStraightCommand {
 
     public AutoRockWall() {
     	super();
-    	setTimeout(3);
+    	setTimeout(2);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.arcadeDrive(-1, getCorrectedTurn());
+    	Robot.drivetrain.arcadeDrive(.8, getCorrectedTurn());
     }
 
     // Make this return true when this Command no longer needs to run execute()

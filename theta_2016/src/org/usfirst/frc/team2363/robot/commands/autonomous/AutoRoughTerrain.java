@@ -9,12 +9,12 @@ public class AutoRoughTerrain extends DriveStraightCommand {
 
     public AutoRoughTerrain() {
     	super();
-    	setTimeout(4);
+    	setTimeout(2);
     }
 
     @Override
     protected void execute() {
-    	Robot.drivetrain.arcadeDrive(-.65, getCorrectedTurn());
+    	Robot.drivetrain.arcadeDrive(-.75, getCorrectedTurn());
     }
 
     @Override

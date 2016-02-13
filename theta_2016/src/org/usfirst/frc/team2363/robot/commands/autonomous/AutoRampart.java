@@ -9,7 +9,7 @@ public class AutoRampart extends DriveStraightCommand {
 
     public AutoRampart() {
         super();
-    	setTimeout(5);
+    	setTimeout(2);
     }
 
     // Called repeatedly when this Command is scheduled to run
