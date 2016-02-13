@@ -1,6 +1,9 @@
 package org.usfirst.frc.team2363.robot.subsystems;
 
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
+
+import org.usfirst.frc.team2363.robot.Robot;
+
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -51,9 +54,12 @@ public class Shooter extends Subsystem {
     
     public boolean isAtSpeed() {
     	if (getRPM() > SPEED - 25 && getRPM() < SPEED + 25) {
-    		return false;
+    		Robot.oi.turnOnRumble();
+    		return false;    		
     	} else {
+    		Robot.oi.turnOffRumble();
     		return true;
+    		
     	}
     }
 

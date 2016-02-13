@@ -89,38 +89,11 @@ public class OI {
 	public void turnOnRumble() {
 		ps4Controller.setRumble(RumbleType.kLeftRumble, 1);
 		ps4Controller.setRumble(RumbleType.kRightRumble, 1);
-//		ps4Controller.setOutput(1, true);
-//		ps4Controller.setOutput(2, true);
-//		ps4Controller.setOutput(3, true);
-//		ps4Controller.setOutput(4, true);
-//		ps4Controller.setOutput(5, true);
-//		ps4Controller.setOutput(6, true);
-//		ps4Controller.setOutput(7, true);
-//		ps4Controller.setOutput(8, true);
-//		ps4Controller.setOutput(9, true);
-//		ps4Controller.setOutput(10, true);
-//		ps4Controller.setOutput(11, true);
-//		ps4Controller.setOutput(12, true);
-//		ps4Controller.setOutput(13, true);
-//		ps4Controller.setOutput(14, true);
-//		ps4Controller.setOutput(15, true);
-//		ps4Controller.setOutput(16, true);
-//		ps4Controller.setOutput(17, true);
-//		ps4Controller.setOutput(18, true);
-//		ps4Controller.setOutput(19, true);
-//		ps4Controller.setOutput(20, true);
-//		ps4Controller.setOutput(21, true);
-//		ps4Controller.setOutput(22, true);
-//		ps4Controller.setOutput(23, true);
-//		ps4Controller.setOutput(24, true);
-//		ps4Controller.setOutput(25, true);
-//		ps4Controller.setOutput(26, true);
-//		ps4Controller.setOutput(27, true);
-//		ps4Controller.setOutput(28, true);
-//		ps4Controller.setOutput(29, true);
-//		ps4Controller.setOutput(30, true);
-//		ps4Controller.setOutput(31, true);
-//		ps4Controller.setOutput(32, true);
+	}
+	
+	public void turnOffRumble() {
+		ps4Controller.setRumble(RumbleType.kLeftRumble, 0);
+		ps4Controller.setRumble(RumbleType.kRightRumble, 0);
 	}
 
 }
