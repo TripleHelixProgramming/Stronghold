@@ -52,14 +52,27 @@ public class RobotMap {
 	public static final int INTAKE_SOLENOID_B = 1;
 	public static final int BALL_LIMIT_CHANNEL = 0;
 	
+	//Climber
+	public static final int CLIMBER_POSITION = 1;
+	public static final int CLIMBER_MOTOR_POSITION = 5;
+	public static final int CLIMBER_PNEUMATICS_EXTEND = 0;
+	public static final int CLIMBER_PNEUMATICS_RETRACT = 0;
+	
 	//PS4 Buttons
 	public static final int DIRECTION_SHIFT = 3; //L2
-	public static final int SHOOTER_OFF_BUTTON = 2; //x
-	public static final int SHOOTER_ON_BUTTON = 4; //triangle
+	public static final int SHOOTER_OFF_BUTTON = 7; //L2
+	public static final int SHOOTER_ON_BUTTON = 5; //L1
 	public static final int INTAKE_DOWN = 7; //L2
 	public static final int INTAKE_UP = 5; //L1
 	public static final int INTAKE_IN = 6; //R1
 	public static final int INTAKE_OUT = 8; //R2
-	public static final int INTAKE_OVERRIDE = 12; //RS Button
-	public static final int INTAKE_OVERRIDE_XBOX = 10; //Still RS Button
+	public static final int INTAKE_OVERRIDE = 11; //LS Button
+	public static final int INTAKE_OVERRIDE_XBOX = 9; //Still LS Button
+	
+	//Operator Buttons
+	public static final int INTAKE_DOWN_OP = 2; //x
+	public static final int INTAKE_UP_OP = 4; //triangle
+	public static final int INTAKE_IN_OP = 1; //square
+	public static final int INTAKE_OUT_OP = 3; //circle
+	
 }

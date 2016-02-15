@@ -82,6 +82,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Robot.oi.turnOffRumble();
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("POV", Robot.oi.getPOV());
 	}
 
 	/**

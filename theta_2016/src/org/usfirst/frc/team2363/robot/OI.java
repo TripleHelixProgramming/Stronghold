@@ -19,28 +19,39 @@ import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
 public class OI {
 	
 	private Joystick ps4Controller;
-	private Joystick operatorControl;
+	private Joystick operatorController;
 	private static final double DRIVE_AT_SHOOT_POSITION_SPEED = -0.10;
 	
 	public OI() {
+		//Controllers
 		ps4Controller = new Joystick(PS4_PORT);
-		JoystickButton shooterOn = new JoystickButton(ps4Controller, SHOOTER_ON_BUTTON);
-		shooterOn.whenPressed(new ShooterCommand(true));
-		JoystickButton shooterOff = new JoystickButton(ps4Controller, SHOOTER_OFF_BUTTON);
-		shooterOff.whenPressed(new ShooterCommand(false));
-		operatorControl = new Joystick(OPERATOR_PORT);
-		operatorControl.setOutput(5, Robot.shooter.isAtSpeed());
+		operatorController = new Joystick(OPERATOR_PORT);
+		
+		//PS4 Controller
+
 		JoystickButton intakeIn = new JoystickButton(ps4Controller, INTAKE_IN);
-//		intakeIn.whileHeld(new IntakeCommand(IntakeState.IN, true));
 		intakeIn.whileHeld(new IntakeMovement(IntakeState.IN));
 		JoystickButton intakeDown = new JoystickButton(ps4Controller, INTAKE_DOWN);
-//		intakeDown.whileHeld(new IntakeCommand(IntakeState.OFF, true));
 		intakeDown.whenPressed(new IntakePosition(true));
 		JoystickButton intakeUp = new JoystickButton(ps4Controller, INTAKE_UP);
 		intakeUp.whenPressed(new IntakePosition(false));
 		JoystickButton intakeOut = new JoystickButton(ps4Controller, INTAKE_OUT);
-//		intakeOut.whileHeld(new IntakeCommand(IntakeState.OUT, true));
 		intakeOut.whileHeld(new IntakeMovement(IntakeState.OUT));
+		
+		//Operator Controller
+		JoystickButton intakeInOp = new JoystickButton(operatorController, INTAKE_IN_OP);
+		intakeInOp.whileHeld(new IntakeMovement(IntakeState.IN));
+		JoystickButton intakeDownOp = new JoystickButton(operatorController, INTAKE_DOWN_OP);
+		intakeDownOp.whenPressed(new IntakePosition(true));
+		JoystickButton intakeUpOp = new JoystickButton(operatorController, INTAKE_UP_OP);
+		intakeUpOp.whenPressed(new IntakePosition(false));
+		JoystickButton intakeOutOp = new JoystickButton(operatorController, INTAKE_OUT_OP);
+		intakeOutOp.whileHeld(new IntakeMovement(IntakeState.OUT));
+		JoystickButton shooterOn = new JoystickButton(operatorController, SHOOTER_ON_BUTTON);
+		shooterOn.whenPressed(new ShooterCommand(true));
+		JoystickButton shooterOff = new JoystickButton(operatorController, SHOOTER_OFF_BUTTON);
+		shooterOff.whenPressed(new ShooterCommand(false));
+		
 	}
 	
 	public double getThrottle () {
@@ -87,15 +98,23 @@ public class OI {
 		return ps4Controller.getIsXbox();
 	}
 	
+	public int getPOV() {
+		return operatorController.getPOV();
+	}
+	
 	public void turnOnRumble() {
 		ps4Controller.setRumble(RumbleType.kLeftRumble, 1);
 		ps4Controller.setRumble(RumbleType.kRightRumble, 1);
+		operatorController.setRumble(RumbleType.kLeftRumble, 1);
+		operatorController.setRumble(RumbleType.kRightRumble, 1);
 		SmartDashboard.putBoolean("At Speed", true);
 	}
 	
 	public void turnOffRumble() {
 		ps4Controller.setRumble(RumbleType.kLeftRumble, 0);
 		ps4Controller.setRumble(RumbleType.kRightRumble, 0);
+		operatorController.setRumble(RumbleType.kLeftRumble, 0);
+		operatorController.setRumble(RumbleType.kRightRumble, 0);
 		SmartDashboard.putBoolean("At Speed", false);
 	}
 }
