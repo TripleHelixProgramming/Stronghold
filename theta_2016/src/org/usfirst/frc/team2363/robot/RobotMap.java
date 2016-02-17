@@ -40,6 +40,10 @@ public class RobotMap {
 	public static final int REAR_RIGHT_TALON_CHANNEL = 33;
 	public static final int DRIVE_AT_SHOOT_POSITION = 11; //LS Button
 	public static final int DRIVE_AT_SHOOT_POSITION_XBOX = 9; //Still LS Button
+	public static final int LEFT_DRIVE_ENCODER_A = 3;
+	public static final int LEFT_DRIVE_ENCODER_B = 4;
+	public static final int RIGHT_DRIVE_ENCODER_A = 5;
+	public static final int RIGHT_DRIVE_ENCODER_B = 6;
 	
 	//Shooter
 	public static final int SHOOTER_TALON = 20;
@@ -74,5 +78,6 @@ public class RobotMap {
 	public static final int INTAKE_UP_OP = 4; //triangle
 	public static final int INTAKE_IN_OP = 1; //square
 	public static final int INTAKE_OUT_OP = 3; //circle
+	public static final int INTAKE_OVERRIDE_OP = 6; //R1
 	
 }

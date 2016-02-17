@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2363.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,6 +23,7 @@ import org.usfirst.frc.team2363.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,6 +43,7 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     SendableChooser chooser;
+    CameraServer server;
     
     public Robot() {
     	drivetrain = new Drivetrain();
@@ -48,6 +51,9 @@ public class Robot extends IterativeRobot {
     	intake = new Intake();
     	pdp = new PowerDistributionPanel();
     	chooser = new SendableChooser();
+    	server = CameraServer.getInstance();
+        server.setQuality(50);
+        server.startAutomaticCapture("cam0");
 	}
 	
     /**
@@ -110,6 +116,8 @@ public class Robot extends IterativeRobot {
     	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        
+        Robot.drivetrain.resetEncoders();
     }
 
     /**
@@ -125,6 +133,8 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        
+        Robot.drivetrain.resetEncoders();
     }
 
     /**
@@ -140,12 +150,14 @@ public class Robot extends IterativeRobot {
         }
         SmartDashboard.putNumber("Shooter RPM", shooter.getRPM());
         SmartDashboard.putNumber("Shooter Current", pdp.getCurrent(3));
-//        SmartDashboard.putNumber("Front Left Drive Motor", pdp.getCurrent(0));
-//        SmartDashboard.putNumber("Front Right Drive Motor", pdp.getCurrent(1));
-//        SmartDashboard.putNumber("Rear Left Drive Motor", pdp.getCurrent(2));
-//        SmartDashboard.putNumber("Rear Right Drive Motor", pdp.getCurrent(3));
+        SmartDashboard.putNumber("Front Left Drive Motor", pdp.getCurrent(0));
+        SmartDashboard.putNumber("Front Right Drive Motor", pdp.getCurrent(1));
+        SmartDashboard.putNumber("Rear Left Drive Motor", pdp.getCurrent(2));
+        SmartDashboard.putNumber("Rear Right Drive Motor", pdp.getCurrent(3));
         SmartDashboard.putBoolean("Has Ball", intake.hasBall());
-        
+		SmartDashboard.putNumber("Left DT Position", Robot.drivetrain.getLeftPosition());
+		SmartDashboard.putNumber("Right DT Position", Robot.drivetrain.getRightPosition());
+
     }
     
     /**
