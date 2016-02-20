@@ -23,6 +23,7 @@ public class RobotMap {
 	//Controllers
 	public static final int PS4_PORT = 0;
 	public static final int OPERATOR_PORT = 1;
+	public static final int RUMBLE_PORT = 5;
 		
 	//PS4 joystick axis
 	public static final int LEFT_STICK_X = 0;
@@ -31,7 +32,22 @@ public class RobotMap {
 	public static final int LEFT_TRIGGER = 3;
 	public static final int RIGHT_TRIGGER = 4;
 	public static final int RIGHT_STICK_Y = 5;
-	public static final int RIGHT_STICK_X_XBOX = 4;
+	
+	//PS4 Buttons
+	public static final int SQUARE = 1;
+	public static final int X = 2;
+	public static final int CIRCLE = 3;
+	public static final int TRIANGLE = 4;
+	public static final int L1 = 5;
+	public static final int R1 = 6;
+	public static final int L2 = 7;
+	public static final int R2 = 8;
+	public static final int SHARE = 9;
+	public static final int OPTIONS = 10;
+	public static final int L3 = 11;
+	public static final int R3 = 12;
+	public static final int PS = 13;
+	public static final int TOUCHPAD = 14;
 	
 	//Drivetrain
 	public static final int FRONT_LEFT_TALON_CHANNEL = 30;
@@ -39,7 +55,6 @@ public class RobotMap {
 	public static final int REAR_LEFT_TALON_CHANNEL = 32;
 	public static final int REAR_RIGHT_TALON_CHANNEL = 33;
 	public static final int DRIVE_AT_SHOOT_POSITION = 11; //LS Button
-	public static final int DRIVE_AT_SHOOT_POSITION_XBOX = 9; //Still LS Button
 	public static final int LEFT_DRIVE_ENCODER_A = 3;
 	public static final int LEFT_DRIVE_ENCODER_B = 4;
 	public static final int RIGHT_DRIVE_ENCODER_A = 5;
@@ -57,27 +72,10 @@ public class RobotMap {
 	public static final int BALL_LIMIT_CHANNEL = 0;
 	
 	//Climber
-	public static final int CLIMBER_POSITION = 1;
-	public static final int CLIMBER_MOTOR_POSITION = 5;
+	public static final int CLIMBER_ANGLE = 0;
+	public static final int CLIMBER_ELEVATOR_A = 0;
+	public static final int CLIMBER_ELEVATOR_B = 0;
 	public static final int CLIMBER_PNEUMATICS_EXTEND = 0;
 	public static final int CLIMBER_PNEUMATICS_RETRACT = 0;
-	
-	//PS4 Buttons
-	public static final int DIRECTION_SHIFT = 3; //L2
-	public static final int SHOOTER_OFF_BUTTON = 7; //L2
-	public static final int SHOOTER_ON_BUTTON = 5; //L1
-	public static final int INTAKE_DOWN = 7; //L2
-	public static final int INTAKE_UP = 5; //L1
-	public static final int INTAKE_IN = 6; //R1
-	public static final int INTAKE_OUT = 8; //R2
-	public static final int INTAKE_OVERRIDE = 11; //LS Button
-	public static final int INTAKE_OVERRIDE_XBOX = 9; //Still LS Button
-	
-	//Operator Buttons
-	public static final int INTAKE_DOWN_OP = 2; //x
-	public static final int INTAKE_UP_OP = 4; //triangle
-	public static final int INTAKE_IN_OP = 1; //square
-	public static final int INTAKE_OUT_OP = 3; //circle
-	public static final int INTAKE_OVERRIDE_OP = 6; //R1
-	
+
 }

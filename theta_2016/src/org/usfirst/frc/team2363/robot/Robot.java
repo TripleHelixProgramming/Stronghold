@@ -11,11 +11,15 @@ import static org.usfirst.frc.team2363.robot.Robot.drivetrain;
 import org.usfirst.frc.team2363.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoFlipflop;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoLowBarCommand;
+import org.usfirst.frc.team2363.robot.commands.autonomous.AutoLowBarShoot;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoMote;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRampart;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRockWall;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRoughTerrain;
+import org.usfirst.frc.team2363.robot.commands.autonomous.FlipflopGroup;
+import org.usfirst.frc.team2363.robot.commands.autonomous.TestGyroCommand;
 import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
+import org.usfirst.frc.team2363.robot.subsystems.Climber;
 import org.usfirst.frc.team2363.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2363.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2363.robot.subsystems.Intake;
@@ -40,6 +44,7 @@ public class Robot extends IterativeRobot {
 	public static Shooter shooter;
 	public static PowerDistributionPanel pdp;
 	public static Intake intake;
+	public static Climber climber;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -54,6 +59,7 @@ public class Robot extends IterativeRobot {
     	server = CameraServer.getInstance();
         server.setQuality(50);
         server.startAutomaticCapture("cam0");
+        climber = new Climber();
 	}
 	
     /**
@@ -72,8 +78,10 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("low bar autonomous", new AutoLowBarCommand());
 		chooser.addObject("rock wall autonomous", new AutoRockWall());
 		chooser.addObject("mote autonomous", new AutoMote());
-		chooser.addObject("flipflop autonomous", new AutoFlipflop());
+		chooser.addObject("flipflop autonomous", new FlipflopGroup());
 		chooser.addObject("rampart autonomous", new AutoRampart());
+		chooser.addObject("low bar shoot autonomous", new AutoLowBarShoot());
+		chooser.addObject("gyro test autonomous", new TestGyroCommand());
     }
 	
 	/**
@@ -89,6 +97,9 @@ public class Robot extends IterativeRobot {
 		Robot.oi.turnOffRumble();
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("POV", Robot.oi.getPOV());
+		SmartDashboard.putNumber("AccelZ", drivetrain.getAccelZ());
+		SmartDashboard.putNumber("AccelX", drivetrain.getAccelX());
+		SmartDashboard.putNumber("AccelY", drivetrain.getAccelY());
 	}
 
 	/**
@@ -125,6 +136,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Angle", Robot.drivetrain.getAngle());
     }
 
     public void teleopInit() {
@@ -157,7 +169,11 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Has Ball", intake.hasBall());
 		SmartDashboard.putNumber("Left DT Position", Robot.drivetrain.getLeftPosition());
 		SmartDashboard.putNumber("Right DT Position", Robot.drivetrain.getRightPosition());
-
+		SmartDashboard.putNumber("Angle", Robot.drivetrain.getAngle());
+		SmartDashboard.putNumber("AccelZ", drivetrain.getAccelZ());
+		SmartDashboard.putNumber("AccelX", drivetrain.getAccelX());
+		SmartDashboard.putNumber("AccelY", drivetrain.getAccelY());
+		SmartDashboard.putNumber("Tilt", drivetrain.getTilt());
     }
     
     /**

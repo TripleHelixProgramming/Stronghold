@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -37,10 +36,10 @@ public class Drivetrain extends Subsystem {
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
         }
-		leftEncoder.setDistancePerPulse(0.01636);
+		leftEncoder.setDistancePerPulse(0.05947);
 		leftEncoder.setSamplesToAverage(12);
 
-		rightEncoder.setDistancePerPulse(0.01636);
+		rightEncoder.setDistancePerPulse(0.05947);
 		rightEncoder.setSamplesToAverage(12);
 	}
 	
@@ -65,12 +64,6 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void resetEncoders() {
-
-		
-		
-		
-		
-		
 		rightEncoder.reset();
 		leftEncoder.reset();
 	}
@@ -87,5 +80,25 @@ public class Drivetrain extends Subsystem {
 	
 	public void resetAngle() {
 		ahrs.zeroYaw();
+	}
+	
+	public double getAccelZ() {
+		return ahrs.getVelocityZ();
+	}
+	
+	public double getAccelX() {
+		return ahrs.getVelocityX();
+	}
+	
+	public double getAccelY() {
+		return ahrs.getVelocityY();
+	}
+	
+	public double getTilt() {
+		return ahrs.getPitch();
+	}
+	
+	public boolean isTilted() {
+		return getTilt() > 1 || getTilt() < -1;
 	}
 }
