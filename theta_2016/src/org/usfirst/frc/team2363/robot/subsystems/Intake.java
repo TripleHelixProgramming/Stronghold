@@ -29,7 +29,6 @@ public class Intake extends Subsystem {
 	private DoubleSolenoid solenoid = new DoubleSolenoid(INTAKE_SOLENOID_A, INTAKE_SOLENOID_B);
 	private DigitalInput ballLimit = new DigitalInput(BALL_LIMIT_CHANNEL);
 	private boolean IS_UP = true;
-	public boolean override;
 	
 	public void in() {
 		motor.set(-1);
@@ -60,14 +59,6 @@ public class Intake extends Subsystem {
     
     public boolean hasBall() {
     	return !ballLimit.get();
-    }
-    
-    public void toggleOverride() {
-    	if (override == false) {
-    		override = true;
-    	} else {
-    		override = false;
-    	}
     }
     
     public void initDefaultCommand() {

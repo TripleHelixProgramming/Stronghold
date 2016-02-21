@@ -13,7 +13,6 @@ import org.usfirst.frc.team2363.robot.commands.climber.ClimberElevator;
 import org.usfirst.frc.team2363.robot.commands.climber.ClimberOffCommand;
 import org.usfirst.frc.team2363.robot.commands.climber.ToggleHookCommand;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakeMovement;
-import org.usfirst.frc.team2363.robot.commands.intake.IntakeOverrideToggle;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakePosition;
 import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
 
@@ -43,9 +42,6 @@ public class OI {
 		intakeUp.whenPressed(new IntakePosition(false));
 		JoystickButton intakeOut = new JoystickButton(ps4Controller, R2);
 		intakeOut.whileHeld(new IntakeMovement(IntakeState.OUT));
-		JoystickButton intakeOverride = new JoystickButton(ps4Controller, L3);
-		intakeOverride.whenPressed(new IntakeOverrideToggle());
-		SmartDashboard.putBoolean("Intake Override", Robot.intake.override);
 		
 		//Operator Controller
 		JoystickButton intakeInOp = new JoystickButton(operatorController, SQUARE);
@@ -103,6 +99,15 @@ public class OI {
 	public double getOperatorElevator() {
 		return operatorController.getRawAxis(RIGHT_STICK_Y);
 	}
+	
+	public boolean getHookToggle() {
+		return operatorController.getRawButton(PS);
+	}
+	
+	public boolean getIntakeOverride() {
+		return ps4Controller.getRawButton(L3);
+	}
+
 	
 	public void turnOnRumble() {
 		operatorRumble.setRumble(RumbleType.kLeftRumble, 1);

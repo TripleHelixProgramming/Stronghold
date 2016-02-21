@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2363.robot.commands.intake;
+package org.usfirst.frc.team2363.robot.commands.climber;
 
 import org.usfirst.frc.team2363.robot.Robot;
 
@@ -7,12 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeOverrideToggle extends Command {
+public class ClimberCommand extends Command {
 
-    public IntakeOverrideToggle() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.intake);
+    public ClimberCommand() {
+    	requires(Robot.climber);
     }
 
     // Called just before this Command runs the first time
@@ -21,12 +19,16 @@ public class IntakeOverrideToggle extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.toggleOverride();
+    	Robot.climber.setAnglePower(Robot.oi.getOperatorAngle());
+    	Robot.climber.setElevatorPower(Robot.oi.getOperatorElevator());
+    	if (Robot.oi.getHookToggle()) {
+    		Robot.climber.hookToggle();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

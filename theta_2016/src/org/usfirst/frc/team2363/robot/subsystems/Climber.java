@@ -2,6 +2,7 @@ package org.usfirst.frc.team2363.robot.subsystems;
 
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
+import org.usfirst.frc.team2363.robot.commands.climber.ClimberCommand;
 import org.usfirst.frc.team2363.robot.commands.climber.ClimberOffCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -26,12 +27,13 @@ public class Climber extends Subsystem {
     
     
     public void setAnglePower(double power) {
-    	angleMotor.set(power);
+    	angleMotor.set(power * 0.25);
     }
     
     public void setElevatorPower(double power) {
-    	elevatorMotorA.set(power);
-    	elevatorMotorB.set(-power);
+    	elevatorMotorA.set(-power * 0.5);
+    	elevatorMotorB.set(power * 0.5);
+    	//possible scaling equation: ((x/5)^3)*1.25*100
     }
     
     public void hookExtend() {
@@ -51,7 +53,7 @@ public class Climber extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new ClimberOffCommand());
+        setDefaultCommand(new ClimberCommand());
     }
 }
 
