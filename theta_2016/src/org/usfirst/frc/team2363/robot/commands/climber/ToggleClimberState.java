@@ -7,10 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ClimberAngle extends Command {
+public class ToggleClimberState extends Command {
 
-    public ClimberAngle() {
-    	requires(Robot.climber);
+    public ToggleClimberState() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
@@ -19,14 +20,16 @@ public class ClimberAngle extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.climber.setAnglePower(Robot.oi.getOperatorAngle());
-    	Robot.climber.setElevatorPower(0);
-    	
+    	if (Robot.climber.state) {
+    		Robot.climber.state = false;
+    	} else {
+    		Robot.climber.state = true;
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

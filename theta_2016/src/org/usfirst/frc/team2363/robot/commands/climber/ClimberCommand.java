@@ -19,8 +19,13 @@ public class ClimberCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.climber.setAnglePower(Robot.oi.getOperatorAngle());
-    	Robot.climber.setElevatorPower(Robot.oi.getOperatorElevator());
+    	if (Robot.climber.state) {
+    		Robot.climber.setAnglePower(Robot.oi.getOperatorAngle());
+    		Robot.climber.setElevatorPower(Robot.oi.getOperatorElevator());
+    	} else {
+    		Robot.climber.setAnglePower(0);
+    		Robot.climber.setElevatorPower(0);
+    	}
     	if (Robot.oi.getHookToggle()) {
     		Robot.climber.hookToggle();
     	}

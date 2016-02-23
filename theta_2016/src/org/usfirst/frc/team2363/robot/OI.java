@@ -7,11 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
 import org.usfirst.frc.team2363.robot.subsystems.Intake.IntakeState;
-import org.usfirst.frc.team2363.robot.commands.*;
-import org.usfirst.frc.team2363.robot.commands.climber.ClimberAngle;
-import org.usfirst.frc.team2363.robot.commands.climber.ClimberElevator;
-import org.usfirst.frc.team2363.robot.commands.climber.ClimberOffCommand;
-import org.usfirst.frc.team2363.robot.commands.climber.ToggleHookCommand;
+import org.usfirst.frc.team2363.robot.commands.climber.ToggleClimberState;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakeMovement;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakePosition;
 import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
@@ -25,7 +21,6 @@ public class OI {
 	private Joystick ps4Controller;
 	private Joystick operatorController;
 	private Joystick operatorRumble;
-	private static final double DRIVE_AT_SHOOT_POSITION_SPEED = -0.10;
 	
 	public OI() {
 		//Controllers
@@ -56,18 +51,17 @@ public class OI {
 		shooterOn.whenPressed(new ShooterCommand(true));
 		JoystickButton shooterOff = new JoystickButton(operatorController, L2);
 		shooterOff.whenPressed(new ShooterCommand(false));
-		JoystickButton hookToggle = new JoystickButton(operatorController, PS);
-		hookToggle.whenPressed(new ToggleHookCommand());
-		JoystickButton activateClimberAngle = new JoystickButton(operatorController, L3);
-		activateClimberAngle.whenPressed(new ClimberAngle());
-		JoystickButton activateClimberElevator = new JoystickButton(operatorController, R3);
-		activateClimberElevator.whenPressed(new ClimberElevator());
-		JoystickButton deactivateClimber = new JoystickButton(operatorController, TOUCHPAD);
-		deactivateClimber.whenPressed(new ClimberOffCommand());
+		JoystickButton toggleClimberState = new JoystickButton(operatorController, TOUCHPAD);
+		toggleClimberState.whenPressed(new ToggleClimberState());
 	}
 	
 	public double getThrottle () {
-		return ps4Controller.getRawAxis(LEFT_STICK_Y);
+//		return ps4Controller.getRawAxis(LEFT_STICK_Y);
+		if (ps4Controller.getRawAxis(LEFT_STICK_Y) >= 0) {
+			return Math.pow(ps4Controller.getRawAxis(LEFT_STICK_Y), 2);
+		} else {
+			return -Math.pow(ps4Controller.getRawAxis(LEFT_STICK_Y), 2);
+		}
 /*		if (isXbox()) {
 			if (ps4Controller.getRawButton(DRIVE_AT_SHOOT_POSITION_XBOX)) {
 				return -0.10;
@@ -85,7 +79,12 @@ public class OI {
 	}
 	
 	public double getTurn() {
-		return ps4Controller.getRawAxis(RIGHT_STICK_X);
+//		return ps4Controller.getRawAxis(RIGHT_STICK_X);
+		if (ps4Controller.getRawAxis(RIGHT_STICK_X) >= 0) {
+			return Math.pow(ps4Controller.getRawAxis(RIGHT_STICK_X), 2);
+		} else {
+			return -Math.pow(ps4Controller.getRawAxis(RIGHT_STICK_X), 2);
+		}
 	}
 		
 	public int getPOV() {
@@ -93,11 +92,20 @@ public class OI {
 	}
 	
 	public double getOperatorAngle() {
-		return operatorController.getRawAxis(LEFT_STICK_Y);
+//		return operatorController.getRawAxis(LEFT_STICK_Y);
+		if (operatorController.getRawAxis(LEFT_STICK_Y) >= 0) {
+			return Math.pow(operatorController.getRawAxis(LEFT_STICK_Y), 2);
+		} else {
+			return -Math.pow(operatorController.getRawAxis(LEFT_STICK_Y), 2);
+		}
 	}
 	
 	public double getOperatorElevator() {
-		return operatorController.getRawAxis(RIGHT_STICK_Y);
+		if (operatorController.getRawAxis(RIGHT_STICK_Y) >= 0) {
+			return Math.pow(operatorController.getRawAxis(RIGHT_STICK_Y), 2);
+		} else {
+			return -Math.pow(operatorController.getRawAxis(RIGHT_STICK_Y), 2);
+		}
 	}
 	
 	public boolean getHookToggle() {
@@ -107,7 +115,6 @@ public class OI {
 	public boolean getIntakeOverride() {
 		return ps4Controller.getRawButton(L3);
 	}
-
 	
 	public void turnOnRumble() {
 		operatorRumble.setRumble(RumbleType.kLeftRumble, 1);

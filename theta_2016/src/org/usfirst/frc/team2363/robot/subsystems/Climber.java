@@ -3,8 +3,6 @@ package org.usfirst.frc.team2363.robot.subsystems;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
 import org.usfirst.frc.team2363.robot.commands.climber.ClimberCommand;
-import org.usfirst.frc.team2363.robot.commands.climber.ClimberOffCommand;
-
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -23,24 +21,25 @@ public class Climber extends Subsystem {
 	
 	//Pneumatics
 	private DoubleSolenoid solenoid = new DoubleSolenoid(CLIMBER_PNEUMATICS_EXTEND, CLIMBER_PNEUMATICS_RETRACT);
-
-    
+	
+	//Toggle State Variable
+	public boolean state;
     
     public void setAnglePower(double power) {
-    	angleMotor.set(power * 0.25);
+    	angleMotor.set(power);
     }
     
     public void setElevatorPower(double power) {
-    	elevatorMotorA.set(-power * 0.5);
-    	elevatorMotorB.set(power * 0.5);
+    	elevatorMotorA.set(-power);
+    	elevatorMotorB.set(power);
     	//possible scaling equation: ((x/5)^3)*1.25*100
     }
     
-    public void hookExtend() {
+    private void hookExtend() {
     	solenoid.set(Value.kForward);
     }
     
-    public void hookRetract() {
+    private void hookRetract() {
     	solenoid.set(Value.kReverse);
     }
     

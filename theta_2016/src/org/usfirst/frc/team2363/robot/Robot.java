@@ -174,6 +174,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("AccelX", drivetrain.getAccelX());
 		SmartDashboard.putNumber("AccelY", drivetrain.getAccelY());
 		SmartDashboard.putNumber("Tilt", drivetrain.getTilt());
+		SmartDashboard.putBoolean("Climber State", Robot.climber.state);
     }
     
     /**
