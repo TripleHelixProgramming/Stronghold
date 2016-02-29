@@ -59,6 +59,8 @@ public class RobotMap {
 	public static final int LEFT_DRIVE_ENCODER_B = 4;
 	public static final int RIGHT_DRIVE_ENCODER_A = 5;
 	public static final int RIGHT_DRIVE_ENCODER_B = 6;
+	public static final int BRAKE_CHANNEL_A = 1;
+	public static final int BRAKE_CHANNEL_B = 6;
 	
 	//Shooter
 	public static final int SHOOTER_TALON = 0;
@@ -75,7 +77,8 @@ public class RobotMap {
 	public static final int CLIMBER_ANGLE = 20;
 	public static final int CLIMBER_ELEVATOR_A = 40;
 	public static final int CLIMBER_ELEVATOR_B = 41;
-	public static final int CLIMBER_PNEUMATICS_EXTEND = 1;
-	public static final int CLIMBER_PNEUMATICS_RETRACT = 6;
-
+	public static final int CLIMBER_PNEUMATICS_EXTEND = 2;
+	public static final int CLIMBER_PNEUMATICS_RETRACT = 5;
+	public static final int CLIMBER_ELEVATOR_ENCODER_A = 7;
+	public static final int CLIMBER_ELEVATOR_ENCODER_B = 8;
 }

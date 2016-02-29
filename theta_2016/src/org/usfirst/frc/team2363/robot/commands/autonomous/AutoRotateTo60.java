@@ -1,44 +1,31 @@
 package org.usfirst.frc.team2363.robot.commands.autonomous;
 
-import java.util.Date;
-
 import org.usfirst.frc.team2363.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class TestGyroCommand extends DriveStraightCommand {
+public class AutoRotateTo60 extends Command {
 
-	private boolean hasTilted;
-	private Date timer;
-	
-    public TestGyroCommand() {
+    public AutoRotateTo60() {
+    	requires(Robot.drivetrain);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
-
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.arcadeDrive(-.65, getCorrectedTurn());
-    	hasTilted = hasTilted || Robot.drivetrain.isTilted(); 
-    	
-    	if (Robot.drivetrain.isTilted()) {
-    		timer = null;
-    	}
-    	
-    	if (hasTilted && !Robot.drivetrain.isTilted() && timer == null) {
-    		timer = new Date();
-    	}
+    	Robot.drivetrain.arcadeDrive(0, 0.65);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timer != null 
-        		&& new Date().getTime() - timer.getTime() > 500;
+        return Robot.drivetrain.getAngle() >= 60;
     }
 
     // Called once after isFinished returns true

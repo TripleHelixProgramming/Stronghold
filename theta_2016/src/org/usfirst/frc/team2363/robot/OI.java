@@ -8,6 +8,8 @@ import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
 import org.usfirst.frc.team2363.robot.subsystems.Intake.IntakeState;
 import org.usfirst.frc.team2363.robot.commands.climber.ToggleClimberState;
+import org.usfirst.frc.team2363.robot.commands.climber.ToggleHookCommand;
+import org.usfirst.frc.team2363.robot.commands.drivetrain.BrakeCommand;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakeMovement;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakePosition;
 import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
@@ -53,15 +55,20 @@ public class OI {
 		shooterOff.whenPressed(new ShooterCommand(false));
 		JoystickButton toggleClimberState = new JoystickButton(operatorController, TOUCHPAD);
 		toggleClimberState.whenPressed(new ToggleClimberState());
+		JoystickButton toggleHook = new JoystickButton(operatorController, PS);
+		toggleHook.whenPressed(new ToggleHookCommand());
+		JoystickButton toggleBrake = new JoystickButton(ps4Controller, R3);
+		toggleBrake.whenPressed(new BrakeCommand(true));
+		toggleBrake.whenReleased(new BrakeCommand(false));
 	}
 	
 	public double getThrottle () {
-//		return ps4Controller.getRawAxis(LEFT_STICK_Y);
-		if (ps4Controller.getRawAxis(LEFT_STICK_Y) >= 0) {
-			return Math.pow(ps4Controller.getRawAxis(LEFT_STICK_Y), 2);
-		} else {
-			return -Math.pow(ps4Controller.getRawAxis(LEFT_STICK_Y), 2);
-		}
+		return ps4Controller.getRawAxis(LEFT_STICK_Y);
+//		if (ps4Controller.getRawAxis(LEFT_STICK_Y) >= 0) {
+//			return Math.pow(ps4Controller.getRawAxis(LEFT_STICK_Y), 2);
+//		} else {
+//			return -Math.pow(ps4Controller.getRawAxis(LEFT_STICK_Y), 2);
+//		}
 /*		if (isXbox()) {
 			if (ps4Controller.getRawButton(DRIVE_AT_SHOOT_POSITION_XBOX)) {
 				return -0.10;
@@ -79,12 +86,12 @@ public class OI {
 	}
 	
 	public double getTurn() {
-//		return ps4Controller.getRawAxis(RIGHT_STICK_X);
-		if (ps4Controller.getRawAxis(RIGHT_STICK_X) >= 0) {
-			return Math.pow(ps4Controller.getRawAxis(RIGHT_STICK_X), 2);
-		} else {
-			return -Math.pow(ps4Controller.getRawAxis(RIGHT_STICK_X), 2);
-		}
+		return ps4Controller.getRawAxis(RIGHT_STICK_X);
+//		if (ps4Controller.getRawAxis(RIGHT_STICK_X) >= 0) {
+//			return Math.pow(ps4Controller.getRawAxis(RIGHT_STICK_X), 1.5);
+//		} else {
+//			return -Math.pow(Math.abs(ps4Controller.getRawAxis(RIGHT_STICK_X)), 1.5);
+//		}
 	}
 		
 	public int getPOV() {
@@ -101,6 +108,7 @@ public class OI {
 	}
 	
 	public double getOperatorElevator() {
+//		return operatorController.getRawAxis(RIGHT_STICK_Y);
 		if (operatorController.getRawAxis(RIGHT_STICK_Y) >= 0) {
 			return Math.pow(operatorController.getRawAxis(RIGHT_STICK_Y), 2);
 		} else {
@@ -108,8 +116,8 @@ public class OI {
 		}
 	}
 	
-	public boolean getHookToggle() {
-		return operatorController.getRawButton(PS);
+	public boolean getBrakeToggle() {
+		return ps4Controller.getRawButton(R3);
 	}
 	
 	public boolean getIntakeOverride() {

@@ -9,14 +9,15 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class FlipflopGroup extends CommandGroup {
+public class PortGroup extends CommandGroup {
     
-    public  FlipflopGroup() {
-    	addSequential(new AutoFlipflop());
-    	addSequential(new BrakeCommand(true));
+    public  PortGroup() {
     	addSequential(new IntakePosition(true));
-    	addSequential(new WaitCommand(5));
+    	addSequential(new WaitCommand(2));
+    	addSequential(new AutoPort(), 2);
+    	addSequential(new BrakeCommand(true));
+    	addSequential(new IntakePosition(false));
     	addSequential(new BrakeCommand(false));
-    	addSequential(new DriveStraightCommand(), 2);
+    	addSequential(new DriveStraightCommand(), 3);
     }
 }

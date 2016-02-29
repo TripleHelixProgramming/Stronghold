@@ -1,11 +1,13 @@
 package org.usfirst.frc.team2363.robot.subsystems;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 import edu.wpi.first.wpilibj.SPI;
@@ -25,6 +27,7 @@ public class Drivetrain extends Subsystem {
 	//Encoders
 	private Encoder leftEncoder = new Encoder(LEFT_DRIVE_ENCODER_A, LEFT_DRIVE_ENCODER_B, false, EncodingType.k4X);
 	private Encoder rightEncoder = new Encoder(RIGHT_DRIVE_ENCODER_A, RIGHT_DRIVE_ENCODER_B, false, EncodingType.k4X);
+	private DoubleSolenoid brake = new DoubleSolenoid(BRAKE_CHANNEL_A, BRAKE_CHANNEL_B);
 	
 	private RobotDrive robotDrive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
 	
@@ -38,9 +41,11 @@ public class Drivetrain extends Subsystem {
         }
 		leftEncoder.setDistancePerPulse(0.05947);
 		leftEncoder.setSamplesToAverage(12);
+		leftEncoder.setMinRate(15);
 
 		rightEncoder.setDistancePerPulse(0.05947);
 		rightEncoder.setSamplesToAverage(12);
+		rightEncoder.setMinRate(15);
 	}
 	
 	public void arcadeDrive(double throttle, double turn) {
@@ -55,12 +60,12 @@ public class Drivetrain extends Subsystem {
 		return -rightEncoder.getDistance();
 	}
 
-	public double getLeftSpeed() {
-		return leftEncoder.getRate();
+	public boolean isLeftMoving() {
+		return !leftEncoder.getStopped();
 	}
 
-	public double getRightSpeed() {
-		return -rightEncoder.getRate();
+	public boolean isRightMoving() {
+		return !rightEncoder.getStopped();
 	}
 
 	public void resetEncoders() {
@@ -101,4 +106,15 @@ public class Drivetrain extends Subsystem {
 	public boolean isTilted() {
 		return getTilt() > 1 || getTilt() < -1;
 	}
+    public void brakeEngage() {
+    	brake.set(Value.kForward);
+    }
+    
+    public void brakeDisengage() {
+    	brake.set(Value.kReverse);
+    }
+    
+    public boolean isBrakeEngaged() {
+    	return brake.get() == Value.kForward;
+    }
 }

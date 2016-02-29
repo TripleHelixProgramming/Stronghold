@@ -3,40 +3,34 @@ package org.usfirst.frc.team2363.robot.commands.drivetrain;
 import org.usfirst.frc.team2363.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import static org.usfirst.frc.team2363.robot.Robot.drivetrain;
-import static org.usfirst.frc.team2363.robot.Robot.oi;
-
 
 /**
  *
  */
-public class JoystickDrive extends Command {
+public class BrakeCommand extends Command {
 
-    public JoystickDrive() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(drivetrain);
+	boolean enable;
+	
+    public BrakeCommand(boolean enable) {
+        this.enable = enable;
     }
+
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	drivetrain.arcadeDrive(oi.getThrottle(), oi.getTurn());
-//    	if (Math.abs(Robot.oi.getThrottle()) > 0.1
-//    			|| Math.abs(Robot.oi.getTurn()) > 0.1
-////    			|| Robot.drivetrain.isLeftMoving()
-//    			|| Robot.drivetrain.isRightMoving()) {
-//    		Robot.drivetrain.brakeDisengage();
-//    	} else {
-//    		Robot.drivetrain.brakeEngage();
-//    	}
+    	if (enable) {
+    		Robot.drivetrain.brakeEngage();
+    	} else {
+    		Robot.drivetrain.brakeDisengage();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
