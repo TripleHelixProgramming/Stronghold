@@ -70,11 +70,11 @@ public class Climber extends Subsystem {
     }
     
     public boolean isUp() {
-    	return getAngle() > 90;
+    	return getAngle() > 95;
     }
     
     public boolean isClear() {
-    	return getAngle() > 10;
+    	return getAngle() > 17;
     }
     
     public boolean isDown() {
@@ -86,7 +86,7 @@ public class Climber extends Subsystem {
     }
     
     public boolean isExtended() {
-    	return elevatorEncoder.getDistance() > 22;
+    	return elevatorEncoder.getDistance() > -11.25;
     }
     
     public boolean isRetracted() {

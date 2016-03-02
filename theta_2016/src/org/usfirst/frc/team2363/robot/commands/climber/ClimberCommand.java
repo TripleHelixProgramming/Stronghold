@@ -21,11 +21,11 @@ public class ClimberCommand extends Command {
     protected void execute() {
     	if (Robot.climber.state && !Robot.intake.isUp()) {
     		Robot.climber.setAnglePower(Robot.oi.getOperatorAngle());
-//    		if (Robot.climber.isClear()) {
+    		if (Robot.climber.isClear()) {
     			Robot.climber.setElevatorPower(Robot.oi.getOperatorElevator());
-//    		} else {
-//    			Robot.climber.setElevatorPower(0);
-//    		}
+    		} else {
+    			Robot.climber.setElevatorPower(0);
+    		}
     	} else {
     		Robot.climber.setAnglePower(0);
     		Robot.climber.setElevatorPower(0);

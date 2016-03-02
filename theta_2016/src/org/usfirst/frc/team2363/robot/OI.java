@@ -57,7 +57,7 @@ public class OI {
 		toggleClimberState.whenPressed(new ToggleClimberState());
 		JoystickButton toggleHook = new JoystickButton(operatorController, PS);
 		toggleHook.whenPressed(new ToggleHookCommand());
-		JoystickButton toggleBrake = new JoystickButton(ps4Controller, R3);
+		JoystickButton toggleBrake = new JoystickButton(ps4Controller, X);
 		toggleBrake.whenPressed(new BrakeCommand(true));
 		toggleBrake.whenReleased(new BrakeCommand(false));
 	}
@@ -117,7 +117,7 @@ public class OI {
 	}
 	
 	public boolean getBrakeToggle() {
-		return ps4Controller.getRawButton(R3);
+		return ps4Controller.getRawButton(X);
 	}
 	
 	public boolean getIntakeOverride() {

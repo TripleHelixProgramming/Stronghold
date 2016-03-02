@@ -47,7 +47,7 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     SendableChooser chooser;
-//  CameraServer server;
+    CameraServer server;
     
     public Robot() {
     	drivetrain = new Drivetrain();
@@ -55,9 +55,9 @@ public class Robot extends IterativeRobot {
     	intake = new Intake();
     	pdp = new PowerDistributionPanel();
     	chooser = new SendableChooser();
-//    	server = CameraServer.getInstance();
-//      server.setQuality(50);
-//      server.startAutomaticCapture("cam0");
+    	server = CameraServer.getInstance();
+        server.setQuality(50);
+        server.startAutomaticCapture("cam0");
         climber = new Climber();
 	}
 	
@@ -101,8 +101,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("AccelZ", drivetrain.getAccelZ());
 		SmartDashboard.putNumber("AccelX", drivetrain.getAccelX());
 		SmartDashboard.putNumber("AccelY", drivetrain.getAccelY());
-//		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
-//		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
+		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
+		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
+		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
+		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
 	}
 
 	/**
@@ -183,8 +185,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Tilt", drivetrain.getTilt());
 		SmartDashboard.putBoolean("Climber State", Robot.climber.state);
 		SmartDashboard.putBoolean("Drivetrain Brake", Robot.drivetrain.isBrakeEngaged());
-//		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
-//		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
+		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
+		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
     }
     
     /**
