@@ -17,9 +17,7 @@ public class AutoLowBarScoreAt60 extends DriveStraightCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	super.initialize();
     	Robot.drivetrain.resetEncoders();
-    	Robot.intake.down();
     }
 
     // Called repeatedly when this Command is scheduled to run
