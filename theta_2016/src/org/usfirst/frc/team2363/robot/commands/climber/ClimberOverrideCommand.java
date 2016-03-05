@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class ClimberCommand extends Command {
+public class ClimberOverrideCommand extends Command {
 
-    public ClimberCommand() {
+    public ClimberOverrideCommand() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     	requires(Robot.climber);
     }
 
@@ -20,26 +22,10 @@ public class ClimberCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.climber.state && !Robot.intake.isUp()) {
-    		Robot.climber.setAnglePower(Robot.oi.getOperatorAngle());
-    		if (Robot.climber.isClear() 
-    				&& (Robot.climber.isExtended() 
-    				&&  Robot.oi.getOperatorElevator() > 0 
-    				|| Robot.climber.isRetracted() 
-    				&& Robot.oi.getOperatorElevator() < 0)) {
-    			Robot.climber.setElevatorPower(Robot.oi.getOperatorElevator());
-    		} else {
-    			Robot.climber.setElevatorPower(0);
-    		}
-    	} else {
-    		Robot.climber.setAnglePower(0);
-    		Robot.climber.setElevatorPower(0);
-    	}
+    	Robot.climber.setAnglePower(Robot.oi.getOperatorAngle());
+    	Robot.climber.setElevatorPower(Robot.oi.getOperatorElevator());
     	
-    	SmartDashboard.putBoolean("Climber Override", false);
-//    	if (Robot.oi.getHookToggle() && Robot.climber.state) {
-//    		Robot.climber.hookToggle();
-//    	}
+    	SmartDashboard.putBoolean("Climber Override", true);
     }
 
     // Make this return true when this Command no longer needs to run execute()

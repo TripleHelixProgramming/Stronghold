@@ -134,6 +134,7 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.start();
         
         Robot.drivetrain.resetEncoders();
+        Robot.drivetrain.brakeDisengage();
     }
 
     /**
@@ -176,6 +177,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Rear Left Drive Motor", pdp.getCurrent(2));
         SmartDashboard.putNumber("Rear Right Drive Motor", pdp.getCurrent(3));
         SmartDashboard.putBoolean("Has Ball", intake.hasBall());
+        SmartDashboard.putBoolean("Intake Override", oi.getIntakeOverride());
 		SmartDashboard.putNumber("Left DT Position", Robot.drivetrain.getLeftPosition());
 		SmartDashboard.putNumber("Right DT Position", Robot.drivetrain.getRightPosition());
 		SmartDashboard.putNumber("Angle", Robot.drivetrain.getAngle());

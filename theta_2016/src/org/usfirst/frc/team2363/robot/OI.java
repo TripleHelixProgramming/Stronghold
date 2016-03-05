@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
 import org.usfirst.frc.team2363.robot.subsystems.Intake.IntakeState;
+import org.usfirst.frc.team2363.robot.commands.climber.ClimberOverrideCommand;
 import org.usfirst.frc.team2363.robot.commands.climber.ToggleClimberState;
 import org.usfirst.frc.team2363.robot.commands.climber.ToggleHookCommand;
 import org.usfirst.frc.team2363.robot.commands.drivetrain.BrakeCommand;
@@ -39,6 +40,9 @@ public class OI {
 		intakeUp.whenPressed(new IntakePosition(false));
 		JoystickButton intakeOut = new JoystickButton(ps4Controller, R2);
 		intakeOut.whileHeld(new IntakeMovement(IntakeState.OUT));
+		JoystickButton toggleBrake = new JoystickButton(ps4Controller, X);
+		toggleBrake.whenPressed(new BrakeCommand(true));
+		toggleBrake.whenReleased(new BrakeCommand(false));
 		
 		//Operator Controller
 		JoystickButton intakeInOp = new JoystickButton(operatorController, SQUARE);
@@ -49,17 +53,14 @@ public class OI {
 		intakeUpOp.whenPressed(new IntakePosition(false));
 		JoystickButton intakeOutOp = new JoystickButton(operatorController, CIRCLE);
 		intakeOutOp.whileHeld(new IntakeMovement(IntakeState.OUT));
-		JoystickButton shooterOn = new JoystickButton(operatorController, L1);
+		JoystickButton shooterOn = new JoystickButton(operatorController, R1);
 		shooterOn.whenPressed(new ShooterCommand(true));
-		JoystickButton shooterOff = new JoystickButton(operatorController, L2);
+		JoystickButton shooterOff = new JoystickButton(operatorController, R2);
 		shooterOff.whenPressed(new ShooterCommand(false));
 		JoystickButton toggleClimberState = new JoystickButton(operatorController, TOUCHPAD);
 		toggleClimberState.whenPressed(new ToggleClimberState());
-		JoystickButton toggleHook = new JoystickButton(operatorController, PS);
-		toggleHook.whenPressed(new ToggleHookCommand());
-		JoystickButton toggleBrake = new JoystickButton(ps4Controller, X);
-		toggleBrake.whenPressed(new BrakeCommand(true));
-		toggleBrake.whenReleased(new BrakeCommand(false));
+		JoystickButton toggleClimberOvrride = new JoystickButton(operatorController, PS);
+		toggleClimberOvrride.toggleWhenPressed(new ClimberOverrideCommand());
 	}
 	
 	public double getThrottle () {
@@ -121,7 +122,7 @@ public class OI {
 	}
 	
 	public boolean getIntakeOverride() {
-		return ps4Controller.getRawButton(L3);
+		return operatorController.getRawButton(L1);
 	}
 	
 	public void turnOnRumble() {

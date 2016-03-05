@@ -23,7 +23,10 @@ public class IntakeMovement extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (run == IntakeState.IN) {
-    		if (!Robot.intake.isUp() && !Robot.intake.hasBall() || Robot.intake.isUp() || Robot.oi.getIntakeOverride()) {
+    		if (!Robot.intake.isUp() && !Robot.intake.hasBall() 
+//    				|| Robot.intake.isUp() 
+//    				Disabled because we don't have a shooter yet!
+    				|| Robot.oi.getIntakeOverride()) {
     			Robot.intake.in();
     		} else {
     			Robot.intake.off();
