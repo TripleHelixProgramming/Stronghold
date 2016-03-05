@@ -22,6 +22,8 @@ public class ClimberOverrideCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	SmartDashboard.putNumber("Operator Elevator", Robot.oi.getOperatorElevator());
+    	SmartDashboard.putNumber("Operator Angle", Robot.oi.getOperatorAngle());
     	Robot.climber.setAnglePower(Robot.oi.getOperatorAngle());
     	Robot.climber.setElevatorPower(Robot.oi.getOperatorElevator());
     	

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2363.robot.subsystems;
+package org.usfirst.frc.team2363.robot.subsystems; 
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -39,11 +39,11 @@ public class Drivetrain extends Subsystem {
         } catch (RuntimeException ex ) {
             DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
         }
-		leftEncoder.setDistancePerPulse(0.05947);
+		leftEncoder.setDistancePerPulse(0.05947 * 1.206935);
 		leftEncoder.setSamplesToAverage(12);
 		leftEncoder.setMinRate(15);
 
-		rightEncoder.setDistancePerPulse(0.05947);
+		rightEncoder.setDistancePerPulse(0.05947 * 1.206935);
 		rightEncoder.setSamplesToAverage(12);
 		rightEncoder.setMinRate(15);
 	}

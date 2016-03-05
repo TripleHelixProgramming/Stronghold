@@ -26,7 +26,7 @@ public class AutoLowBarScore1 extends DriveStraightCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut() || Robot.drivetrain.getLeftPosition() >= 192 || Robot.drivetrain.getRightPosition() >= 240;
+        return isTimedOut() || Robot.drivetrain.getLeftPosition() >= 150 || Robot.drivetrain.getRightPosition() >= 150;
     }
 
     // Called once after isFinished returns true

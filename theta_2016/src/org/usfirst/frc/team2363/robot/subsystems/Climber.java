@@ -26,7 +26,7 @@ public class Climber extends Subsystem {
 	private DoubleSolenoid solenoid = new DoubleSolenoid(CLIMBER_PNEUMATICS_EXTEND, CLIMBER_PNEUMATICS_RETRACT);
 	
 	//Encoders
-	private Encoder elevatorEncoder = new Encoder(CLIMBER_ELEVATOR_ENCODER_A, CLIMBER_ELEVATOR_ENCODER_B, false, EncodingType.k4X);
+	private Encoder elevatorEncoder = new Encoder(CLIMBER_ELEVATOR_ENCODER_A, CLIMBER_ELEVATOR_ENCODER_B, true, EncodingType.k4X);
 	
 	
 	//Toggle State Variable
@@ -86,7 +86,7 @@ public class Climber extends Subsystem {
     }
     
     public boolean isExtended() {
-    	return elevatorEncoder.getDistance() > -11.25;
+    	return elevatorEncoder.getDistance() > 14.8;
     }
     
     public boolean isRetracted() {
