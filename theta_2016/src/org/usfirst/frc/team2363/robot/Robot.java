@@ -187,6 +187,20 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Drivetrain Brake", Robot.drivetrain.isBrakeEngaged());
 		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
 		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
+		
+		
+		SmartDashboard.putNumber("Current 4", pdp.getCurrent(4));
+		SmartDashboard.putNumber("Current 5", pdp.getCurrent(5));
+		SmartDashboard.putNumber("Current 6", pdp.getCurrent(6));
+		SmartDashboard.putNumber("Current 7", pdp.getCurrent(7));
+		SmartDashboard.putNumber("Current 8", pdp.getCurrent(8));
+		SmartDashboard.putNumber("Current 9", pdp.getCurrent(9));
+		SmartDashboard.putNumber("Current 10", pdp.getCurrent(10));
+		SmartDashboard.putNumber("Current 11", pdp.getCurrent(11));
+		SmartDashboard.putNumber("Current 12", pdp.getCurrent(12));
+		SmartDashboard.putNumber("Current 13", pdp.getCurrent(13));
+		SmartDashboard.putNumber("Current 14", pdp.getCurrent(14));
+		SmartDashboard.putNumber("Current 15", pdp.getCurrent(15));
     }
     
     /**
