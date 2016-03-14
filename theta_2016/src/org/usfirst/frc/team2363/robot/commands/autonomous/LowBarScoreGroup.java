@@ -26,6 +26,6 @@ public class LowBarScoreGroup extends CommandGroup {
     	addSequential(new BrakeCommand(false));
     	addSequential(new AutoLowBarScoreAt60(), 5);
     	addSequential(new BrakeCommand(true));
-    	addSequential(new IntakeMovement(IntakeState.OUT));
+//    	addSequential(new IntakeMovement(IntakeState.OUT));
     }
 }

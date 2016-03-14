@@ -1,5 +1,8 @@
 package org.usfirst.frc.team2363.robot;
 
+import java.io.PrintWriter;
+import java.util.Date;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -15,6 +18,7 @@ import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRampart;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRockWall;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRoughTerrain;
 import org.usfirst.frc.team2363.robot.commands.autonomous.FlipflopGroup;
+import org.usfirst.frc.team2363.robot.commands.autonomous.LowBarGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.LowBarScoreGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.PortGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.TestGyroCommand;
@@ -73,7 +77,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(intake);
 		
 		chooser.addObject("rough terrain autonomous", new AutoRoughTerrain());
-		chooser.addObject("low bar autonomous", new AutoLowBarCommand());
+		chooser.addObject("low bar autonomous", new LowBarGroup());
 		chooser.addObject("rock wall autonomous", new AutoRockWall());
 		chooser.addObject("mote autonomous", new AutoMote());
 		chooser.addObject("flipflop autonomous", new FlipflopGroup());
@@ -105,6 +109,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
 		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
 		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
+        SmartDashboard.putBoolean("Has Ball", intake.hasBall());
 	}
 
 	/**
@@ -156,7 +161,6 @@ public class Robot extends IterativeRobot {
         
         Robot.drivetrain.resetEncoders();
         Robot.drivetrain.brakeDisengage();
-        Robot.climber.state = false;
     }
 
     /**
@@ -185,7 +189,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("AccelX", drivetrain.getAccelX());
 		SmartDashboard.putNumber("AccelY", drivetrain.getAccelY());
 		SmartDashboard.putNumber("Tilt", drivetrain.getTilt());
-		SmartDashboard.putBoolean("Climber State", Robot.climber.state);
 		SmartDashboard.putBoolean("Drivetrain Brake", Robot.drivetrain.isBrakeEngaged());
 		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
 		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());

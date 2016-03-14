@@ -20,16 +20,14 @@ public class ClimberCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.climber.state && !Robot.intake.isUp()) {
-    		Robot.climber.setAnglePower(Robot.oi.getOperatorAngle());
-    		if (Robot.climber.isClear() 
-    				&& (Robot.climber.isExtended() 
-    				&&  Robot.oi.getOperatorElevator() > 0 
-    				|| Robot.climber.isRetracted() 
-    				&& Robot.oi.getOperatorElevator() < 0)) {
-    			Robot.climber.setElevatorPower(Robot.oi.getOperatorElevator());
-    		} else {
+    	if (!Robot.intake.isUp()) {
+    		Robot.climber.setAnglePower(Robot.oi.getOperatorAngle() / 2);
+    		if (!Robot.climber.isClear() 
+    				|| (Robot.climber.isExtended() &&  Robot.oi.getOperatorElevator() < 0 
+    				|| Robot.climber.isRetracted() && Robot.oi.getOperatorElevator() > 0)) {
     			Robot.climber.setElevatorPower(0);
+    		} else {
+    			Robot.climber.setElevatorPower(Robot.oi.getOperatorElevator());
     		}
     	} else {
     		Robot.climber.setAnglePower(0);
@@ -37,9 +35,7 @@ public class ClimberCommand extends Command {
     	}
     	
     	SmartDashboard.putBoolean("Climber Override", false);
-//    	if (Robot.oi.getHookToggle() && Robot.climber.state) {
-//    		Robot.climber.hookToggle();
-//    	}
+    	SmartDashboard.putBoolean("Climber State", true);
     }
 
     // Make this return true when this Command no longer needs to run execute()

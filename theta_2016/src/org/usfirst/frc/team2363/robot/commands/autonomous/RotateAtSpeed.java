@@ -1,17 +1,18 @@
-package org.usfirst.frc.team2363.robot.commands.climber;
+package org.usfirst.frc.team2363.robot.commands.autonomous;
 
 import org.usfirst.frc.team2363.robot.Robot;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
  *
  */
-public class ToggleClimberState extends Command {
+public class RotateAtSpeed extends PIDCommand {
 
-    public ToggleClimberState() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    public RotateAtSpeed(int angle) {
+    	super(0, 0, 0);
+        requires(Robot.drivetrain);
+        setSetpoint(5);
     }
 
     // Called just before this Command runs the first time
@@ -20,16 +21,11 @@ public class ToggleClimberState extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.climber.state) {
-    		Robot.climber.state = false;
-    	} else {
-    		Robot.climber.state = true;
-    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
@@ -40,4 +36,14 @@ public class ToggleClimberState extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
+
+	@Override
+	protected double returnPIDInput() {
+		return Robot.drivetrain.getRotationSpeed();
+	}
+
+	@Override
+	protected void usePIDOutput(double output) {
+		Robot.drivetrain.arcadeDrive(0, output);
+	}
 }

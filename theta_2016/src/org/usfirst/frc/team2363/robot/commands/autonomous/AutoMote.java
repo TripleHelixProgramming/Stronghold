@@ -9,12 +9,12 @@ public class AutoMote extends DriveStraightCommand {
 
     public AutoMote() {
         super();
-    	setTimeout(3);
+    	setTimeout(2);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.arcadeDrive(-.85, getCorrectedTurn());
+    	Robot.drivetrain.arcadeDrive(-.75, getCorrectedTurn());
     }
 
     // Make this return true when this Command no longer needs to run execute()

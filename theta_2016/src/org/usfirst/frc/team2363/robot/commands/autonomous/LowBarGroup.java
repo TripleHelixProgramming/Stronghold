@@ -9,15 +9,11 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class FlipflopGroup extends CommandGroup {
+public class LowBarGroup extends CommandGroup {
     
-    public  FlipflopGroup() {
-    	addSequential(new IntakePosition(false));
-    	addSequential(new AutoFlipflop());
-    	addSequential(new BrakeCommand(true));
+    public  LowBarGroup() {
     	addSequential(new IntakePosition(true));
-    	addSequential(new WaitCommand(5));
-    	addSequential(new BrakeCommand(false));
-    	addSequential(new DriveStraightCommand(), 3);
+    	addSequential(new WaitCommand(2));
+    	addSequential(new AutoLowBarCommand());
     }
 }

@@ -20,12 +20,12 @@ public class AutoRotateTo60 extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.arcadeDrive(0, 0.75);
+    	Robot.drivetrain.arcadeDrive(0, 0.65);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.drivetrain.getAngle() >= 60;
+        return Robot.drivetrain.getAngle() >= 58;
     }
 
     // Called once after isFinished returns true

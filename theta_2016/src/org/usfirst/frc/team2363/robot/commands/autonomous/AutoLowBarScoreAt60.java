@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoLowBarScoreAt60 extends DriveStraightCommand {
 
     public AutoLowBarScoreAt60() {
-    	super(60);
+    	super(58);
     	requires(Robot.drivetrain);
     	setTimeout(10);
     }
@@ -27,7 +27,7 @@ public class AutoLowBarScoreAt60 extends DriveStraightCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut() || Robot.drivetrain.getLeftPosition() >= 125 || Robot.drivetrain.getRightPosition() >= 125;
+        return isTimedOut() || Robot.drivetrain.getLeftPosition() >= 135 || Robot.drivetrain.getRightPosition() >= 135;
     }
 
     // Called once after isFinished returns true

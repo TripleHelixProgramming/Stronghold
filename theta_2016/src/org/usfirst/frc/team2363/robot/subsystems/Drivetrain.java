@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2363.robot.subsystems; 
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -9,6 +10,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 import edu.wpi.first.wpilibj.SPI;
 
@@ -32,6 +34,7 @@ public class Drivetrain extends Subsystem {
 	private RobotDrive robotDrive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
 	
 	private AHRS ahrs;
+	private Gyro gyro;
 	
 	public Drivetrain() {
 		try {
@@ -46,6 +49,8 @@ public class Drivetrain extends Subsystem {
 		rightEncoder.setDistancePerPulse(0.05947 * 1.206935);
 		rightEncoder.setSamplesToAverage(12);
 		rightEncoder.setMinRate(15);
+		
+		gyro = new ADXRS450_Gyro();
 	}
 	
 	public void arcadeDrive(double throttle, double turn) {
@@ -80,15 +85,24 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	public double getAngle() {
-		return ahrs.getYaw();
+		return (ahrs.getYaw() + gyro.getAngle()) / 2;
+	}
+	
+	public double getGyroAngle() {
+		return gyro.getAngle();
 	}
 	
 	public void resetAngle() {
 		ahrs.zeroYaw();
+		gyro.reset();
 	}
 	
 	public double getAccelZ() {
 		return ahrs.getVelocityZ();
+	}
+	
+	public double getRotationSpeed() {
+		return gyro.getRate();
 	}
 	
 	public double getAccelX() {

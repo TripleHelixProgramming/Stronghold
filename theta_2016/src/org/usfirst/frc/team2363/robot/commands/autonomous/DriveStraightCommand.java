@@ -32,7 +32,7 @@ public class DriveStraightCommand extends Command {
     }
     
     protected double getCorrectedTurn() {
-    	return -(Robot.drivetrain.getAngle() - angle) * 0.1;
+    	return -(Robot.drivetrain.getAngle() - angle) * 0.07;
     }
 
     // Make this return true when this Command no longer needs to run execute()

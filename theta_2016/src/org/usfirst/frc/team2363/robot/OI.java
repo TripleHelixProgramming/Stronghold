@@ -1,19 +1,34 @@
 package org.usfirst.frc.team2363.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Joystick.RumbleType;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import static org.usfirst.frc.team2363.robot.RobotMap.*;
+import static org.usfirst.frc.team2363.robot.RobotMap.CIRCLE;
+import static org.usfirst.frc.team2363.robot.RobotMap.L1;
+import static org.usfirst.frc.team2363.robot.RobotMap.L2;
+import static org.usfirst.frc.team2363.robot.RobotMap.LEFT_STICK_Y;
+import static org.usfirst.frc.team2363.robot.RobotMap.OPERATOR_PORT;
+import static org.usfirst.frc.team2363.robot.RobotMap.PS;
+import static org.usfirst.frc.team2363.robot.RobotMap.PS4_PORT;
+import static org.usfirst.frc.team2363.robot.RobotMap.R1;
+import static org.usfirst.frc.team2363.robot.RobotMap.R2;
+import static org.usfirst.frc.team2363.robot.RobotMap.RIGHT_STICK_X;
+import static org.usfirst.frc.team2363.robot.RobotMap.RIGHT_STICK_Y;
+import static org.usfirst.frc.team2363.robot.RobotMap.RUMBLE_PORT;
+import static org.usfirst.frc.team2363.robot.RobotMap.SQUARE;
+import static org.usfirst.frc.team2363.robot.RobotMap.TOUCHPAD;
+import static org.usfirst.frc.team2363.robot.RobotMap.TRIANGLE;
+import static org.usfirst.frc.team2363.robot.RobotMap.X;
 
-import org.usfirst.frc.team2363.robot.subsystems.Intake.IntakeState;
+import org.usfirst.frc.team2363.robot.commands.climber.ClimberCommand;
 import org.usfirst.frc.team2363.robot.commands.climber.ClimberOverrideCommand;
-import org.usfirst.frc.team2363.robot.commands.climber.ToggleClimberState;
-import org.usfirst.frc.team2363.robot.commands.climber.ToggleHookCommand;
 import org.usfirst.frc.team2363.robot.commands.drivetrain.BrakeCommand;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakeMovement;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakePosition;
 import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
+import org.usfirst.frc.team2363.robot.subsystems.Intake.IntakeState;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick.RumbleType;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -58,7 +73,7 @@ public class OI {
 		JoystickButton shooterOff = new JoystickButton(operatorController, R2);
 		shooterOff.whenPressed(new ShooterCommand(false));
 		JoystickButton toggleClimberState = new JoystickButton(operatorController, TOUCHPAD);
-		toggleClimberState.whenPressed(new ToggleClimberState());
+		toggleClimberState.toggleWhenPressed(new ClimberCommand());
 		JoystickButton toggleClimberOvrride = new JoystickButton(operatorController, PS);
 		toggleClimberOvrride.toggleWhenPressed(new ClimberOverrideCommand());
 	}

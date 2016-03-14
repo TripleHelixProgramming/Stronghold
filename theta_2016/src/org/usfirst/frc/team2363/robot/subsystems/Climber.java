@@ -3,6 +3,8 @@ package org.usfirst.frc.team2363.robot.subsystems;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
 import org.usfirst.frc.team2363.robot.commands.climber.ClimberCommand;
+import org.usfirst.frc.team2363.robot.commands.climber.ClimberNothingCommand;
+import org.usfirst.frc.team2363.robot.commands.climber.ClimberOverrideCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -19,18 +21,14 @@ public class Climber extends Subsystem {
     
 	//Talons
 	private CANTalon angleMotor = new CANTalon(CLIMBER_ANGLE);
-	private SpeedController elevatorMotorA = new CANTalon(CLIMBER_ELEVATOR_A);
-	private SpeedController elevatorMotorB = new CANTalon(CLIMBER_ELEVATOR_B);
+	private CANTalon elevatorMotorA = new CANTalon(CLIMBER_ELEVATOR_A);
+	private CANTalon elevatorMotorB = new CANTalon(CLIMBER_ELEVATOR_B);
 	
 	//Pneumatics
 	private DoubleSolenoid solenoid = new DoubleSolenoid(CLIMBER_PNEUMATICS_EXTEND, CLIMBER_PNEUMATICS_RETRACT);
 	
 	//Encoders
 	private Encoder elevatorEncoder = new Encoder(CLIMBER_ELEVATOR_ENCODER_A, CLIMBER_ELEVATOR_ENCODER_B, true, EncodingType.k4X);
-	
-	
-	//Toggle State Variable
-	public boolean state;
 	
 	public Climber() {
 		angleMotor.configEncoderCodesPerRev(1);
@@ -42,15 +40,16 @@ public class Climber extends Subsystem {
     public void setAnglePower(double power) {
     	angleMotor.set(power);
     }
-    
+
     public void setElevatorPower(double power) {
-//    	if (isExtended() &&  power > 0 || isRetracted() && power < 0) { 
+    	if (elevatorMotorA.getOutputCurrent() < 100
+    			&&  elevatorMotorB.getOutputCurrent() < 100) {
     		elevatorMotorA.set(-power);
     		elevatorMotorB.set(power);
-//    	} else {
-//    		elevatorMotorA.set(0);
-//        	elevatorMotorB.set(0);
-//    	}
+    	} else {
+    		elevatorMotorA.set(0);
+    		elevatorMotorB.set(0);
+    	}
     }
     
     private void hookExtend() {
@@ -98,7 +97,7 @@ public class Climber extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new ClimberCommand());
+        setDefaultCommand(new ClimberNothingCommand());
     }
 }
 
