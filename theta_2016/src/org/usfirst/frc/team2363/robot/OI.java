@@ -76,6 +76,9 @@ public class OI {
 		toggleClimberState.toggleWhenPressed(new ClimberCommand());
 		JoystickButton toggleClimberOvrride = new JoystickButton(operatorController, PS);
 		toggleClimberOvrride.toggleWhenPressed(new ClimberOverrideCommand());
+		JoystickButton toggleBrakeOp = new JoystickButton(operatorController, L2);
+		toggleBrakeOp.whenPressed(new BrakeCommand(true));
+		toggleBrakeOp.whenReleased(new BrakeCommand(false));
 	}
 	
 	public double getThrottle () {
