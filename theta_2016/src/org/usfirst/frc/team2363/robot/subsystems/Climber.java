@@ -97,7 +97,7 @@ public class Climber extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new ClimberNothingCommand());
+        setDefaultCommand(new ClimberOverrideCommand());
     }
     
     public double getClimberCurrent() {
