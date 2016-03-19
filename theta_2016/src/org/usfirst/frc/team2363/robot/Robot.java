@@ -21,6 +21,7 @@ import org.usfirst.frc.team2363.robot.commands.autonomous.FlipflopGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.LowBarGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.LowBarScoreGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.PortGroup;
+import org.usfirst.frc.team2363.robot.commands.autonomous.RotateAtSpeed;
 import org.usfirst.frc.team2363.robot.commands.autonomous.TestGyroCommand;
 import org.usfirst.frc.team2363.robot.commands.drivetrain.JoystickDrive;
 import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
@@ -85,6 +86,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("port autonomous", new PortGroup());
 		chooser.addObject("low bar shoot autonomous", new LowBarScoreGroup());
 		chooser.addDefault("Default", new JoystickDrive());
+		chooser.addObject("rotate test", new RotateAtSpeed());
 		
 		SmartDashboard.putData("autonomous chooser", chooser);
     }
@@ -192,20 +194,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Drivetrain Brake", Robot.drivetrain.isBrakeEngaged());
 		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
 		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
-		
-		
-		SmartDashboard.putNumber("Current 4", pdp.getCurrent(4));
-		SmartDashboard.putNumber("Current 5", pdp.getCurrent(5));
-		SmartDashboard.putNumber("Current 6", pdp.getCurrent(6));
-		SmartDashboard.putNumber("Current 7", pdp.getCurrent(7));
-		SmartDashboard.putNumber("Current 8", pdp.getCurrent(8));
-		SmartDashboard.putNumber("Current 9", pdp.getCurrent(9));
-		SmartDashboard.putNumber("Current 10", pdp.getCurrent(10));
-		SmartDashboard.putNumber("Current 11", pdp.getCurrent(11));
-		SmartDashboard.putNumber("Current 12", pdp.getCurrent(12));
-		SmartDashboard.putNumber("Current 13", pdp.getCurrent(13));
-		SmartDashboard.putNumber("Current 14", pdp.getCurrent(14));
-		SmartDashboard.putNumber("Current 15", pdp.getCurrent(15));
     }
     
     /**

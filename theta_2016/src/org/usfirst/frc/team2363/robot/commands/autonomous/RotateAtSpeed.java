@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
  */
 public class RotateAtSpeed extends PIDCommand {
 
-    public RotateAtSpeed(int angle) {
-    	super(0, 0, 0);
+    public RotateAtSpeed() {
+    	super(0, 0.0001, 0);
         requires(Robot.drivetrain);
         setSetpoint(5);
     }
@@ -25,7 +25,7 @@ public class RotateAtSpeed extends PIDCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.drivetrain.getAngle() >= 60;
     }
 
     // Called once after isFinished returns true
