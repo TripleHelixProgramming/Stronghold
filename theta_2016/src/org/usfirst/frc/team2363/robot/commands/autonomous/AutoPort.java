@@ -28,7 +28,7 @@ public class AutoPort extends DriveStraightCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut() || Robot.drivetrain.getLeftPosition() >= 40 || Robot.drivetrain.getRightPosition() >= 40;
+        return isTimedOut() || Robot.drivetrain.getLeftPosition() >= 60 || Robot.drivetrain.getRightPosition() >= 60;
     }
 
     // Called once after isFinished returns true

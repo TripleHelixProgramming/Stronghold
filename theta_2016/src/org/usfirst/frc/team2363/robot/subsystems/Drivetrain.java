@@ -34,7 +34,7 @@ public class Drivetrain extends Subsystem {
 	private RobotDrive robotDrive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
 	
 	private AHRS ahrs;
-	private Gyro gyro;
+//	private Gyro gyro;
 	
 	public Drivetrain() {
 		try {
@@ -50,7 +50,7 @@ public class Drivetrain extends Subsystem {
 		rightEncoder.setSamplesToAverage(12);
 		rightEncoder.setMinRate(15);
 		
-		gyro = new ADXRS450_Gyro();
+//		gyro = new ADXRS450_Gyro();
 	}
 	
 	public void arcadeDrive(double throttle, double turn) {
@@ -85,16 +85,17 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	public double getAngle() {
-		return (ahrs.getYaw() + gyro.getAngle()) / 2;
+//		return (ahrs.getYaw() + gyro.getAngle()) / 2;
+		return (ahrs.getYaw());
 	}
 	
-	public double getGyroAngle() {
-		return gyro.getAngle();
-	}
+//	public double getGyroAngle() {
+//		return gyro.getAngle();
+//	}
 	
 	public void resetAngle() {
 		ahrs.zeroYaw();
-		gyro.reset();
+//		gyro.reset();
 	}
 	
 	public double getAccelZ() {
@@ -102,7 +103,7 @@ public class Drivetrain extends Subsystem {
 	}
 	
 	public double getRotationSpeed() {
-		return gyro.getRate();
+		return 0; //gyro.getRate();
 	}
 	
 	public double getAccelX() {

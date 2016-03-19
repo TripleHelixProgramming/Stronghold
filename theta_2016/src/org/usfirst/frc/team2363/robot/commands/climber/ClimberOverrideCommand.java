@@ -28,7 +28,6 @@ public class ClimberOverrideCommand extends Command {
     	Robot.climber.setElevatorPower(Robot.oi.getOperatorElevator());
     	
     	SmartDashboard.putBoolean("Climber Override", true);
-    	SmartDashboard.putBoolean("Climber Override", false);
     }
 
     // Make this return true when this Command no longer needs to run execute()

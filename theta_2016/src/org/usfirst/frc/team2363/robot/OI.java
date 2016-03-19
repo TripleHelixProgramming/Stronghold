@@ -105,7 +105,7 @@ public class OI {
 	}
 	
 	public double getTurn() {
-		return ps4Controller.getRawAxis(RIGHT_STICK_X);
+		return (ps4Controller.getRawAxis(RIGHT_STICK_X) * 0.75);
 //		if (ps4Controller.getRawAxis(RIGHT_STICK_X) >= 0) {
 //			return Math.pow(ps4Controller.getRawAxis(RIGHT_STICK_X), 1.5);
 //		} else {

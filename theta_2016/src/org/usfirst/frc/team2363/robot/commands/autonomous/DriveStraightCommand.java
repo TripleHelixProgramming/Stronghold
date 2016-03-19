@@ -28,7 +28,7 @@ public class DriveStraightCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.arcadeDrive(-0.65, getCorrectedTurn());
+    	Robot.drivetrain.arcadeDrive(-0.55, getCorrectedTurn());
     }
     
     protected double getCorrectedTurn() {

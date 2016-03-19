@@ -9,6 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class ClimberCommand extends Command {
+	
+	private final double stallCurrent = 70;
+	private boolean stalled;
 
     public ClimberCommand() {
     	requires(Robot.climber);
@@ -20,11 +23,31 @@ public class ClimberCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+//    	if (!Robot.intake.isUp()) {
+//    		Robot.climber.setAnglePower(Robot.oi.getOperatorAngle() / 2);
+//    		if (!Robot.climber.isClear() 
+//    				|| (Robot.climber.isExtended() &&  Robot.oi.getOperatorElevator() < 0 
+//    				|| Robot.climber.isRetracted() && Robot.oi.getOperatorElevator() > 0)) {
+//    			Robot.climber.setElevatorPower(0);
+//    		} else {
+//    			Robot.climber.setElevatorPower(Robot.oi.getOperatorElevator());
+//    		}
+//    	} else {
+//    		Robot.climber.setAnglePower(0);
+//    		Robot.climber.setElevatorPower(0);
+//    	}
+    	
+    	if (Robot.climber.getClimberCurrent() > stallCurrent) {
+    		stalled = true;
+    	}
+    	
+    	if (Math.abs(Robot.oi.getOperatorElevator()) < 0.5 && Robot.climber.getClimberCurrent() < stallCurrent) {
+    		stalled = false;
+    	}
+    	
     	if (!Robot.intake.isUp()) {
     		Robot.climber.setAnglePower(Robot.oi.getOperatorAngle() / 2);
-    		if (!Robot.climber.isClear() 
-    				|| (Robot.climber.isExtended() &&  Robot.oi.getOperatorElevator() < 0 
-    				|| Robot.climber.isRetracted() && Robot.oi.getOperatorElevator() > 0)) {
+    		if (!Robot.climber.isClear() || stalled) {
     			Robot.climber.setElevatorPower(0);
     		} else {
     			Robot.climber.setElevatorPower(Robot.oi.getOperatorElevator());

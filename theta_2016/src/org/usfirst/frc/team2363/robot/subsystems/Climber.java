@@ -99,5 +99,9 @@ public class Climber extends Subsystem {
     public void initDefaultCommand() {
         setDefaultCommand(new ClimberNothingCommand());
     }
+    
+    public double getClimberCurrent() {
+    	return Math.max(elevatorMotorA.getOutputCurrent(), elevatorMotorB.getOutputCurrent());
+    }
 }
 
