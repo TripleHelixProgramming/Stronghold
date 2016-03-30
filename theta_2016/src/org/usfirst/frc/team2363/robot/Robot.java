@@ -102,7 +102,6 @@ public class Robot extends IterativeRobot {
 			for(double centerX : centerXs) {
 				SmartDashboard.putNumber("CenterX", centerX);
 			}
-			}
 			Timer.delay(1);
 		}
     }
