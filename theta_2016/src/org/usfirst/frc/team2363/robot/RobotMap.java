@@ -64,14 +64,14 @@ public class RobotMap {
 	
 	//Shooter
 	public static final int SHOOTER_TALON = 0;
-	public static final int SHOOTER_ENCODER_A = 1;
+	public static final int SHOOTER_ENCODER_A = 9;
 	public static final int SHOOTER_ENCODER_B = 2;
 	
 	//Intake
 	public static final int INTAKE_TALON = 50;
 	public static final int INTAKE_SOLENOID_A = 7;
 	public static final int INTAKE_SOLENOID_B = 0;
-	public static final int BALL_LIMIT_CHANNEL = 0;
+	public static final int BALL_LIMIT_CHANNEL = 1;
 	
 	//Climber
 	public static final int CLIMBER_ANGLE = 20;

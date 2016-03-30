@@ -6,9 +6,12 @@ import java.util.Date;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import static org.usfirst.frc.team2363.robot.Robot.drivetrain;
 
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoFlipflop;
@@ -54,6 +57,8 @@ public class Robot extends IterativeRobot {
     SendableChooser chooser;
     CameraServer server;
     
+    NetworkTable table;
+    
     public Robot() {
     	drivetrain = new Drivetrain();
     	shooter = new Shooter();
@@ -64,6 +69,7 @@ public class Robot extends IterativeRobot {
         server.setQuality(50);
         server.startAutomaticCapture("cam0");
         climber = new Climber();
+        table = NetworkTable.getTable("GRIP/myContoursReport");
 	}
 	
     /**
@@ -77,20 +83,32 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData(shooter);
 		SmartDashboard.putData(intake);
 		
-		chooser.addObject("rough terrain autonomous", new AutoRoughTerrain());
-		chooser.addObject("low bar autonomous", new LowBarGroup());
-		chooser.addObject("rock wall autonomous", new AutoRockWall());
-		chooser.addObject("mote autonomous", new AutoMote());
-		chooser.addObject("flipflop autonomous", new FlipflopGroup());
-		chooser.addObject("rampart autonomous", new AutoRampart());
-		chooser.addObject("port autonomous", new PortGroup());
-		chooser.addObject("low bar shoot autonomous", new LowBarScoreGroup());
+		chooser.addObject("rough terrain autonomous (F)", new AutoRoughTerrain());
+		chooser.addObject("low bar autonomous (F)", new LowBarGroup());
+		chooser.addObject("rock wall autonomous (B)", new AutoRockWall());
+		chooser.addObject("mote autonomous (F)", new AutoMote());
+		chooser.addObject("flipflop autonomous (F)", new FlipflopGroup());
+		chooser.addObject("rampart autonomous (F)", new AutoRampart());
+		chooser.addObject("port autonomous (F)", new PortGroup());
+		chooser.addObject("low bar shoot autonomous (F)", new LowBarScoreGroup());
 		chooser.addDefault("Default", new JoystickDrive());
 		chooser.addObject("rotate test", new RotateAtSpeed());
 		
 		SmartDashboard.putData("autonomous chooser", chooser);
+		
+		double[] defaultValue = new double[0];
+		while (true) {
+			double[] centerXs = table.getNumberArray("centerX", defaultValue);
+			for(double centerX : centerXs) {
+				SmartDashboard.putNumber("CenterX", centerX);
+			}
+			}
+			Timer.delay(1);
+		}
     }
 	
+    
+    
 	/**
      * This function is called once each time the robot enters Disabled mode.
      * You can use it to reset any subsystem information you want to clear when
