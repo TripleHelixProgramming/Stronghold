@@ -100,12 +100,11 @@ public class Robot extends IterativeRobot {
 		while (true) {
 			double[] centerXs = table.getNumberArray("centerX", defaultValue);
 			for(double centerX : centerXs) {
-				SmartDashboard.putNumber("CenterX", centerX);
-			}
+			SmartDashboard.putNumber("CenterX", centerX);
 			}
 			Timer.delay(1);
 		}
-    }
+	}
 	
     
     
