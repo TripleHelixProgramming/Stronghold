@@ -18,6 +18,6 @@ public class FlipflopGroup extends CommandGroup {
     	addSequential(new IntakePosition(true));
     	addSequential(new WaitCommand(5));
     	addSequential(new BrakeCommand(false));
-    	addSequential(new DriveStraightCommand(), 3);
+    	addSequential(new DriveStraightCommand(0, -0.75), 2);
     }
 }

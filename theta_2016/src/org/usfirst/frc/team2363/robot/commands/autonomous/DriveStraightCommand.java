@@ -10,14 +10,19 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveStraightCommand extends Command {
 	
 	private final int angle;
+	private final double power;
 
     public DriveStraightCommand() {
-    	this(0);
+    	this(-0.55);
     }
     
-    public DriveStraightCommand(int angle) {
+    public DriveStraightCommand(double power) {
+    	this(0, power);
+    }
+    
+    public DriveStraightCommand(int angle, double power) {
         requires(Robot.drivetrain);
-        
+        this.power = power;
         this.angle = angle;
     }
 
@@ -28,7 +33,7 @@ public class DriveStraightCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.arcadeDrive(-0.55, getCorrectedTurn());
+    	Robot.drivetrain.arcadeDrive(power, getCorrectedTurn());
     }
     
     protected double getCorrectedTurn() {
