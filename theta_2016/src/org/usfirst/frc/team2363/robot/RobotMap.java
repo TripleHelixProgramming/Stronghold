@@ -63,7 +63,8 @@ public class RobotMap {
 	public static final int BRAKE_CHANNEL_B = 6;
 	
 	//Shooter
-	public static final int SHOOTER_TALON = 0;
+	public static final int SHOOTER_TALON_1 = 0;
+	public static final int SHOOTER_TALON_2 = 3;
 	public static final int SHOOTER_ENCODER_A = 1;
 	public static final int SHOOTER_ENCODER_B = 2;
 	

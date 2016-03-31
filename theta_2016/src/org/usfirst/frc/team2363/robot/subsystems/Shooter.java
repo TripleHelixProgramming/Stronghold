@@ -19,7 +19,8 @@ public class Shooter extends Subsystem {
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-	private CANTalon motor = new CANTalon(SHOOTER_TALON);
+	private CANTalon motor1 = new CANTalon(SHOOTER_TALON_1);
+	private CANTalon motor2 = new CANTalon(SHOOTER_TALON_2);
 	private Encoder encoder = new Encoder(SHOOTER_ENCODER_A, SHOOTER_ENCODER_B, true, EncodingType.k1X);
 	private BangBang bangBang = new BangBang();
 	private static final double SPEED = 5500;
@@ -67,9 +68,11 @@ public class Shooter extends Subsystem {
 //				DriverStation.reportError("" + encoder.getPeriod(), false);
     			if ((encoder.getPeriod() < -CONVERTED_SPEED || encoder.getStopped()) && running) {
 //				if (running) {
-					motor.set(-1);
+					motor1.set(-1);
+					motor2.set(1);
 				} else {
-					motor.set(0);
+					motor1.set(0);
+					motor2.set(0);
 				}
 				try {
 					sleep(10);
