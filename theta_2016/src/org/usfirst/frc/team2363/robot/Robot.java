@@ -32,6 +32,7 @@ import org.usfirst.frc.team2363.robot.subsystems.Climber;
 import org.usfirst.frc.team2363.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2363.robot.subsystems.Intake;
 import org.usfirst.frc.team2363.robot.subsystems.Shooter;
+import org.usfirst.frc.team2363.robot.subsystems.VisionProcessing;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -52,6 +53,7 @@ public class Robot extends IterativeRobot {
 	public static PowerDistributionPanel pdp;
 	public static Intake intake;
 	public static Climber climber;
+	public static VisionProcessing visionProcessing;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -96,14 +98,11 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("autonomous chooser", chooser);
 		
-		double[] defaultValue = new double[0];
-		while (true) {
-			double[] centerXs = table.getNumberArray("centerX", defaultValue);
-			for(double centerX : centerXs) {
-				SmartDashboard.putNumber("CenterX", centerX);
-			}
-			Timer.delay(1);
-		}
+		SmartDashboard.putNumber("VP Center X", Robot.visionProcessing.centerX());
+		SmartDashboard.putNumber("VP Center Y", Robot.visionProcessing.centerY());
+		SmartDashboard.putNumber("VP Area", Robot.visionProcessing.area());
+		SmartDashboard.putNumber("VP Height", Robot.visionProcessing.height());
+		SmartDashboard.putNumber("VP Width", Robot.visionProcessing.width());
     }
 	
     
