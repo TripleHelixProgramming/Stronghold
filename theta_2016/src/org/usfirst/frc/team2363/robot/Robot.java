@@ -1,21 +1,11 @@
 package org.usfirst.frc.team2363.robot;
 
-import java.io.PrintWriter;
-import java.util.Date;
-
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import static org.usfirst.frc.team2363.robot.Robot.drivetrain;
 
-import org.usfirst.frc.team2363.robot.commands.autonomous.AutoFlipflop;
-import org.usfirst.frc.team2363.robot.commands.autonomous.AutoLowBarCommand;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoMote;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRampart;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRockWall;
@@ -25,9 +15,7 @@ import org.usfirst.frc.team2363.robot.commands.autonomous.LowBarGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.LowBarScoreGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.PortGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.RotateAtSpeed;
-import org.usfirst.frc.team2363.robot.commands.autonomous.TestGyroCommand;
 import org.usfirst.frc.team2363.robot.commands.drivetrain.JoystickDrive;
-import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
 import org.usfirst.frc.team2363.robot.subsystems.Climber;
 import org.usfirst.frc.team2363.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2363.robot.subsystems.Intake;
@@ -36,7 +24,6 @@ import org.usfirst.frc.team2363.robot.subsystems.VisionProcessing;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -57,9 +44,6 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     SendableChooser chooser;
-    CameraServer server;
-    
-    NetworkTable table;
     
     public Robot() {
     	drivetrain = new Drivetrain();
@@ -67,11 +51,7 @@ public class Robot extends IterativeRobot {
     	intake = new Intake();
     	pdp = new PowerDistributionPanel();
     	chooser = new SendableChooser();
-    	server = CameraServer.getInstance();
-        server.setQuality(50);
-        server.startAutomaticCapture("cam0");
         climber = new Climber();
-        table = NetworkTable.getTable("GRIP/myContoursReport");
 	}
 	
     /**
@@ -94,15 +74,9 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("port autonomous (F)", new PortGroup());
 		chooser.addObject("low bar shoot autonomous (F)", new LowBarScoreGroup());
 		chooser.addDefault("Default", new JoystickDrive());
-		chooser.addObject("rotate test", new RotateAtSpeed());
+		chooser.addObject("rotate test", new RotateAtSpeed(60));
 		
 		SmartDashboard.putData("autonomous chooser", chooser);
-		
-		SmartDashboard.putNumber("VP Center X", Robot.visionProcessing.centerX());
-		SmartDashboard.putNumber("VP Center Y", Robot.visionProcessing.centerY());
-		SmartDashboard.putNumber("VP Area", Robot.visionProcessing.area());
-		SmartDashboard.putNumber("VP Height", Robot.visionProcessing.height());
-		SmartDashboard.putNumber("VP Width", Robot.visionProcessing.width());
     }
 	
     
@@ -128,6 +102,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
 		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
         SmartDashboard.putBoolean("Has Ball", intake.hasBall());
+        
+        SmartDashboard.putNumber("VP Center X", Robot.visionProcessing.centerX());
+		SmartDashboard.putNumber("VP Center Y", Robot.visionProcessing.centerY());
+		SmartDashboard.putNumber("VP Area", Robot.visionProcessing.area());
+		SmartDashboard.putNumber("VP Height", Robot.visionProcessing.height());
+		SmartDashboard.putNumber("VP Width", Robot.visionProcessing.width());
 	}
 
 	/**
@@ -202,7 +182,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Intake Override", oi.getIntakeOverride());
 		SmartDashboard.putNumber("Left DT Position", Robot.drivetrain.getLeftPosition());
 		SmartDashboard.putNumber("Right DT Position", Robot.drivetrain.getRightPosition());
-		SmartDashboard.putNumber("Angle", Robot.drivetrain.getAngle());
+		SmartDashboard.putNumber("Angle", drivetrain.getAngle());
 		SmartDashboard.putNumber("AccelZ", drivetrain.getAccelZ());
 		SmartDashboard.putNumber("AccelX", drivetrain.getAccelX());
 		SmartDashboard.putNumber("AccelY", drivetrain.getAccelY());
@@ -210,6 +190,13 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Drivetrain Brake", Robot.drivetrain.isBrakeEngaged());
 		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
 		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
+		
+		SmartDashboard.putNumber("VP Center X", visionProcessing.centerX());
+		SmartDashboard.putNumber("VP Center Y", visionProcessing.centerY());
+		SmartDashboard.putNumber("VP Area", visionProcessing.area());
+		SmartDashboard.putNumber("VP Height", visionProcessing.height());
+		SmartDashboard.putNumber("VP Width", visionProcessing.width());
+		SmartDashboard.putNumber("Angle to Target", visionProcessing.getAngleToTarget());
     }
     
     /**

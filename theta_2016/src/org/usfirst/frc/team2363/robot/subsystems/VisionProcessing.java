@@ -1,19 +1,30 @@
 package org.usfirst.frc.team2363.robot.subsystems;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.vision.USBCamera;
 
 /**
  *
  */
-public class VisionProcessing extends Subsystem {
+public class VisionProcessing {
     
-    NetworkTable table;
+    private final NetworkTable table;
+    private final CameraServer server;
+    private final USBCamera camera;
+    
+    private final int RES_X = 240;
+    private final double VIEWING_ANGLE = 61;
     
     public VisionProcessing() {
         table = NetworkTable.getTable("GRIP/myContoursReport");
+        camera = new USBCamera("cam0");
+        camera.setBrightness(0);
+        
+        server = CameraServer.getInstance();
+        server.setQuality(50);
+        server.startAutomaticCapture(camera);
     }
     
     public double centerX() {
@@ -70,10 +81,9 @@ public class VisionProcessing extends Subsystem {
 			Timer.delay(1);
 		}
     }
-
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+    
+    public double getAngleToTarget() {
+    	return ((centerX() / RES_X) * VIEWING_ANGLE) - (VIEWING_ANGLE / 2);
     }
 }
 
