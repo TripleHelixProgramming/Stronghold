@@ -1,5 +1,11 @@
 package org.usfirst.frc.team2363.robot.subsystems;
 
+import java.util.Date;
+
+import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.Image;
+import com.ni.vision.NIVision.ImageType;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -84,6 +90,13 @@ public class VisionProcessing {
     
     public double getAngleToTarget() {
     	return ((centerX() / RES_X) * VIEWING_ANGLE) - (VIEWING_ANGLE / 2);
+    }
+    
+    public void saveCurrentImage() {
+    	NIVision.RGBValue rgbValues = new NIVision.RGBValue();
+    	Image currentImage = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
+    	camera.getImage(currentImage);
+    	NIVision.imaqWriteFile(currentImage, "/home/lvuser/image" + new Date() + ".jpg", rgbValues);
     }
 }
 
