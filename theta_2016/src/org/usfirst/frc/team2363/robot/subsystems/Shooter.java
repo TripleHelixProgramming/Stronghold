@@ -1,15 +1,12 @@
 package org.usfirst.frc.team2363.robot.subsystems;
 
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
-
-import org.usfirst.frc.team2363.robot.Robot;
-
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -22,6 +19,8 @@ public class Shooter extends Subsystem {
 	private CANTalon motor1 = new CANTalon(SHOOTER_TALON_1);
 	private CANTalon motor2 = new CANTalon(SHOOTER_TALON_2);
 	private Encoder encoder = new Encoder(SHOOTER_ENCODER_A, SHOOTER_ENCODER_B, true, EncodingType.k1X);
+	private final DoubleSolenoid hood = new DoubleSolenoid(SHOOTER_HOOD_A, SHOOTER_HOOD_B);
+	
 	private BangBang bangBang = new BangBang();
 	private static final double SPEED = 5500;
 	private static final double CONVERTED_SPEED = 60 / (SPEED * 120.0);
@@ -35,6 +34,14 @@ public class Shooter extends Subsystem {
 	}
 
 	public void initDefaultCommand() {     	
+	}
+	
+	public void openHood() {
+		hood.set(Value.kForward);
+	}
+	
+	public void closeHood() {
+		hood.set(Value.kReverse);
 	}
 
 	public double getRPM() {
