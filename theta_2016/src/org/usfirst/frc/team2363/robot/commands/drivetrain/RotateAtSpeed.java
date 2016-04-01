@@ -1,7 +1,6 @@
-package org.usfirst.frc.team2363.robot.commands.autonomous;
+package org.usfirst.frc.team2363.robot.commands.drivetrain;
 
 import org.usfirst.frc.team2363.robot.Robot;
-import org.usfirst.frc.team2363.robot.commands.drivetrain.RollingAverager;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
