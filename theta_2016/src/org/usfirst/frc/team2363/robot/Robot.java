@@ -96,14 +96,14 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("autonomous chooser", chooser);
 		
-		double[] defaultValue = new double[0];
-		while (true) {
-			double[] centerXs = table.getNumberArray("centerX", defaultValue);
-			for(double centerX : centerXs) {
-			SmartDashboard.putNumber("CenterX", centerX);
-			}
-			Timer.delay(1);
-		}
+//		double[] defaultValue = new double[0];
+//		while (true) {
+//			double[] centerXs = table.getNumberArray("centerX", defaultValue);
+//			for(double centerX : centerXs) {
+//			SmartDashboard.putNumber("CenterX", centerX);
+//			}
+//			Timer.delay(1);
+//		}
 	}
 	
     
@@ -120,6 +120,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Robot.oi.turnOffRumble();
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Shooter RPM", shooter.getRPM());
 		SmartDashboard.putNumber("POV", Robot.oi.getPOV());
 		SmartDashboard.putNumber("AccelZ", drivetrain.getAccelZ());
 		SmartDashboard.putNumber("AccelX", drivetrain.getAccelX());
@@ -186,6 +187,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+    	shooter.setPower(0.75);
         Scheduler.getInstance().run();
         
         if (shooter.isAtSpeed()) {
