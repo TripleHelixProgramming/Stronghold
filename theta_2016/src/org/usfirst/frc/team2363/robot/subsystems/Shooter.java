@@ -3,10 +3,12 @@ package org.usfirst.frc.team2363.robot.subsystems;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 
@@ -19,12 +21,14 @@ public class Shooter extends Subsystem {
 	// here. Call these from Commands.
 	private CANTalon motor1 = new CANTalon(SHOOTER_TALON_1);
 	private CANTalon motor2 = new CANTalon(SHOOTER_TALON_2);
-//	private Encoder encoder = new Encoder(SHOOTER_ENCODER_A, SHOOTER_ENCODER_B, true, EncodingType.k1X);
+	private Counter encoder = new Counter(SHOOTER_ENCODER_A);
 	private final DoubleSolenoid hood = new DoubleSolenoid(SHOOTER_HOOD_A, SHOOTER_HOOD_B);
+	private Relay flashlight = new Relay(FLASHLIGHT_RELAY);
+	private Relay cameraLight = new Relay(CAMERA_RELAY);
 	
 	private BangBang bangBang = new BangBang();
 	private static final double SPEED = 5000;
-	private static final double CONVERTED_SPEED = 60 / (SPEED * 120.0);
+	private static final double CONVERTED_SPEED = 60 / SPEED;
 
 	private boolean running;
 
@@ -47,25 +51,35 @@ public class Shooter extends Subsystem {
 	}
 
 	public double getRPM() {
-//		if (encoder.getStopped()) {
-//			return 0;
-//		}
-//		return Math.abs(encoder.getRate() * 60.0);
-		return Math.abs(motor1.getEncVelocity() / 13.66);
+		if (encoder.getStopped()) {
+			return 0;
+		}
+		return Math.abs(1/encoder.getPeriod() * 60.0);
+//		return Math.abs(motor1.getEncVelocity() / 13.66);
 	}
 
 	public void on() {
 		running = true;
+		cameraLight.set(Relay.Value.kForward);
 //		DriverStation.reportError("ON", false);
 		//    	motor.set(-1);
 	}
 
 	public void off() {
 		running = false;
+		cameraLight.set(Relay.Value.kReverse);
 //		DriverStation.reportError("OFF", false);
 		//    	motor.set(0);
 	}
 
+	public void flashlightOn() {
+		flashlight.set(Relay.Value.kForward);
+	}
+	
+	public void flashlightOff() {
+		flashlight.set(Relay.Value.kReverse);
+	}
+	
 	public boolean isAtSpeed() {
 		return getRPM() > SPEED - 25 && getRPM() < SPEED + 25;
 	}
@@ -75,18 +89,17 @@ public class Shooter extends Subsystem {
 		@Override
 		public void run() {
 			while (true) {
-				double rpm = getRPM();
 //				DriverStation.reportError("" + encoder.getPeriod(), false);
-    			if ((rpm < SPEED || rpm == 0) && running) {
+    			if ((encoder.getPeriod() > CONVERTED_SPEED || encoder.getStopped()) && running) {
 //				if (running) {
 					motor1.set(1);
 					motor2.set(1);
 				} else {
-//					motor1.set(0);
-//					motor2.set(0);
+					motor1.set(0);
+					motor2.set(0);
 				}
 				try {
-					sleep(10);
+					sleep(20);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
