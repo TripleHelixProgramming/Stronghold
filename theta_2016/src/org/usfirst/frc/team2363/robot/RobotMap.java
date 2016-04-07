@@ -76,7 +76,7 @@ public class RobotMap {
 	public static final int INTAKE_TALON = 50;
 	public static final int INTAKE_SOLENOID_A = 7;
 	public static final int INTAKE_SOLENOID_B = 0;
-	public static final int BALL_LIMIT_CHANNEL = 0;
+	public static final int BALL_LIMIT_CHANNEL = 1;
 	
 	
 	//Climber
