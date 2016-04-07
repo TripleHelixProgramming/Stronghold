@@ -60,6 +60,7 @@ public class Shooter extends Subsystem {
 
 	public void on() {
 		running = true;
+		flashlight.set(Relay.Value.kForward);
 		cameraLight.set(Relay.Value.kForward);
 //		DriverStation.reportError("ON", false);
 		//    	motor.set(-1);
@@ -67,6 +68,7 @@ public class Shooter extends Subsystem {
 
 	public void off() {
 		running = false;
+		flashlight.set(Relay.Value.kReverse);
 		cameraLight.set(Relay.Value.kReverse);
 //		DriverStation.reportError("OFF", false);
 		//    	motor.set(0);
