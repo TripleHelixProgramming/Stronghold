@@ -65,10 +65,10 @@ public class RobotMap {
 	//Shooter
 	public static final int SHOOTER_TALON_1 = 60;
 	public static final int SHOOTER_TALON_2 = 61;
-	public static final int SHOOTER_ENCODER_A = 1;
+	public static final int SHOOTER_ENCODER_A = 9;
 	public static final int SHOOTER_ENCODER_B = 2;
-	public static final int SHOOTER_HOOD_A = 3;
-	public static final int SHOOTER_HOOD_B = 4;
+	public static final int SHOOTER_HOOD_A = 2;
+	public static final int SHOOTER_HOOD_B = 5;
 	public static final int CAMERA_RELAY = 0;
 	public static final int FLASHLIGHT_RELAY = 1;
 	

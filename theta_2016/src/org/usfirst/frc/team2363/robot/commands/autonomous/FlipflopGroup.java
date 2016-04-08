@@ -14,10 +14,10 @@ public class FlipflopGroup extends CommandGroup {
     public  FlipflopGroup() {
     	addSequential(new IntakePosition(false));
     	addSequential(new AutoFlipflop());
-    	addSequential(new BrakeCommand(true));
+//    	addSequential(new BrakeCommand(true));
     	addSequential(new IntakePosition(true));
     	addSequential(new WaitCommand(5));
-    	addSequential(new BrakeCommand(false));
+//    	addSequential(new BrakeCommand(false));
     	addSequential(new DriveStraightCommand(0, -0.75), 2);
     }
 }

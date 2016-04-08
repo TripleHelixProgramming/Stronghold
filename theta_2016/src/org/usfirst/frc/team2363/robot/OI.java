@@ -73,8 +73,8 @@ public class OI {
 		shooterOn.whenPressed(new ShooterCommand(true));
 		JoystickButton shooterOff = new JoystickButton(operatorController, R2);
 		shooterOff.whenPressed(new ShooterCommand(false));
-		JoystickButton toggleClimberState = new JoystickButton(operatorController, TOUCHPAD);
-		toggleClimberState.toggleWhenPressed(new ClimberCommand());
+//		JoystickButton toggleClimberState = new JoystickButton(operatorController, TOUCHPAD);
+//		toggleClimberState.toggleWhenPressed(new ClimberCommand());
 		JoystickButton toggleClimberOvrride = new JoystickButton(operatorController, PS);
 		toggleClimberOvrride.toggleWhenPressed(new ClimberOverrideCommand());
 //		JoystickButton toggleBrakeOp = new JoystickButton(operatorController, L2);

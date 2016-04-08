@@ -27,7 +27,7 @@ public class Shooter extends Subsystem {
 	private Relay cameraLight = new Relay(CAMERA_RELAY);
 	
 	private BangBang bangBang = new BangBang();
-	private static final double SPEED = 5000;
+	private static final double SPEED =5000;
 	private static final double CONVERTED_SPEED = 60 / SPEED;
 
 	private boolean running;
@@ -60,6 +60,7 @@ public class Shooter extends Subsystem {
 
 	public void on() {
 		running = true;
+		openHood();
 		flashlight.set(Relay.Value.kForward);
 		cameraLight.set(Relay.Value.kForward);
 //		DriverStation.reportError("ON", false);
@@ -68,6 +69,7 @@ public class Shooter extends Subsystem {
 
 	public void off() {
 		running = false;
+		closeHood();
 		flashlight.set(Relay.Value.kReverse);
 		cameraLight.set(Relay.Value.kReverse);
 //		DriverStation.reportError("OFF", false);
