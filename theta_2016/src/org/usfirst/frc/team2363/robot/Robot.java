@@ -94,6 +94,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("low bar shoot autonomous (F)", new LowBarScoreGroup());
 		chooser.addDefault("Default", new JoystickDrive());
 		chooser.addObject("rotate test", new RotateAtSpeed());
+
 		
 		SmartDashboard.putData("autonomous chooser", chooser);
 		

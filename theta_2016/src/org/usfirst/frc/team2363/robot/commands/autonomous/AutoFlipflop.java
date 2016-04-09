@@ -29,7 +29,7 @@ public class AutoFlipflop extends DriveStraightCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut() || Robot.drivetrain.getLeftPosition() >= 50 || Robot.drivetrain.getRightPosition() >= 50;
+        return isTimedOut() || Robot.drivetrain.getLeftPosition() >= 45 || Robot.drivetrain.getRightPosition() >= 45;
     }
 
     // Called once after isFinished returns true

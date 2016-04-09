@@ -25,7 +25,7 @@ public class Climber extends Subsystem {
 	private CANTalon elevatorMotorB = new CANTalon(CLIMBER_ELEVATOR_B);
 	
 	//Pneumatics
-	private DoubleSolenoid solenoid = new DoubleSolenoid(CLIMBER_PNEUMATICS_EXTEND, CLIMBER_PNEUMATICS_RETRACT);
+//	private DoubleSolenoid solenoid = new DoubleSolenoid(CLIMBER_PNEUMATICS_EXTEND, CLIMBER_PNEUMATICS_RETRACT);
 	
 	//Encoders
 	private Encoder elevatorEncoder = new Encoder(CLIMBER_ELEVATOR_ENCODER_A, CLIMBER_ELEVATOR_ENCODER_B, true, EncodingType.k4X);
@@ -52,22 +52,22 @@ public class Climber extends Subsystem {
     	}
     }
     
-    private void hookExtend() {
-    	solenoid.set(Value.kForward);
-    }
+//    private void hookExtend() {
+//    	solenoid.set(Value.kForward);
+//    }
     
-    private void hookRetract() {
-    	solenoid.set(Value.kReverse);
-    }
+//    private void hookRetract() {
+//    	solenoid.set(Value.kReverse);
+//    }
     
-    public void hookToggle() {
+/*    public void hookToggle() {
     	if (solenoid.get() == Value.kForward) {
     		hookRetract();
     	} else {
     		hookExtend();
     	}
     }
-    
+*/    
     public boolean isUp() {
     	return getAngle() > 105;
     }
