@@ -21,6 +21,7 @@ import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRampart;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRockWall;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRoughTerrain;
 import org.usfirst.frc.team2363.robot.commands.autonomous.FlipflopGroup;
+import org.usfirst.frc.team2363.robot.commands.autonomous.FlipflopRamGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.LowBarGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.LowBarScoreGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.PortGroup;
@@ -93,6 +94,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("low bar shoot autonomous (F)", new LowBarScoreGroup());
 		chooser.addDefault("Default", new JoystickDrive());
 		chooser.addObject("rotate test", new RotateAtSpeed());
+		chooser.addObject("flipflop ramming autonomous (F)", new FlipflopRamGroup());
 		
 		SmartDashboard.putData("autonomous chooser", chooser);
 		
