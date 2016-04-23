@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team2363.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -75,9 +76,10 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("low bar shoot autonomous (F)", new LowBarScoreGroup());
 		chooser.addDefault("Default", new JoystickDrive());
 		chooser.addObject("rotate test", new RotateAtSpeed(60));
+
 		
 		SmartDashboard.putData("autonomous chooser", chooser);
-    }
+	}
 	
     
     
@@ -93,6 +95,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Robot.oi.turnOffRumble();
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Shooter RPM", shooter.getRPM());
 		SmartDashboard.putNumber("POV", Robot.oi.getPOV());
 		SmartDashboard.putNumber("AccelZ", drivetrain.getAccelZ());
 		SmartDashboard.putNumber("AccelX", drivetrain.getAccelX());
@@ -138,6 +141,7 @@ public class Robot extends IterativeRobot {
         
         Robot.drivetrain.resetEncoders();
         Robot.drivetrain.brakeDisengage();
+        Robot.shooter.closeHood();
     }
 
     /**
@@ -156,6 +160,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        Robot.shooter.closeHood();
         
         Robot.drivetrain.resetEncoders();
         Robot.drivetrain.brakeDisengage();
@@ -165,6 +170,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+//    	shooter.setPower(0.75);
         Scheduler.getInstance().run();
         
         if (shooter.isAtSpeed()) {

@@ -28,6 +28,8 @@ public class IntakeMovement extends Command {
 //    				Disabled because we don't have a shooter yet!
     				|| Robot.oi.getIntakeOverride()) {
     			Robot.intake.in();
+    		} else if (Robot.intake.isUp()) {
+    			Robot.intake.shoot();
     		} else {
     			Robot.intake.off();
     		}

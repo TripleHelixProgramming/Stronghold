@@ -9,7 +9,7 @@ public class AutoLowBarCommand extends DriveStraightCommand {
 
     public AutoLowBarCommand() {
     	super();
-    	setTimeout(5);
+    	setTimeout(3);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class AutoLowBarCommand extends DriveStraightCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.arcadeDrive(-.5, getCorrectedTurn());
+    	Robot.drivetrain.arcadeDrive(-.65, getCorrectedTurn());
     }
 
     // Make this return true when this Command no longer needs to run execute()

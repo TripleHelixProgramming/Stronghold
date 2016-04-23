@@ -63,9 +63,14 @@ public class RobotMap {
 	public static final int BRAKE_CHANNEL_B = 6;
 	
 	//Shooter
-	public static final int SHOOTER_TALON = 0;
+	public static final int SHOOTER_TALON_1 = 60;
+	public static final int SHOOTER_TALON_2 = 61;
 	public static final int SHOOTER_ENCODER_A = 9;
 	public static final int SHOOTER_ENCODER_B = 2;
+	public static final int SHOOTER_HOOD_A = 5;
+	public static final int SHOOTER_HOOD_B = 2;
+	public static final int CAMERA_RELAY = 1;
+	public static final int FLASHLIGHT_RELAY = 0;
 	
 	//Intake
 	public static final int INTAKE_TALON = 50;
@@ -73,12 +78,13 @@ public class RobotMap {
 	public static final int INTAKE_SOLENOID_B = 0;
 	public static final int BALL_LIMIT_CHANNEL = 1;
 	
+	
 	//Climber
 	public static final int CLIMBER_ANGLE = 20;
 	public static final int CLIMBER_ELEVATOR_A = 40;
 	public static final int CLIMBER_ELEVATOR_B = 41;
-	public static final int CLIMBER_PNEUMATICS_EXTEND = 2;
-	public static final int CLIMBER_PNEUMATICS_RETRACT = 5;
+//	public static final int CLIMBER_PNEUMATICS_EXTEND = 2;
+//	public static final int CLIMBER_PNEUMATICS_RETRACT = 5;
 	public static final int CLIMBER_ELEVATOR_ENCODER_A = 7;
 	public static final int CLIMBER_ELEVATOR_ENCODER_B = 8;
 }

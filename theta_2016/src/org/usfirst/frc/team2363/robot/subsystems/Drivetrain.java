@@ -19,29 +19,29 @@ import org.usfirst.frc.team2363.robot.commands.drivetrain.JoystickDrive;
 import com.kauailabs.navx.frc.AHRS;
 
 public class Drivetrain extends Subsystem {
-	
+
 	//Talons
 	private SpeedController frontLeft = new CANTalon(FRONT_LEFT_TALON_CHANNEL);
 	private SpeedController frontRight = new CANTalon(FRONT_RIGHT_TALON_CHANNEL);
 	private SpeedController rearLeft = new CANTalon(REAR_LEFT_TALON_CHANNEL);
 	private SpeedController rearRight = new CANTalon(REAR_RIGHT_TALON_CHANNEL);
-	
+
 	//Encoders
 	private Encoder leftEncoder = new Encoder(LEFT_DRIVE_ENCODER_A, LEFT_DRIVE_ENCODER_B, false, EncodingType.k4X);
 	private Encoder rightEncoder = new Encoder(RIGHT_DRIVE_ENCODER_A, RIGHT_DRIVE_ENCODER_B, false, EncodingType.k4X);
 	private DoubleSolenoid brake = new DoubleSolenoid(BRAKE_CHANNEL_A, BRAKE_CHANNEL_B);
-	
+
 	private RobotDrive robotDrive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
-	
+
 	private AHRS ahrs;
 	private Gyro gyro;
-	
+
 	public Drivetrain() {
 		try {
-            ahrs = new AHRS(SPI.Port.kMXP); 
-        } catch (RuntimeException ex ) {
-            DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
-        }
+			ahrs = new AHRS(SPI.Port.kMXP); 
+		} catch (RuntimeException ex ) {
+			DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+		}
 		leftEncoder.setDistancePerPulse(0.05947 * 1.206935);
 		leftEncoder.setSamplesToAverage(12);
 		leftEncoder.setMinRate(15);
@@ -49,14 +49,14 @@ public class Drivetrain extends Subsystem {
 		rightEncoder.setDistancePerPulse(0.05947 * 1.206935);
 		rightEncoder.setSamplesToAverage(12);
 		rightEncoder.setMinRate(15);
-		
+
 		gyro = new ADXRS450_Gyro();
 	}
-	
+
 	public void arcadeDrive(double throttle, double turn) {
 		robotDrive.arcadeDrive(throttle, turn);
 	}
-	
+
 	public double getLeftPosition() {
 		return leftEncoder.getDistance();
 	}
@@ -77,59 +77,94 @@ public class Drivetrain extends Subsystem {
 		rightEncoder.reset();
 		leftEncoder.reset();
 	}
-	
+
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new JoystickDrive());
-		
+
 	}
-	
+
 	public double getAngle() {
-//		return (ahrs.getYaw() + gyro.getAngle()) / 2;
-		return (ahrs.getYaw());
+		try {
+			//		return (ahrs.getYaw() + gyro.getAngle()) / 2;
+			return (ahrs.getYaw());
+		} catch (Exception e) {
+			return 0;
+		}
 	}
-	
+
 	public double getGyroAngle() {
-		return gyro.getAngle();
+		try {
+			return gyro.getAngle();
+		} catch (Exception e) {
+			return 0;
+		}
+
 	}
-	
+
 	public void resetAngle() {
-		ahrs.zeroYaw();
-		gyro.reset();
+		try { 
+			ahrs.zeroYaw();
+			gyro.reset();
+		} catch(Exception e) {}
 	}
-	
+
 	public double getAccelZ() {
-		return ahrs.getVelocityZ();
+		try { 
+			return ahrs.getVelocityZ();
+		} catch (Exception e) {
+			return 0;
+		}
 	}
-	
+
 	public double getRotationSpeed() {
-		return gyro.getRate();
+		try { 
+			return gyro.getRate();
+		} catch (Exception e) {
+			return 0;
+		}
 	}
-	
+
 	public double getAccelX() {
-		return ahrs.getVelocityX();
+		try { 
+			return ahrs.getVelocityX();
+		} catch (Exception e) {
+			return 0;
+		}
 	}
-	
+
 	public double getAccelY() {
-		return ahrs.getVelocityY();
+		try { 
+			return ahrs.getVelocityY();
+		} catch (Exception e) {
+			return 0;
+		}
 	}
-	
+
 	public double getTilt() {
-		return ahrs.getPitch();
+		try { 
+			return ahrs.getPitch();
+		} catch (Exception e) {
+			return 0;
+		}
 	}
-	
+
 	public boolean isTilted() {
-		return getTilt() > 1 || getTilt() < -1;
+		try { 
+			return getTilt() > 1 || getTilt() < -1;
+		} catch (Exception e) {
+			return false;
+		}
 	}
-    public void brakeEngage() {
-    	brake.set(Value.kForward);
-    }
-    
-    public void brakeDisengage() {
-    	brake.set(Value.kReverse);
-    }
-    
-    public boolean isBrakeEngaged() {
-    	return brake.get() == Value.kForward;
-    }
+	public void brakeEngage() {
+		brake.set(Value.kForward);
+	}
+
+	public void brakeDisengage() {
+		brake.set(Value.kReverse);
+	}
+
+	public boolean isBrakeEngaged() {
+		return brake.get() == Value.kForward;
+	}
 }
