@@ -27,7 +27,7 @@ public class Shooter extends Subsystem {
 	private Relay cameraLight = new Relay(CAMERA_RELAY);
 	
 	private BangBang bangBang = new BangBang();
-	private static final double SPEED =7000;
+	private static final double SPEED = 6500;
 	private static final double CONVERTED_SPEED = 60 / SPEED;
 
 	private boolean running;

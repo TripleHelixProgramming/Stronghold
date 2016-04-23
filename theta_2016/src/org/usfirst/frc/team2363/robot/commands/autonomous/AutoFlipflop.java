@@ -24,7 +24,7 @@ public class AutoFlipflop extends DriveStraightCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.arcadeDrive(-.5, getCorrectedTurn());
+    	Robot.drivetrain.arcadeDrive(-.5 /*-.7*/, getCorrectedTurn());
     }
 
     // Make this return true when this Command no longer needs to run execute()
