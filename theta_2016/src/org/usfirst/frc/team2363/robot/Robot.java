@@ -53,6 +53,7 @@ public class Robot extends IterativeRobot {
     	pdp = new PowerDistributionPanel();
     	chooser = new SendableChooser();
         climber = new Climber();
+        visionProcessing = new VisionProcessing();
 	}
 	
     /**
@@ -105,12 +106,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
 		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
         SmartDashboard.putBoolean("Has Ball", intake.hasBall());
-        
-        SmartDashboard.putNumber("VP Center X", Robot.visionProcessing.centerX());
-		SmartDashboard.putNumber("VP Center Y", Robot.visionProcessing.centerY());
-		SmartDashboard.putNumber("VP Area", Robot.visionProcessing.area());
-		SmartDashboard.putNumber("VP Height", Robot.visionProcessing.height());
-		SmartDashboard.putNumber("VP Width", Robot.visionProcessing.width());
 	}
 
 	/**
@@ -197,11 +192,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
 		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
 		
-		SmartDashboard.putNumber("VP Center X", visionProcessing.centerX());
-		SmartDashboard.putNumber("VP Center Y", visionProcessing.centerY());
-		SmartDashboard.putNumber("VP Area", visionProcessing.area());
-		SmartDashboard.putNumber("VP Height", visionProcessing.height());
-		SmartDashboard.putNumber("VP Width", visionProcessing.width());
 		SmartDashboard.putNumber("Angle to Target", visionProcessing.getAngleToTarget());
     }
     

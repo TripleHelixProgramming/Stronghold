@@ -20,6 +20,7 @@ import static org.usfirst.frc.team2363.robot.RobotMap.X;
 import org.usfirst.frc.team2363.robot.commands.climber.ClimberCommand;
 import org.usfirst.frc.team2363.robot.commands.climber.ClimberOverrideCommand;
 import org.usfirst.frc.team2363.robot.commands.drivetrain.BrakeCommand;
+import org.usfirst.frc.team2363.robot.commands.drivetrain.RotateToTarget;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakeMovement;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakePosition;
 import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
@@ -76,13 +77,14 @@ public class OI {
 //		JoystickButton toggleClimberState = new JoystickButton(operatorController, TOUCHPAD);
 //		toggleClimberState.toggleWhenPressed(new ClimberCommand());
 		JoystickButton toggleClimberOvrride = new JoystickButton(operatorController, PS);
-		toggleClimberOvrride.toggleWhenPressed(new ClimberOverrideCommand());
+		toggleClimberOvrride.toggleWhenPressed(new RotateToTarget());
 //		JoystickButton toggleBrakeOp = new JoystickButton(operatorController, L2);
 //		toggleBrakeOp.whenPressed(new BrakeCommand(true));
 //		toggleBrakeOp.whenReleased(new BrakeCommand(false));
 		JoystickButton flashlightOp = new JoystickButton(operatorController, L2);
 		flashlightOp.whenPressed(new ShooterFlashlight(true));
 		flashlightOp.whenReleased(new ShooterFlashlight(false));
+		
 	}
 	
 	public double getThrottle () {

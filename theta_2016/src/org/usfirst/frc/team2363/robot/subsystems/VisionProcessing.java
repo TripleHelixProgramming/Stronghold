@@ -15,88 +15,105 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
  *
  */
 public class VisionProcessing {
-    
-    private final NetworkTable table;
-    private final CameraServer server;
-    private final USBCamera camera;
-    
-    private final int RES_X = 240;
-    private final double VIEWING_ANGLE = 61;
-    
-    public VisionProcessing() {
-        table = NetworkTable.getTable("GRIP/myContoursReport");
-        camera = new USBCamera("cam0");
-        camera.setBrightness(0);
-        
-        server = CameraServer.getInstance();
-        server.setQuality(50);
-        server.startAutomaticCapture(camera);
-    }
-    
-    public double centerX() {
-    	double[] defaultValue = new double[0];
-		while (true) {
-			double[] centerXs = table.getNumberArray("centerX", defaultValue);
-			for(double centerX : centerXs) {
-				return centerX;
-			}
-			Timer.delay(1);
+
+	private final NetworkTable table;
+	private final CameraServer server;
+	private final USBCamera camera;
+
+	private final int RES_X = 240;
+	private final double VIEWING_ANGLE = 61;
+
+	public VisionProcessing() {
+		table = NetworkTable.getTable("GRIP/myContoursReport");
+		camera = new USBCamera("cam0");
+		camera.setBrightness(0);
+
+		server = CameraServer.getInstance();
+		server.setQuality(50);
+		server.startAutomaticCapture(camera);
+	}
+
+	//    public double centerX() {
+	//    	double[] defaultValue = new double[0];
+	//		while (true) {
+	//			double[] centerXs = table.getNumberArray("centerX", defaultValue);
+	//			for(double centerX : centerXs) {
+	//				return centerX;
+	//			}
+	//			Timer.delay(1);
+	//		}
+	//    }
+	//    
+	//    public double centerY() {
+	//    	double[] defaultValue = new double[0];
+	//		while (true) {
+	//			double[] centerYs = table.getNumberArray("centerY", defaultValue);
+	//			for(double centerY : centerYs) {
+	//				return centerY;
+	//			}
+	//			Timer.delay(1);
+	//		}
+	//    }
+	//    
+	//    public double area() {
+	//    	double[] defaultValue = new double[0];
+	//		while (true) {
+	//			double[] areas = table.getNumberArray("area", defaultValue);
+	//			for(double area : areas) {
+	//				return area;
+	//			}
+	//			Timer.delay(1);
+	//		}
+	//    }
+	//    
+	//    public double height() {
+	//    	double[] defaultValue = new double[0];
+	//		while (true) {
+	//			double[] heights = table.getNumberArray("height", defaultValue);
+	//			for(double height : heights) {
+	//				return height;
+	//			}
+	//			Timer.delay(1);
+	//		}
+	//    }
+	//    
+	//    public double width() {
+	//    	double[] defaultValue = new double[0];
+	//		while (true) {
+	//			double[] widths = table.getNumberArray("width", defaultValue);
+	//			for(double width : widths) {
+	//				return width;
+	//			}
+	//			Timer.delay(1);
+	//		}
+	//    }
+
+	public double centerX() {
+		double[] defaultValue = new double[0];
+		double largestArea = 0;
+		int largestIndex = 0;
+		double[] areas = table.getNumberArray("area", defaultValue);
+		if (areas.length == 0) {
+			return 0;
 		}
-    }
-    
-    public double centerY() {
-    	double[] defaultValue = new double[0];
-		while (true) {
-			double[] centerYs = table.getNumberArray("centerY", defaultValue);
-			for(double centerY : centerYs) {
-				return centerY;
-			}
-			Timer.delay(1);
+		for(int i = 0; i < areas.length; i++) {
+			if (areas[i] > largestArea)
+				largestArea = areas[i];
+			largestIndex = i;
 		}
-    }
-    
-    public double area() {
-    	double[] defaultValue = new double[0];
-		while (true) {
-			double[] areas = table.getNumberArray("area", defaultValue);
-			for(double area : areas) {
-				return area;
-			}
-			Timer.delay(1);
-		}
-    }
-    
-    public double height() {
-    	double[] defaultValue = new double[0];
-		while (true) {
-			double[] heights = table.getNumberArray("height", defaultValue);
-			for(double height : heights) {
-				return height;
-			}
-			Timer.delay(1);
-		}
-    }
-    
-    public double width() {
-    	double[] defaultValue = new double[0];
-		while (true) {
-			double[] widths = table.getNumberArray("width", defaultValue);
-			for(double width : widths) {
-				return width;
-			}
-			Timer.delay(1);
-		}
-    }
-    
-    public double getAngleToTarget() {
-    	return ((centerX() / RES_X) * VIEWING_ANGLE) - (VIEWING_ANGLE / 2);
-    }
-    
-    public void saveCurrentImage() {
-    	NIVision.RGBValue rgbValues = new NIVision.RGBValue();
-    	Image currentImage = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
-    	camera.getImage(currentImage);
-    	NIVision.imaqWriteFile(currentImage, "/home/lvuser/image" + new Date() + ".jpg", rgbValues);
-    }
+		return table.getNumberArray("centerX", defaultValue)[largestIndex];
+	}
+
+	public double getAngleToTarget() {
+		double centerX = centerX();
+		return ((centerX / RES_X) * VIEWING_ANGLE) - (VIEWING_ANGLE / 2);
+	}
+
+	public void saveCurrentImage() {
+		NIVision.RGBValue rgbValues = new NIVision.RGBValue();
+		Image currentImage = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
+		camera.getImage(currentImage);
+		NIVision.imaqWriteFile(currentImage, "/home/lvuser/image" + new Date() + ".jpg", rgbValues);
+	}
 }
 
