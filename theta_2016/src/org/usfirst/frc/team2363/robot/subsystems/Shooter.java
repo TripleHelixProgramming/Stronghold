@@ -44,10 +44,12 @@ public class Shooter extends Subsystem {
 	
 	public void openHood() {
 		hood.set(Value.kForward);
+		cameraLight.set(Relay.Value.kForward);
 	}
 	
 	public void closeHood() {
 		hood.set(Value.kReverse);
+		cameraLight.set(Relay.Value.kReverse);
 	}
 
 	public double getRPM() {

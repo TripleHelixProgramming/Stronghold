@@ -92,6 +92,19 @@ public class VisionProcessing {
 	//			Timer.delay(1);
 	//		}
 	//    }
+	
+	private int getLargestIndex() {
+		double[] defaultValue = new double[0];
+		double largestArea = 0;
+		int largestIndex = -1;
+		double[] areas = table.getNumberArray("area", defaultValue);
+		for(int i = 0; i < areas.length; i++) {
+			if (areas[i] > largestArea)
+				largestArea = areas[i];
+			largestIndex = i;
+		}
+		return largestIndex;
+	}
 
 	public double centerX() {
 		double[] defaultValue = new double[0];
@@ -116,6 +129,17 @@ public class VisionProcessing {
 		}
 		SmartDashboard.putNumber("CenterX", centerX);
 		return ((centerX / RES_X) * VIEWING_ANGLE) - (VIEWING_ANGLE / 2);
+	}
+	
+	public double getTargetHeight() {
+		double[] defaultValue = new double[0];
+		int index = getLargestIndex();
+		if (index == -1) {
+			return 0;
+		}
+		double height = table.getNumberArray("centerY", defaultValue)[index];
+		SmartDashboard.putNumber("Target Height", height);
+		return height;
 	}
 
 	public void saveCurrentImage() {
