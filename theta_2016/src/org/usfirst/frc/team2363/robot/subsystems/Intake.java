@@ -31,7 +31,7 @@ public class Intake extends Subsystem {
 	private boolean IS_UP = true;
 	
 	public void in() {
-		motor.set(-1);
+		motor.set(-0.7);
     }
 	
 	public void out() {
