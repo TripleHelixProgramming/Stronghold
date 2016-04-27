@@ -9,6 +9,8 @@ import com.ni.vision.NIVision.ImageType;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.vision.AxisCamera;
 import edu.wpi.first.wpilibj.vision.USBCamera;
 
 /**
@@ -19,14 +21,17 @@ public class VisionProcessing {
 	private final NetworkTable table;
 	private final CameraServer server;
 	private final USBCamera camera;
+//	private final AxisCamera visionCamera;
 
 	private final int RES_X = 240;
-	private final double VIEWING_ANGLE = 61;
+	private final double VIEWING_ANGLE = 67;
 
 	public VisionProcessing() {
 		table = NetworkTable.getTable("GRIP/myContoursReport");
 		camera = new USBCamera("cam0");
 		camera.setBrightness(0);
+		
+//		visionCamera = new AxisCamera();
 
 		server = CameraServer.getInstance();
 		server.setQuality(50);
@@ -101,11 +106,15 @@ public class VisionProcessing {
 				largestArea = areas[i];
 			largestIndex = i;
 		}
-		return table.getNumberArray("centerX", defaultValue)[largestIndex];
+		return table.getNumberArray("centerX", defaultValue)[largestIndex] - (table.getNumberArray("width", defaultValue)[largestIndex]) / 2;
 	}
 
 	public double getAngleToTarget() {
 		double centerX = centerX();
+		if (centerX == 0) {
+			return 0;
+		}
+		SmartDashboard.putNumber("CenterX", centerX);
 		return ((centerX / RES_X) * VIEWING_ANGLE) - (VIEWING_ANGLE / 2);
 	}
 

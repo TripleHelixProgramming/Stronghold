@@ -57,6 +57,10 @@ public class Shooter extends Subsystem {
 		return Math.abs(1/encoder.getPeriod() * 60.0);
 //		return Math.abs(motor1.getEncVelocity() / 13.66);
 	}
+	
+	public void killShooter() {
+		running = false;
+	}
 
 	public void on() {
 		running = true;

@@ -10,29 +10,34 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class RotateAtSpeed extends PIDCommand {
 	
-	private final double angle;
+	private double angle;
 	private final double P = 3;
-	private final double MAX_SPEED = 30;
+	private final double MAX_SPEED = 20;
 	
 	private final RollingAverager speedAverage = new RollingAverager(5);
 
-    public RotateAtSpeed(double angle) {
+    public RotateAtSpeed() {
     	super(0, 0.001, 0);
         requires(Robot.drivetrain);
-        this.angle = angle;
+        requires(Robot.shooter);
+    }
+    
+    protected void setAngle(double angle) {
+    	 this.angle = angle;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drivetrain.resetAngle();
+    	Robot.shooter.killShooter();
     	this.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	speedAverage.addValue(Robot.drivetrain.getRotationSpeed());
+    	speedAverage.addValue(Robot.drivetrain.getAccelZ());
     	
-    	double error = (angle - Robot.drivetrain.getGyroAngle()) * P;
+    	double error = (angle - Robot.drivetrain.getAngle()) * P;
     	if (error > MAX_SPEED) {
     		setSetpoint(MAX_SPEED); }
     	else if (error < -MAX_SPEED) {
@@ -44,17 +49,21 @@ public class RotateAtSpeed extends PIDCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	SmartDashboard.putNumber("Robot Angle", Robot.drivetrain.getGyroAngle());
-        return Math.abs(Robot.drivetrain.getGyroAngle() - angle) < 0.5;
+    	SmartDashboard.putNumber("Robot Angle", Robot.drivetrain.getAngle());
+        return Math.abs(Robot.drivetrain.getAngle() - angle) < 0.5;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.drivetrain.arcadeDrive(0, 0);
+    	Robot.shooter.on();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.drivetrain.arcadeDrive(0, 0);
+    	Robot.shooter.on();
     }
 
 	@Override

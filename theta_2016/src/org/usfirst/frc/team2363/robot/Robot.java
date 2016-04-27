@@ -76,7 +76,6 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("port autonomous (F)", new PortGroup());
 		chooser.addObject("low bar shoot autonomous (F)", new LowBarScoreGroup());
 		chooser.addDefault("Default", new JoystickDrive());
-		chooser.addObject("rotate test", new RotateAtSpeed(60));
 
 		
 		SmartDashboard.putData("autonomous chooser", chooser);
@@ -174,11 +173,6 @@ public class Robot extends IterativeRobot {
         	Robot.oi.turnOffRumble();
         }
         SmartDashboard.putNumber("Shooter RPM", shooter.getRPM());
-        SmartDashboard.putNumber("Shooter Current", pdp.getCurrent(3));
-        SmartDashboard.putNumber("Front Left Drive Motor", pdp.getCurrent(0));
-        SmartDashboard.putNumber("Front Right Drive Motor", pdp.getCurrent(1));
-        SmartDashboard.putNumber("Rear Left Drive Motor", pdp.getCurrent(2));
-        SmartDashboard.putNumber("Rear Right Drive Motor", pdp.getCurrent(3));
         SmartDashboard.putBoolean("Has Ball", intake.hasBall());
         SmartDashboard.putBoolean("Intake Override", oi.getIntakeOverride());
 		SmartDashboard.putNumber("Left DT Position", Robot.drivetrain.getLeftPosition());
