@@ -33,7 +33,7 @@ public class IntakeMovement extends Command {
     		} else {
     			Robot.intake.off();
     		}
-    	} else if (run == IntakeState.OUT && !Robot.intake.isUp()) {
+    	} else if (run == IntakeState.OUT/* && !Robot.intake.isUp()*/) {
     		Robot.intake.out();
     	} else {
     		Robot.intake.off();
