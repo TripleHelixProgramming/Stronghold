@@ -22,7 +22,7 @@ public class AutoLowBarScoreAt60 extends DriveStraightCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.arcadeDrive(-.60, getCorrectedTurn());
+    	Robot.drivetrain.arcadeDrive(-.50, getCorrectedTurn());
     }
 
     // Make this return true when this Command no longer needs to run execute()
