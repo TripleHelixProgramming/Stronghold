@@ -45,6 +45,7 @@ public class Shooter extends Subsystem {
 	public void openHood() {
 		hood.set(Value.kForward);
 		cameraLight.set(Relay.Value.kForward);
+		flashlight.set(Relay.Value.kReverse);
 	}
 	
 	public void closeHood() {

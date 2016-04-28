@@ -17,7 +17,6 @@ public class RotateAtSpeed extends PIDCommand {
     public RotateAtSpeed() {
     	super(0, 0.001, 0);
         requires(Robot.drivetrain);
-        requires(Robot.shooter);
     }
     
     protected void setAngle(double angle) {
@@ -27,7 +26,7 @@ public class RotateAtSpeed extends PIDCommand {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drivetrain.resetAngle();
-    	this.start();
+//    	this.start();
     }
 
     // Called repeatedly when this Command is scheduled to run

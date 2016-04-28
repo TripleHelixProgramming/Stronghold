@@ -31,7 +31,7 @@ public class VisionProcessing {
 		table = NetworkTable.getTable("GRIP/myContoursReport");
 		camera = new USBCamera("cam0");
 		camera.setBrightness(0);
-		
+
 		visionCamera = new AxisCamera("10.23.63.100");
 
 		server = CameraServer.getInstance();
@@ -93,7 +93,7 @@ public class VisionProcessing {
 	//			Timer.delay(1);
 	//		}
 	//    }
-	
+
 	private int getLargestIndex() {
 		double[] defaultValue = new double[0];
 		double largestArea = 0;
@@ -124,30 +124,40 @@ public class VisionProcessing {
 	}
 
 	public Optional<Double> getAngleToTarget() {
-		double centerX = centerX();
-		if (centerX == -1) {
+		try {
+			double centerX = centerX();
+			if (centerX == -1) {
+				return Optional.empty();
+			}
+			SmartDashboard.putNumber("CenterX", centerX);
+			return Optional.of(((centerX / RES_X) * VIEWING_ANGLE) - (VIEWING_ANGLE / 2));
+		} catch (Exception e) {
 			return Optional.empty();
 		}
-		SmartDashboard.putNumber("CenterX", centerX);
-		return Optional.of(((centerX / RES_X) * VIEWING_ANGLE) - (VIEWING_ANGLE / 2));
 	}
-	
+
 	public Optional<Double> getTargetHeight() {
-		double[] defaultValue = new double[0];
-		int index = getLargestIndex();
-		if (index == -1) {
+		try {
+			double[] defaultValue = new double[0];
+			int index = getLargestIndex();
+			if (index == -1) {
+				return Optional.empty();
+			}
+			double height = table.getNumberArray("centerY", defaultValue)[index];
+			SmartDashboard.putNumber("Target Height", height);
+			return Optional.of(height);
+		} catch (Exception e) {
 			return Optional.empty();
 		}
-		double height = table.getNumberArray("centerY", defaultValue)[index];
-		SmartDashboard.putNumber("Target Height", height);
-		return Optional.of(height);
 	}
 
 	public void saveCurrentImage() {
-		NIVision.RGBValue rgbValues = new NIVision.RGBValue();
-		Image currentImage = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
-		visionCamera.getImage(currentImage);
-		NIVision.imaqWriteFile(currentImage, "/home/lvuser/image" + new Date() + ".jpg", rgbValues);
+		try {
+			NIVision.RGBValue rgbValues = new NIVision.RGBValue();
+			Image currentImage = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
+			visionCamera.getImage(currentImage);
+			NIVision.imaqWriteFile(currentImage, "/home/lvuser/image" + new Date() + ".jpg", rgbValues);
+		} catch (Exception e) { }
 	}
 }
 
