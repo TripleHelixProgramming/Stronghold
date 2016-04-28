@@ -1,12 +1,6 @@
 
 package org.usfirst.frc.team2363.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoMote;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRampart;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRockWall;
@@ -16,13 +10,19 @@ import org.usfirst.frc.team2363.robot.commands.autonomous.LowBarGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.LowBarScoreGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.PortGroup;
 import org.usfirst.frc.team2363.robot.commands.drivetrain.JoystickDrive;
-import org.usfirst.frc.team2363.robot.commands.drivetrain.RotateAtSpeed;
+import org.usfirst.frc.team2363.robot.commands.drivetrain.RotateTo60;
+import org.usfirst.frc.team2363.robot.commands.shooter.SaveCameraImage;
 import org.usfirst.frc.team2363.robot.subsystems.Climber;
 import org.usfirst.frc.team2363.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2363.robot.subsystems.Intake;
 import org.usfirst.frc.team2363.robot.subsystems.Shooter;
 import org.usfirst.frc.team2363.robot.subsystems.VisionProcessing;
 
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -75,10 +75,13 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("rampart autonomous (F)", new AutoRampart());
 		chooser.addObject("port autonomous (F)", new PortGroup());
 		chooser.addObject("low bar shoot autonomous (F)", new LowBarScoreGroup());
+		chooser.addObject("Rotate Test", new RotateTo60());
 		chooser.addDefault("Default", new JoystickDrive());
 
 		
+		
 		SmartDashboard.putData("autonomous chooser", chooser);
+		SmartDashboard.putData(new SaveCameraImage());
 	}
 	
     
@@ -105,6 +108,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
 		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
         SmartDashboard.putBoolean("Has Ball", intake.hasBall());
+        SmartDashboard.putNumber("Rotation Speed", drivetrain.getRotationSpeed());
 	}
 
 	/**
@@ -186,7 +190,17 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Climber Angle", Robot.climber.getAngle());
 		SmartDashboard.putNumber("Climber Extend Distance", Robot.climber.getExtendDistance());
 		
-		SmartDashboard.putNumber("Angle to Target", visionProcessing.getAngleToTarget());
+		if (visionProcessing.getAngleToTarget().isPresent()) {
+			SmartDashboard.putString("Angle to Target", "" + visionProcessing.getAngleToTarget().get());
+		} else {
+			SmartDashboard.putString("Angle to Target", "NO TARGET");
+		}
+		
+		if (visionProcessing.getTargetHeight().isPresent()) {
+			SmartDashboard.putString("Target Height", "" + visionProcessing.getTargetHeight().get());
+		} else {
+			SmartDashboard.putString("Target Height", "NO TARGET");
+		}
     }
     
     /**

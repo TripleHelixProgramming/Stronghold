@@ -12,10 +12,8 @@ public class RotateAtSpeed extends PIDCommand {
 	
 	private double angle;
 	private final double P = 3;
-	private final double MAX_SPEED = 20;
+	private final double MAX_SPEED = 40;
 	
-	private final RollingAverager speedAverage = new RollingAverager(5);
-
     public RotateAtSpeed() {
     	super(0, 0.001, 0);
         requires(Robot.drivetrain);
@@ -29,14 +27,11 @@ public class RotateAtSpeed extends PIDCommand {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.drivetrain.resetAngle();
-    	Robot.shooter.killShooter();
     	this.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	speedAverage.addValue(Robot.drivetrain.getAccelZ());
-    	
     	double error = (angle - Robot.drivetrain.getAngle()) * P;
     	if (error > MAX_SPEED) {
     		setSetpoint(MAX_SPEED); }
@@ -56,20 +51,18 @@ public class RotateAtSpeed extends PIDCommand {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.drivetrain.arcadeDrive(0, 0);
-    	Robot.shooter.on();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.drivetrain.arcadeDrive(0, 0);
-    	Robot.shooter.on();
     }
 
 	@Override
 	protected double returnPIDInput() {
-		SmartDashboard.putNumber("Rotation Speed", speedAverage.getAverage());
-		return speedAverage.getAverage();
+		SmartDashboard.putNumber("Rotation Speed", Robot.drivetrain.getRotationSpeed());
+		return Robot.drivetrain.getRotationSpeed();
 	}
 
 	@Override

@@ -18,6 +18,6 @@ public class PortGroup extends CommandGroup {
     	addSequential(new BrakeCommand(true));
     	addSequential(new IntakePosition(false));
     	addSequential(new BrakeCommand(false));
-    	addSequential(new DriveStraightCommand(), 3);
+    	addSequential(new DriveStraightCommand(), 6);
     }
 }

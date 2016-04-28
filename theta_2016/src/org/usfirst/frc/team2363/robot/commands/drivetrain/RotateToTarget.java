@@ -6,6 +6,10 @@ public class RotateToTarget extends RotateAtSpeed {
 	
 	public void initialize() {
 		super.initialize();
-		this.setAngle(Robot.visionProcessing.getAngleToTarget());
+		if (Robot.visionProcessing.getAngleToTarget().isPresent()) {
+			setAngle(Robot.visionProcessing.getAngleToTarget().get());
+		} else {
+			setAngle(0);
+		}
 	}
 }

@@ -17,12 +17,12 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class LowBarScoreGroup extends CommandGroup {
     
     public  LowBarScoreGroup() {
-    	addSequential(new IntakePosition(true));
-    	addSequential(new WaitCommand(1));
-    	addSequential(new AutoLowBarScore1(), 6);
-    	addSequential(new BrakeCommand(true));
-    	addSequential(new WaitCommand(0.5));
-    	addSequential(new BrakeCommand(false));
+//    	addSequential(new IntakePosition(true));
+//    	addSequential(new WaitCommand(1));
+//    	addSequential(new AutoLowBarScore1(), 6);
+//    	addSequential(new BrakeCommand(true));
+//    	addSequential(new WaitCommand(0.5));
+//    	addSequential(new BrakeCommand(false));
     	addParallel(new ShooterHoodCommand(true));
     	addParallel(new IntakePosition(true));
     	addSequential(new RotateTo60());

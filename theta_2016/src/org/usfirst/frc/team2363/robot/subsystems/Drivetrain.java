@@ -87,7 +87,7 @@ public class Drivetrain extends Subsystem {
 	public double getAngle() {
 		try {
 			//		return (ahrs.getYaw() + gyro.getAngle()) / 2;
-			return (ahrs.getYaw());
+			return (gyro.getAngle());
 		} catch (Exception e) {
 			return 0;
 		}

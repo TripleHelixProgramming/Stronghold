@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2363.robot.subsystems;
 
 import java.util.Date;
+import java.util.Optional;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
@@ -21,7 +22,7 @@ public class VisionProcessing {
 	private final NetworkTable table;
 	private final CameraServer server;
 	private final USBCamera camera;
-//	private final AxisCamera visionCamera;
+	private final AxisCamera visionCamera;
 
 	private final int RES_X = 240;
 	private final double VIEWING_ANGLE = 67;
@@ -31,7 +32,7 @@ public class VisionProcessing {
 		camera = new USBCamera("cam0");
 		camera.setBrightness(0);
 		
-//		visionCamera = new AxisCamera();
+		visionCamera = new AxisCamera("10.23.63.100");
 
 		server = CameraServer.getInstance();
 		server.setQuality(50);
@@ -112,7 +113,7 @@ public class VisionProcessing {
 		int largestIndex = 0;
 		double[] areas = table.getNumberArray("area", defaultValue);
 		if (areas.length == 0) {
-			return 0;
+			return -1;
 		}
 		for(int i = 0; i < areas.length; i++) {
 			if (areas[i] > largestArea)
@@ -122,30 +123,30 @@ public class VisionProcessing {
 		return table.getNumberArray("centerX", defaultValue)[largestIndex] - (table.getNumberArray("width", defaultValue)[largestIndex]) / 2;
 	}
 
-	public double getAngleToTarget() {
+	public Optional<Double> getAngleToTarget() {
 		double centerX = centerX();
-		if (centerX == 0) {
-			return 0;
+		if (centerX == -1) {
+			return Optional.empty();
 		}
 		SmartDashboard.putNumber("CenterX", centerX);
-		return ((centerX / RES_X) * VIEWING_ANGLE) - (VIEWING_ANGLE / 2);
+		return Optional.of(((centerX / RES_X) * VIEWING_ANGLE) - (VIEWING_ANGLE / 2));
 	}
 	
-	public double getTargetHeight() {
+	public Optional<Double> getTargetHeight() {
 		double[] defaultValue = new double[0];
 		int index = getLargestIndex();
 		if (index == -1) {
-			return 0;
+			return Optional.empty();
 		}
 		double height = table.getNumberArray("centerY", defaultValue)[index];
 		SmartDashboard.putNumber("Target Height", height);
-		return height;
+		return Optional.of(height);
 	}
 
 	public void saveCurrentImage() {
 		NIVision.RGBValue rgbValues = new NIVision.RGBValue();
 		Image currentImage = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
-		camera.getImage(currentImage);
+		visionCamera.getImage(currentImage);
 		NIVision.imaqWriteFile(currentImage, "/home/lvuser/image" + new Date() + ".jpg", rgbValues);
 	}
 }
