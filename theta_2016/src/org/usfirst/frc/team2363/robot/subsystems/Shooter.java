@@ -1,13 +1,20 @@
 package org.usfirst.frc.team2363.robot.subsystems;
 
-import static org.usfirst.frc.team2363.robot.RobotMap.*;
+import static org.usfirst.frc.team2363.robot.RobotMap.CAMERA_RELAY;
+import static org.usfirst.frc.team2363.robot.RobotMap.FLASHLIGHT_RELAY;
+import static org.usfirst.frc.team2363.robot.RobotMap.SHOOTER_ENCODER_A;
+import static org.usfirst.frc.team2363.robot.RobotMap.SHOOTER_HOOD_A;
+import static org.usfirst.frc.team2363.robot.RobotMap.SHOOTER_HOOD_B;
+import static org.usfirst.frc.team2363.robot.RobotMap.SHOOTER_TALON_1;
+import static org.usfirst.frc.team2363.robot.RobotMap.SHOOTER_TALON_2;
+
+import org.usfirst.frc.team2363.robot.commands.shooter.ShooterHoodCommand;
+
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -39,7 +46,8 @@ public class Shooter extends Subsystem {
 		bangBang.start();
 	}
 
-	public void initDefaultCommand() {     	
+	public void initDefaultCommand() { 
+		setDefaultCommand(new ShooterHoodCommand(false));
 	}
 	
 	public void openHood() {

@@ -2,6 +2,7 @@ package org.usfirst.frc.team2363.robot.commands.autonomous;
 
 import org.usfirst.frc.team2363.robot.commands.drivetrain.BrakeCommand;
 import org.usfirst.frc.team2363.robot.commands.drivetrain.RotateTo60;
+import org.usfirst.frc.team2363.robot.commands.drivetrain.RotateToTarget;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakeMovement;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakePosition;
 import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;

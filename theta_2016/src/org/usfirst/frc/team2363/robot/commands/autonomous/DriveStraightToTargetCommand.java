@@ -36,7 +36,7 @@ public class DriveStraightToTargetCommand extends Command {
     	if (!Robot.visionProcessing.getAngleToTarget().isPresent()) {
     		return 0;
     	}
-    	double power = -(Robot.visionProcessing.getAngleToTarget().get()) * 0.2;
+    	double power = -(Robot.visionProcessing.getAngleToTarget().get()) * 0.07;
     	if (power > 0.3 ) {
     		power = 0.3;
     	} else if (power < -0.3) {

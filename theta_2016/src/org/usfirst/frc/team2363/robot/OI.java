@@ -25,6 +25,7 @@ import org.usfirst.frc.team2363.robot.commands.intake.IntakeMovement;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakePosition;
 import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
 import org.usfirst.frc.team2363.robot.commands.shooter.ShooterFlashlight;
+import org.usfirst.frc.team2363.robot.commands.shooter.ShooterHoodCommand;
 import org.usfirst.frc.team2363.robot.subsystems.Intake.IntakeState;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -77,7 +78,7 @@ public class OI {
 //		JoystickButton toggleClimberState = new JoystickButton(operatorController, TOUCHPAD);
 //		toggleClimberState.toggleWhenPressed(new ClimberCommand());
 		JoystickButton toggleClimberOvrride = new JoystickButton(operatorController, PS);
-		toggleClimberOvrride.toggleWhenPressed(new RotateToTarget());
+		toggleClimberOvrride.toggleWhenPressed(new ShooterHoodCommand(true));
 //		JoystickButton toggleBrakeOp = new JoystickButton(operatorController, L2);
 //		toggleBrakeOp.whenPressed(new BrakeCommand(true));
 //		toggleBrakeOp.whenReleased(new BrakeCommand(false));
