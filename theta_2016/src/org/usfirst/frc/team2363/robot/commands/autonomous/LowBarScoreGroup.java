@@ -27,6 +27,7 @@ public class LowBarScoreGroup extends CommandGroup {
     	addParallel(new ShooterHoodCommand(true));
     	addParallel(new IntakePosition(false));
     	addSequential(new RotateTo60());
+    	addSequential(new RotateToTarget());
     	addSequential(new BrakeCommand(true));
     	addSequential(new WaitCommand(0.5));
     	addSequential(new BrakeCommand(false));
