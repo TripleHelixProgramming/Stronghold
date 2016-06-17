@@ -2,8 +2,6 @@ package org.usfirst.frc.team2363.robot.subsystems;
 
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
-import org.usfirst.frc.team2363.robot.Robot;
-import org.usfirst.frc.team2363.robot.commands.intake.IntakeCommand;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakeMovement;
 
 import edu.wpi.first.wpilibj.CANTalon;
@@ -28,7 +26,6 @@ public class Intake extends Subsystem {
 	private CANTalon motor = new CANTalon(INTAKE_TALON);
 	private DoubleSolenoid solenoid = new DoubleSolenoid(INTAKE_SOLENOID_A, INTAKE_SOLENOID_B);
 	private DigitalInput ballLimit = new DigitalInput(BALL_LIMIT_CHANNEL);
-	private boolean IS_UP = true;
 	
 	public void in() {
 		motor.set(-0.7);
@@ -48,17 +45,14 @@ public class Intake extends Subsystem {
     
     public void up() {
     	solenoid.set(Value.kForward);
-    	IS_UP = true;
     }
    
     public void down() {
     	solenoid.set(Value.kReverse);
-    	IS_UP = false;
     }
     
     public boolean isUp() {
     	return solenoid.get() == Value.kForward;
-//    	return IS_UP;
     }
     
     public boolean hasBall() {

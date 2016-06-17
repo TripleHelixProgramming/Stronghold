@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 import edu.wpi.first.wpilibj.SPI;
 
+import org.usfirst.frc.team2363.robot.Robot;
 import org.usfirst.frc.team2363.robot.commands.drivetrain.JoystickDrive;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -51,6 +52,11 @@ public class Drivetrain extends Subsystem {
 		rightEncoder.setMinRate(15);
 
 		gyro = new ADXRS450_Gyro();
+		
+		Robot.log.addSpeedController("Front Left", frontLeft);
+		Robot.log.addSpeedController("Front Right", frontRight);
+		Robot.log.addSpeedController("Rear Left", rearLeft);
+		Robot.log.addSpeedController("Rear Right", rearRight);
 	}
 
 	public void arcadeDrive(double throttle, double turn) {

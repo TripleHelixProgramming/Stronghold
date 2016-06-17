@@ -2,16 +2,11 @@ package org.usfirst.frc.team2363.robot.subsystems;
 
 import static org.usfirst.frc.team2363.robot.RobotMap.*;
 
-import org.usfirst.frc.team2363.robot.commands.climber.ClimberCommand;
-import org.usfirst.frc.team2363.robot.commands.climber.ClimberNothingCommand;
 import org.usfirst.frc.team2363.robot.commands.climber.ClimberOverrideCommand;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**

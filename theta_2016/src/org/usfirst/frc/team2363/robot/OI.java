@@ -1,9 +1,11 @@
 package org.usfirst.frc.team2363.robot;
 
 import static org.usfirst.frc.team2363.robot.RobotMap.CIRCLE;
+import static org.usfirst.frc.team2363.robot.RobotMap.HIGH_SPEED_SCALING;
 import static org.usfirst.frc.team2363.robot.RobotMap.L1;
 import static org.usfirst.frc.team2363.robot.RobotMap.L2;
 import static org.usfirst.frc.team2363.robot.RobotMap.LEFT_STICK_Y;
+import static org.usfirst.frc.team2363.robot.RobotMap.LOW_SPEED_SCALING;
 import static org.usfirst.frc.team2363.robot.RobotMap.OPERATOR_PORT;
 import static org.usfirst.frc.team2363.robot.RobotMap.PS;
 import static org.usfirst.frc.team2363.robot.RobotMap.PS4_PORT;
@@ -13,12 +15,9 @@ import static org.usfirst.frc.team2363.robot.RobotMap.RIGHT_STICK_X;
 import static org.usfirst.frc.team2363.robot.RobotMap.RIGHT_STICK_Y;
 import static org.usfirst.frc.team2363.robot.RobotMap.RUMBLE_PORT;
 import static org.usfirst.frc.team2363.robot.RobotMap.SQUARE;
-import static org.usfirst.frc.team2363.robot.RobotMap.TOUCHPAD;
 import static org.usfirst.frc.team2363.robot.RobotMap.TRIANGLE;
 import static org.usfirst.frc.team2363.robot.RobotMap.X;
 
-import org.usfirst.frc.team2363.robot.commands.climber.ClimberCommand;
-import org.usfirst.frc.team2363.robot.commands.climber.ClimberOverrideCommand;
 import org.usfirst.frc.team2363.robot.commands.drivetrain.BrakeCommand;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakeMovement;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakePosition;
@@ -110,12 +109,17 @@ public class OI {
 	}
 	
 	public double getTurn() {
-		return (ps4Controller.getRawAxis(RIGHT_STICK_X) * 0.9);
+//		return (ps4Controller.getRawAxis(RIGHT_STICK_X) * 0.9);
+		return ps4Controller.getRawAxis(RIGHT_STICK_X) * getTurnScaling(getThrottle());
 //		if (ps4Controller.getRawAxis(RIGHT_STICK_X) >= 0) {
 //			return Math.pow(ps4Controller.getRawAxis(RIGHT_STICK_X), 1.5);
 //		} else {
 //			return -Math.pow(Math.abs(ps4Controller.getRawAxis(RIGHT_STICK_X)), 1.5);
 //		}
+	}
+	
+	public static double getTurnScaling(double x) {
+		return -Math.abs(LOW_SPEED_SCALING - HIGH_SPEED_SCALING) * x + LOW_SPEED_SCALING;
 	}
 		
 	public int getPOV() {

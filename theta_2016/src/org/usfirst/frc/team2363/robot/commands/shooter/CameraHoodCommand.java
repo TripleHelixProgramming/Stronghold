@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2363.robot.commands.intake;
+package org.usfirst.frc.team2363.robot.commands.shooter;
 
 import org.usfirst.frc.team2363.robot.Robot;
 
@@ -7,36 +7,40 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakePosition extends Command {
+public class CameraHoodCommand extends Command {
 
-	private boolean down;
+	private boolean run;
 	
-    public IntakePosition(boolean down) {
-    	this.down = down;
+    public CameraHoodCommand(boolean run) {
+    	requires(Robot.shooter);
+    	this.run = run;
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() { }
-    
+    protected void initialize() {
+    	
+    }
+
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-
-    	if (down) {
-    		Robot.intake.down();
+    	if (run) {
+    		Robot.shooter.openHoodWithCamera();
     	} else {
-    		Robot.intake.up();
+    		Robot.shooter.closeHood();
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
-    protected void end() { }
+    protected void end() {
+    }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    protected void interrupted() { }
+    protected void interrupted() {
+    }
 }

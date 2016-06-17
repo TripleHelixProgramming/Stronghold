@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2363.robot.commands.autonomous;
 
-import org.usfirst.frc.team2363.robot.commands.drivetrain.BrakeCommand;
 import org.usfirst.frc.team2363.robot.commands.intake.IntakePosition;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

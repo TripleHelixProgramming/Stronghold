@@ -1,22 +1,7 @@
 
 package org.usfirst.frc.team2363.robot;
 
-import java.io.PrintWriter;
-import java.util.Date;
-
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import static org.usfirst.frc.team2363.robot.Robot.drivetrain;
-
-import org.usfirst.frc.team2363.robot.commands.autonomous.AutoFlipflop;
-import org.usfirst.frc.team2363.robot.commands.autonomous.AutoLowBarCommand;
+import org.iif.th.util.logger.HelixLogger;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoMote;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRampart;
 import org.usfirst.frc.team2363.robot.commands.autonomous.AutoRockWall;
@@ -26,17 +11,20 @@ import org.usfirst.frc.team2363.robot.commands.autonomous.LowBarGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.LowBarScoreGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.PortGroup;
 import org.usfirst.frc.team2363.robot.commands.autonomous.RotateAtSpeed;
-import org.usfirst.frc.team2363.robot.commands.autonomous.TestGyroCommand;
 import org.usfirst.frc.team2363.robot.commands.drivetrain.JoystickDrive;
-import org.usfirst.frc.team2363.robot.commands.shooter.ShooterCommand;
 import org.usfirst.frc.team2363.robot.subsystems.Climber;
 import org.usfirst.frc.team2363.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2363.robot.subsystems.Intake;
 import org.usfirst.frc.team2363.robot.subsystems.Shooter;
 
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -50,9 +38,10 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static Drivetrain drivetrain;
 	public static Shooter shooter;
-	public static PowerDistributionPanel pdp;
 	public static Intake intake;
 	public static Climber climber;
+	
+	public final static HelixLogger log = new HelixLogger();
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -64,7 +53,6 @@ public class Robot extends IterativeRobot {
     	drivetrain = new Drivetrain();
     	shooter = new Shooter();
     	intake = new Intake();
-    	pdp = new PowerDistributionPanel();
     	chooser = new SendableChooser();
     	server = CameraServer.getInstance();
         server.setQuality(50);
@@ -97,15 +85,6 @@ public class Robot extends IterativeRobot {
 
 		
 		SmartDashboard.putData("autonomous chooser", chooser);
-		
-//		double[] defaultValue = new double[0];
-//		while (true) {
-//			double[] centerXs = table.getNumberArray("centerX", defaultValue);
-//			for(double centerX : centerXs) {
-//			SmartDashboard.putNumber("CenterX", centerX);
-//			}
-//			Timer.delay(1);
-//		}
 	}
 	
     
@@ -193,6 +172,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
 //    	shooter.setPower(0.75);
         Scheduler.getInstance().run();
+        log.saveLogs();
         
         if (shooter.isAtSpeed()) {
         	Robot.oi.turnOnRumble();
@@ -200,11 +180,6 @@ public class Robot extends IterativeRobot {
         	Robot.oi.turnOffRumble();
         }
         SmartDashboard.putNumber("Shooter RPM", shooter.getRPM());
-        SmartDashboard.putNumber("Shooter Current", pdp.getCurrent(3));
-        SmartDashboard.putNumber("Front Left Drive Motor", pdp.getCurrent(0));
-        SmartDashboard.putNumber("Front Right Drive Motor", pdp.getCurrent(1));
-        SmartDashboard.putNumber("Rear Left Drive Motor", pdp.getCurrent(2));
-        SmartDashboard.putNumber("Rear Right Drive Motor", pdp.getCurrent(3));
         SmartDashboard.putBoolean("Has Ball", intake.hasBall());
         SmartDashboard.putBoolean("Intake Override", oi.getIntakeOverride());
 		SmartDashboard.putNumber("Left DT Position", Robot.drivetrain.getLeftPosition());

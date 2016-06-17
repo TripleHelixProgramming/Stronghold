@@ -61,6 +61,12 @@ public class Shooter extends Subsystem {
 		flashlight.set(Relay.Value.kReverse);
 		cameraLight.set(Relay.Value.kReverse);
 	}
+	
+	public void openHoodWithCamera() {
+		hood.set(Value.kForward);
+		flashlight.set(Relay.Value.kReverse);
+		cameraLight.set(Relay.Value.kForward);
+	}
 
 	public double getRPM() {
 		if (encoder.getStopped()) {
