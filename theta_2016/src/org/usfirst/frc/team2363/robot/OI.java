@@ -119,7 +119,7 @@ public class OI {
 	}
 	
 	public static double getTurnScaling(double x) {
-		return -Math.abs(LOW_SPEED_SCALING - HIGH_SPEED_SCALING) * x + LOW_SPEED_SCALING;
+		return -Math.abs(LOW_SPEED_SCALING - HIGH_SPEED_SCALING) * Math.abs(x) + LOW_SPEED_SCALING;
 	}
 		
 	public int getPOV() {

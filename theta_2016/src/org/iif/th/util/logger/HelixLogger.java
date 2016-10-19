@@ -6,18 +6,22 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.SpeedController;
 
 public class HelixLogger {
 	
-	private final Map<String, SpeedController> speedControllers = new HashMap<>();
-	private final Map<String, GenericHID> hids = new HashMap<>();
+	private final Map<String, PIDOutput> outputs = new HashMap<>();
+	private final Map<String, PIDSource> sources = new HashMap<>();
+	private final Map<String, Function<Object, Double>> dataSources = new HashMap();
 	private final PowerDistributionPanel pdp = new PowerDistributionPanel();
 	
 	private final Path file;
@@ -33,13 +37,34 @@ public class HelixLogger {
 		}
 	}
 	
-	private void cleanUpFiles() throws IOException {
-		Files.deleteIfExists(Paths.get("/home/lvuser/Log4.txt"));
-		for (int i = 3; i >= 0; i--) {
-			Path oldFile = Paths.get("/home/lvuser/Log" + i + ".txt");
-			if (Files.exists(oldFile)) {
-				Files.move(oldFile, oldFile.resolveSibling("/home/lvuser/Log" + (i + 1) + ".txt"));
+//	public void addOutput(String name, PIDOutput output) {
+//		outputs.put(name, output);
+//	}
+
+	public void addSource(String name, PIDSource source) {
+		sources.put(name, source);
+	}
+	
+	public void addSource(String name, Function<Object, Double> f) {
+		dataSources.put(name, f);
+	}
+	
+	public void saveLogs() {
+		try {
+			if (!savedTitles) {
+				saveTitles();
+				savedTitles = true;
 			}
+			StringBuilder data = new StringBuilder();
+			data.append(Instant.now().toString()).append("\t");
+			data.append(getPdpCurrents());
+			data.append(getValues());
+//			data.append(getValues(sources.values(), c -> c.pidGet()));
+//			data.append(getValues(outputs.values(), c -> c.));
+			
+			Files.write(file, Collections.singletonList(data.toString()), StandardOpenOption.APPEND);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -47,8 +72,8 @@ public class HelixLogger {
 		StringBuilder titles = new StringBuilder();
 		titles.append("Timestamp\t");
 		titles.append(getPdpTitles()).append("\t");
-		titles.append(getTitles(hids)).append("\t");
-		titles.append(getTitles(speedControllers)).append("\t");
+		titles.append(getTitles(sources)).append("\t");
+		titles.append(getTitles(outputs)).append("\t");
 		Files.write(file, Collections.singletonList(titles.toString()), StandardOpenOption.APPEND);
 	}
 	
@@ -66,39 +91,15 @@ public class HelixLogger {
 		}
 		return titles.toString();
 	}
-	
-	public void addSpeedController(String name, SpeedController controller) {
-		speedControllers.put(name, controller);
-	}
-	
-	public void addHID(String name, GenericHID hid) {
-		hids.put(name, hid);
-	}
 
-	public void saveLogs() {
-		try {
-			if (!savedTitles) {
-				saveTitles();
-				savedTitles = true;
+	private void cleanUpFiles() throws IOException {
+		Files.deleteIfExists(Paths.get("/home/lvuser/Log4.txt"));
+		for (int i = 3; i >= 0; i--) {
+			Path oldFile = Paths.get("/home/lvuser/Log" + i + ".txt");
+			if (Files.exists(oldFile)) {
+				Files.move(oldFile, oldFile.resolveSibling("/home/lvuser/Log" + (i + 1) + ".txt"));
 			}
-			StringBuilder data = new StringBuilder();
-			data.append(Instant.now().toString()).append("\t");
-			data.append(getPdpCurrents());
-			data.append(getSpeedControllerValues());
-			
-			Files.write(file, Collections.singletonList(data.toString()), StandardOpenOption.APPEND);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-	}
-	
-	private String getSpeedControllerValues() {
-		speedControllers.values().stream().map(value -> value.get());
-		StringBuilder data = new StringBuilder();
-		for (SpeedController controller : speedControllers.values()) {
-			data.append(controller.get()).append("\t");
-		}
-		return data.toString();
 	}
 	
 	private String getPdpCurrents() {
@@ -108,4 +109,19 @@ public class HelixLogger {
 		}
 		return data.toString();
 	}
+	
+	private String getValues() {
+		return String.join("\t", 
+				dataSources.values().stream()
+				.map(object -> (object != null ? object.toString() : null))
+				.collect(Collectors.toList()));
+	}
+	
+//	private <T> String getValues(Collection<T> dataSources, Function<T, Double> f) {
+//		return String.join("\t", 
+//				dataSources.stream()
+//				.map(f)
+//				.map(object -> (object != null ? object.toString() : null))
+//				.collect(Collectors.toList()));
+//	}
 }

@@ -17,7 +17,7 @@ public class RobotMap {
     // public static int rangefinderModule = 1;
 	
 	//Turn Scaling 
-	public static final double HIGH_SPEED_SCALING = 0.4;
+	public static final double HIGH_SPEED_SCALING = 0.55;
 	public static final double LOW_SPEED_SCALING = 0.9;
 	
 	//Controllers

@@ -22,10 +22,10 @@ import com.kauailabs.navx.frc.AHRS;
 public class Drivetrain extends Subsystem {
 
 	//Talons
-	private SpeedController frontLeft = new CANTalon(FRONT_LEFT_TALON_CHANNEL);
-	private SpeedController frontRight = new CANTalon(FRONT_RIGHT_TALON_CHANNEL);
-	private SpeedController rearLeft = new CANTalon(REAR_LEFT_TALON_CHANNEL);
-	private SpeedController rearRight = new CANTalon(REAR_RIGHT_TALON_CHANNEL);
+	private CANTalon frontLeft = new CANTalon(FRONT_LEFT_TALON_CHANNEL);
+	private CANTalon frontRight = new CANTalon(FRONT_RIGHT_TALON_CHANNEL);
+	private CANTalon rearLeft = new CANTalon(REAR_LEFT_TALON_CHANNEL);
+	private CANTalon rearRight = new CANTalon(REAR_RIGHT_TALON_CHANNEL);
 
 	//Encoders
 	private Encoder leftEncoder = new Encoder(LEFT_DRIVE_ENCODER_A, LEFT_DRIVE_ENCODER_B, false, EncodingType.k4X);
@@ -53,10 +53,14 @@ public class Drivetrain extends Subsystem {
 
 		gyro = new ADXRS450_Gyro();
 		
-		Robot.log.addSpeedController("Front Left", frontLeft);
-		Robot.log.addSpeedController("Front Right", frontRight);
-		Robot.log.addSpeedController("Rear Left", rearLeft);
-		Robot.log.addSpeedController("Rear Right", rearRight);
+		Robot.log.addSource("Front Left Talon", frontLeft);
+		
+		Robot.log.addSource("Front Left Talon", frontLeft);
+		Robot.log.addSource("Front Right Talon", frontRight);
+		Robot.log.addSource("Rear Left Talon", rearLeft);
+		Robot.log.addSource("Rear Right Talon", rearRight);
+		Robot.log.addSource("Left Drivetrain Encoder", leftEncoder);
+		Robot.log.addSource("Right Drivetrain Encoder", rightEncoder);
 	}
 
 	public void arcadeDrive(double throttle, double turn) {
