@@ -9,7 +9,7 @@ public class AutoFlipflop extends DriveStraightCommand {
 
     public AutoFlipflop() {
     	requires(Robot.drivetrain);
-    	setTimeout(5);
+    	setTimeout(6);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -22,7 +22,7 @@ public class AutoFlipflop extends DriveStraightCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.arcadeDrive(-.5 /*-.7*/, getCorrectedTurn());
+    	Robot.drivetrain.arcadeDrive(-.6 /*-.7*/, getCorrectedTurn());
     }
 
     // Make this return true when this Command no longer needs to run execute()

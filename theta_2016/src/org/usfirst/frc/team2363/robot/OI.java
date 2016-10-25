@@ -110,7 +110,7 @@ public class OI {
 	
 	public double getTurn() {
 //		return (ps4Controller.getRawAxis(RIGHT_STICK_X) * 0.9);
-		return ps4Controller.getRawAxis(RIGHT_STICK_X) * getTurnScaling(getThrottle());
+		return ps4Controller.getRawAxis(RIGHT_STICK_X)/* * getTurnScaling(getThrottle())*/;
 //		if (ps4Controller.getRawAxis(RIGHT_STICK_X) >= 0) {
 //			return Math.pow(ps4Controller.getRawAxis(RIGHT_STICK_X), 1.5);
 //		} else {
@@ -118,9 +118,9 @@ public class OI {
 //		}
 	}
 	
-	public static double getTurnScaling(double x) {
-		return -Math.abs(LOW_SPEED_SCALING - HIGH_SPEED_SCALING) * Math.abs(x) + LOW_SPEED_SCALING;
-	}
+	//public static double getTurnScaling(double x) {
+	//	return -Math.abs(LOW_SPEED_SCALING - HIGH_SPEED_SCALING) * Math.abs(x) + LOW_SPEED_SCALING;
+	//}
 		
 	public int getPOV() {
 		return operatorController.getPOV();
