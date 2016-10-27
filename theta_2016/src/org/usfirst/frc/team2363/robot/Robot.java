@@ -123,7 +123,12 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        autonomousCommand = new LowBarGroup()/*(Command) chooser.getSelected()*/;
+        autonomousCommand = (Command) chooser.getSelected();
+        
+        //If the SmartDashboard does not connect to the robot while on the field, this will run the auto command entered regardless of SmartDash connection.
+        if (autonomousCommand == null) {
+        	autonomousCommand = new LowBarGroup();
+        }
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
