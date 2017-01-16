@@ -17,6 +17,7 @@ import org.usfirst.frc.team2363.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team2363.robot.subsystems.Intake;
 import org.usfirst.frc.team2363.robot.subsystems.Shooter;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -45,7 +46,7 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     SendableChooser chooser;
-    CameraServer server;
+    UsbCamera server;
     
     NetworkTable table;
     
@@ -54,9 +55,9 @@ public class Robot extends IterativeRobot {
     	shooter = new Shooter();
     	intake = new Intake();
     	chooser = new SendableChooser();
-    	server = CameraServer.getInstance();
-        server.setQuality(50);
-        server.startAutomaticCapture("cam0");
+    	server = CameraServer.getInstance().startAutomaticCapture();
+//        server.setQuality(50);
+//        server.startAutomaticCapture("cam0");
         climber = new Climber();
         table = NetworkTable.getTable("GRIP/myContoursReport");
 	}

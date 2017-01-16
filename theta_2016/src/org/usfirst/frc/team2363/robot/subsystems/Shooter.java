@@ -10,8 +10,8 @@ import static org.usfirst.frc.team2363.robot.RobotMap.SHOOTER_TALON_2;
 
 import org.usfirst.frc.team2363.robot.commands.shooter.ShooterHoodCommand;
 
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;

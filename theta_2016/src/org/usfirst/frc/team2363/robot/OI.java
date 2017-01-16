@@ -27,7 +27,7 @@ import org.usfirst.frc.team2363.robot.commands.shooter.ShooterHoodCommand;
 import org.usfirst.frc.team2363.robot.subsystems.Intake.IntakeState;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Joystick.RumbleType;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -164,4 +164,3 @@ public class OI {
 		SmartDashboard.putBoolean("At Speed", false);
 	}
 }
-
