@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -53,14 +52,14 @@ public class Drivetrain extends Subsystem {
 
 		gyro = new ADXRS450_Gyro();
 		
-		Robot.log.addSource("Front Left Talon", frontLeft);
+		Robot.log.addSource("Front Left Talon", x -> "" + frontLeft.get());
 		
-		Robot.log.addSource("Front Left Talon", frontLeft);
-		Robot.log.addSource("Front Right Talon", frontRight);
-		Robot.log.addSource("Rear Left Talon", rearLeft);
-		Robot.log.addSource("Rear Right Talon", rearRight);
-		Robot.log.addSource("Left Drivetrain Encoder", leftEncoder);
-		Robot.log.addSource("Right Drivetrain Encoder", rightEncoder);
+//		Robot.log.addSource("Front Left Talon", frontLeft);
+//		Robot.log.addSource("Front Right Talon", frontRight);
+//		Robot.log.addSource("Rear Left Talon", rearLeft);
+//		Robot.log.addSource("Rear Right Talon", rearRight);
+//		Robot.log.addSource("Left Drivetrain Encoder", leftEncoder);
+		Robot.log.addSource("Right Drivetrain Encoder Distance", x -> "" + rightEncoder.getDistance());
 	}
 
 	public void arcadeDrive(double throttle, double turn) {
